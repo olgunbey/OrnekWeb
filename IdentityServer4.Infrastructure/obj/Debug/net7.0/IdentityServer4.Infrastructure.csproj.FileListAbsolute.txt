@@ -1,0 +1,12 @@
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.Infrastructure\bin\Debug\net7.0\IdentityServer4.Infrastructure.deps.json
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.Infrastructure\bin\Debug\net7.0\IdentityServer4.Infrastructure.dll
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.Infrastructure\bin\Debug\net7.0\IdentityServer4.Infrastructure.pdb
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.Infrastructure\obj\Debug\net7.0\IdentityServer4.Infrastructure.csproj.AssemblyReference.cache
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.Infrastructure\obj\Debug\net7.0\IdentityServer4.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.Infrastructure\obj\Debug\net7.0\IdentityServer4.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.Infrastructure\obj\Debug\net7.0\IdentityServer4.Infrastructure.AssemblyInfo.cs
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.Infrastructure\obj\Debug\net7.0\IdentityServer4.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.Infrastructure\obj\Debug\net7.0\IdentityServer4.Infrastructure.dll
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.Infrastructure\obj\Debug\net7.0\refint\IdentityServer4.Infrastructure.dll
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.Infrastructure\obj\Debug\net7.0\IdentityServer4.Infrastructure.pdb
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.Infrastructure\obj\Debug\net7.0\ref\IdentityServer4.Infrastructure.dll
