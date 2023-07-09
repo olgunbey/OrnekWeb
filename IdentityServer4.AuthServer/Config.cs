@@ -14,17 +14,17 @@ namespace IdentityServer4.AuthServer
             {
                 ClientId="Client1",
                 ClientSecrets=new[]{new Secret("secret".Sha256())},
-                AllowedScopes={"api1.read"}, //client1'den üretilecek tokenin erişebileceği scopelar
+                AllowedScopes={"api1.client"}, //client1'den üretilecek tokenin erişebileceği scopelar
                 AllowedGrantTypes=GrantTypes.ClientCredentials
                 
-            },
-            new Client()
-            {
-                ClientId="Client12",
-                ClientSecrets=new[]{new Secret("secrets".Sha256())},
-                AllowedScopes={"api1.update"},
-                AllowedGrantTypes=GrantTypes.ClientCredentials
             }
+            //new Client()
+            //{
+            //    ClientId="Client12",
+            //    ClientSecrets=new[]{new Secret("secrets".Sha256())},
+            //    AllowedScopes={"api1.update"},
+            //    AllowedGrantTypes=GrantTypes.ClientCredentials
+            //}
             
         };
 
@@ -33,14 +33,15 @@ namespace IdentityServer4.AuthServer
             new ApiScope("api1.read"),
             new ApiScope("api1.update"),
             new ApiScope("api1.write"),
-            new ApiScope("api1.deleted")
+            new ApiScope("api1.deleted"),
+            new ApiScope("api1.client")
         
         };
         public static IEnumerable<ApiResource> ApiResources => new List<ApiResource>()
         {
             new ApiResource("apiResource")
             {
-                Scopes={"api1.read","api1.update","api1.write","api1.deleted"},
+                Scopes={"api1.read","api1.update","api1.write","api1.deleted","api1.client"},
                 ApiSecrets={new Secret("api1Secret".Sha256()) }
             }
             

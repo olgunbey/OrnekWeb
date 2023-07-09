@@ -23,35 +23,31 @@ namespace IdentityServer4.API.Controllers
             _uyelerIReadBusiness = uyelerIReadBusiness;
 
         }
-
-        [HttpPost]
-        public async Task<IActionResult> KullaniciEkle(KullaniciEkleDto kullaniciEkleDto)
+        [Authorize("PolicyClient")]
+        [HttpPost("KullaniciEkle")]
+        public async Task<IActionResult> KullaniciEkle(KullaniciKayitOlDto kullaniciKayitOlDto) //eski kullanıcı kayıt ol api'si alttaki güncel
         {
-           Kullanicilar kullanicilar = _mapper.Map<Kullanicilar>(kullaniciEkleDto);
+           Kullanicilar kullanicilar = _mapper.Map<Kullanicilar>(kullaniciKayitOlDto);
            await _uyelerIWriteBusiness.AddAsync(kullanicilar);
            return ResponseDto<NoContentDto>.ResponseStruct<NoContentDto>.Response(ResponseDto<NoContentDto>.Success(200));
         }
-        //[HttpGet]
-        //public async Task<IActionResult> KullanicilariListele()
-        //{
-        // List<Kullanicilar> kullanicilars= await (await _uyelerIReadBusiness.GetListAsync()).ToListAsync();
-
-
-
-        //    ResponseDto<List<KullaniciDto>>.ResponseStruct<List<KullaniciDto>>.Response();
-        //}
+        [Authorize("PolicyClient")]
         [HttpPost("NewKullaniciEkle")]
-        public async Task<IActionResult> NewKullaniciEkle(KullaniciEkleDto kullaniciEkleDto)
+        public async Task<IActionResult> NewKullaniciEkle(KullaniciKayitOlDto kullaniciKayitOlDto) //kullanıcı kayıt ol
         {
-            Kullanicilar kullanicilar = _mapper.Map<Kullanicilar>(kullaniciEkleDto);
-            var response=  await _uyelerIWriteBusiness.NewAddAsync(kullanicilar);
+            var response=  await _uyelerIWriteBusiness.NewAddAsync(kullaniciKayitOlDto);
             return ResponseDto<NoContentDto>.ResponseStruct<NoContentDto>.Response(response);
         }
+        [Authorize("PolicyClient")]
         [HttpPost("KullaniciSorgula")]
-        public async Task<IActionResult> KullaniciSorgula(KullaniciGirisDto kullaniciGirisDto)
+        public async Task<IActionResult> KullaniciSorgula(KullaniciGirisDto kullaniciGirisDto) //kullanicigiriş için.
         {
             return ResponseDto<Kullanicilar>.ResponseStruct<Kullanicilar>.Response(await _uyelerIReadBusiness.KullaniciGiris(kullaniciGirisDto));
-
         }
+
+
+        
+        
+        
     }
 }

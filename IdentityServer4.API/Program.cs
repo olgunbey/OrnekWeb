@@ -24,6 +24,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 });
 
 
+builder.Services.AddAuthorization(opt => opt.AddPolicy("PolicyClient", policy =>
+{
+    policy.RequireClaim("scope", "api1.client");
+}));
+
 
 
 builder.Services.AddAuthorization(opt => opt.AddPolicy("Policy1", policy =>

@@ -11,6 +11,6 @@ namespace IdentityServer4.Repository.IBusiness.UyelerIBusiness
 {
     public interface UyelerIWriteBusiness:IBusinessWrite<Kullanicilar>
     {
-        Task<ResponseDto<NoContentDto>> NewAddAsync(Kullanicilar entity);
+        Task<ResponseDto<NoContentDto>> NewAddAsync(KullaniciKayitOlDto entity);
     }
 }
