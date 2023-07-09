@@ -14,18 +14,21 @@ namespace IdentityServer4.Persistence.Business.UyelerBusiness
     public class UyelerWriteBusiness : WriteBusiness<Kullanicilar>, UyelerIWriteBusiness
     {
         
-        public UyelerWriteBusiness(IWriteRepository<Kullanicilar> writeRepository, IUnitOfWorks unitOfWorks) : base(writeRepository, unitOfWorks)
+        public UyelerWriteBusiness(IWriteRepository<Kullanicilar> writeRepository, IUnitOfWorks unitOfWorks,IMapper mapper) : base(writeRepository, unitOfWorks)
         {
             _unitOfWorks = unitOfWorks;
             _writeRepository = writeRepository;
+            _mapper= mapper;
         }
+        private readonly IMapper _mapper;
         private readonly IUnitOfWorks _unitOfWorks;
         private readonly IWriteRepository<Kullanicilar> _writeRepository;
-        public async Task<ResponseDto<NoContentDto>> NewAddAsync(Kullanicilar entity)
+        public async Task<ResponseDto<NoContentDto>> NewAddAsync(KullaniciKayitOlDto entity)
         {
-            if(!entity.KullaniciSifre.Contains(entity.KullaniciName))
+           Kullanicilar newEntity= _mapper.Map<Kullanicilar>(entity);
+            if(!newEntity.KullaniciSifre.Contains(newEntity.KullaniciName))
             {
-                await _writeRepository.AddAsync(entity);
+                await _writeRepository.AddAsync(newEntity);
                 await _unitOfWorks.SaveAsync();
                 return ResponseDto<NoContentDto>.Success(201);
             }

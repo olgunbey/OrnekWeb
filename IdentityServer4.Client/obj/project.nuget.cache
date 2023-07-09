@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ae9hyuv7WOrJImzK4cWhlFTtYOGPSE89XcqOXZFRTT5ccz9EdgDbupmkqBvpRsqwHeb8TaXWquXcwiqx2Is9dw==",
+  "dgSpecHash": "WIEZbOoue69t9xDCPfY5U/L+1J/9RZaiYXgPuk+zVSYwjCOc0x3Uu0+5JNpYhCuz1T2uGnNQcsXFYZOoePq8Vw==",
   "success": true,
   "projectFilePath": "C:\\Users\\olgun\\OneDrive\\Masaüstü\\Çalışmalar\\IdentityServer4Ornek\\IdentityServer4.Client\\IdentityServer4.Client.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\olgun\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\olgun\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\olgun\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\olgun\\.nuget\\packages\\bootstrap\\5.3.0\\bootstrap.5.3.0.nupkg.sha512",
     "C:\\Users\\olgun\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\olgun\\.nuget\\packages\\identitymodel\\6.1.0\\identitymodel.6.1.0.nupkg.sha512",
     "C:\\Users\\olgun\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
