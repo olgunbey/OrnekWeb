@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.Client
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Areas/Admin/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -30,6 +34,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Kullanici/KayitOl.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS3VsbGFuaWNpXEtheWl0T2wuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Kullanici/YasakliYer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS3VsbGFuaWNpXFlhc2FrbGlZZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Partials/_Navbar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydGlhbHNcX05hdmJhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Shared/Error.cshtml]

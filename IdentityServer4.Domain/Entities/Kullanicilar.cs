@@ -12,5 +12,7 @@ namespace IdentityServer4.Domain.Entities
         public string? KullaniciMail { get; set; }
         public string? KullaniciName { get; set; }
         public string? KullaniciSifre { get; set; }
+        public int RoleId { get; set; }
+        public Role Role { get; set; }
     }
 }

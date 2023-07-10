@@ -1,6 +1,9 @@
-﻿using IdentityServer4.Client.HttpClients;
+﻿using IdentityServer4.Client.ConstString;
+using IdentityServer4.Client.HttpClients;
 using IdentityServer4.Client.Models;
 using IdentityServer4.Repository.Dtos;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -26,12 +29,11 @@ namespace IdentityServer4.Client.Controllers
             {
                 responseDto.Errors.ForEach(err =>
                 {
-                    ModelState.AddModelError("error1", err);
+                    ModelState.AddModelError("errorKayit", err);
                 });
                 return View();
             }
-            TempData["SuccessMessage"] = "Kayıt olma işlemi başarılı,giriş ekranına yönlendiriliyorsunuz...";
-            return RedirectToAction(nameof(GirisYap));
+            return RedirectToAction(nameof(YasakliYer));
         }
         [HttpGet]
         public IActionResult GirisYap()
@@ -40,10 +42,27 @@ namespace IdentityServer4.Client.Controllers
         }
 
         [HttpPost]
-        public IActionResult GirisYap(KullaniciGirisDto kullaniciGirisDto)
+        public async Task<IActionResult> GirisYap(KullaniciGirisDto kullaniciGirisDto)
         {
-            
+            var responseDto= await kullaniciApi.KullaniciGiris(kullaniciGirisDto);
+            if(responseDto.Errors!=null)
+            {
+                responseDto.Errors.ForEach(err =>
+                {
+                    ModelState.AddModelError("errorGiris", err);
+                });
+                return View();
+            }
+            await HttpContext.SignInAsync("Cookies", responseDto.Data.Item1,responseDto.Data.Item2);
+            TempData["SuccessMessage"] = StringExample.GirisBasarili;
             return View();
         }
+
+        [Authorize]
+        public async Task<IActionResult> YasakliYer()
+        {
+            return View();
+        }
+        
     }
 }

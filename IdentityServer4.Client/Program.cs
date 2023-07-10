@@ -1,5 +1,6 @@
 using IdentityServer4.Client.HttpClients;
 using IdentityServer4.Persistence.Context;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -12,6 +13,19 @@ builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer("Data Source
 builder.Services.AddHttpClient<HttpClientKullaniciApi>(opt => opt.BaseAddress = new Uri("https://localhost:7237/api/"));
 //builder.Services.AddHttpClient<ClientCredentials>(opt => opt.BaseAddress = new Uri("https://localhost:7237/api/"));
 
+
+builder.Services.AddAuthentication(opt => opt.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme).AddCookie("Cookies",
+    opt =>
+    {
+        opt.ReturnUrlParameter = "Kullanici/Yasakliyer";
+        opt.LoginPath = "/Kullanici/GirisYap";
+        var cookieBuilder=new CookieBuilder();
+        cookieBuilder.HttpOnly = true;
+        cookieBuilder.Name = "GirisCookie";
+        opt.Cookie=cookieBuilder;
+        opt.SlidingExpiration = true;
+        opt.ExpireTimeSpan = TimeSpan.FromSeconds(20);
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -29,8 +43,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(name: "MyArea",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapDefaultControllerRoute();
+
+});
 
 app.Run();

@@ -1,4 +1,5 @@
 ﻿using IdentityServer4.Models;
+using System.Security.Claims;
 
 namespace IdentityServer4.AuthServer
 {
@@ -17,15 +18,23 @@ namespace IdentityServer4.AuthServer
                 AllowedScopes={"api1.client"}, //client1'den üretilecek tokenin erişebileceği scopelar
                 AllowedGrantTypes=GrantTypes.ClientCredentials
                 
+            },
+            new Client()
+            {
+                ClientId="Client1-ResourceOwner",
+                ClientName="Clien1 resourceowner uygulaması",
+                ClientSecrets=new[]{new Secret("secrets".Sha256())},
+                AllowedScopes={"api1.update","BirthDate","Roles",IdentityServerConstants.StandardScopes.OpenId,IdentityServerConstants.StandardScopes.Profile},
+                AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
+                AbsoluteRefreshTokenLifetime=DateTime.UtcNow.AddDays(30).Second,
+                AccessTokenLifetime=DateTime.UtcNow.AddMinutes(5).Second,
+                RefreshTokenUsage=TokenUsage.ReUse,
+                AccessTokenType=AccessTokenType.Jwt,
+                RefreshTokenExpiration=TokenExpiration.Absolute,
+                AllowOfflineAccess=true,
+                
             }
-            //new Client()
-            //{
-            //    ClientId="Client12",
-            //    ClientSecrets=new[]{new Secret("secrets".Sha256())},
-            //    AllowedScopes={"api1.update"},
-            //    AllowedGrantTypes=GrantTypes.ClientCredentials
-            //}
-            
+
         };
 
         public static IEnumerable<ApiScope> ApiScopes => new List<ApiScope>()
@@ -45,6 +54,24 @@ namespace IdentityServer4.AuthServer
                 ApiSecrets={new Secret("api1Secret".Sha256()) }
             }
             
+        };
+
+        public static IEnumerable<IdentityResource> IdentityResources => new List<IdentityResource>() 
+        { 
+            new IdentityResources.OpenId(),
+            new IdentityResources.Profile(),
+            new IdentityResource()
+            {
+                Name="BirthDateAndNameler",
+                UserClaims=new[]{"BirthDate","Nameler"}
+            },
+            new IdentityResource()
+            {
+                Name="Roles",
+                UserClaims=new[]{ClaimTypes.Role}
+            }
+            
+        
         };
     }
 }
