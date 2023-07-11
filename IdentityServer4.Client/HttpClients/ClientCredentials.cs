@@ -4,7 +4,7 @@ namespace IdentityServer4.Client.HttpClients
 {
     public class ClientCredentials
     {
-        private readonly HttpClient _httpClient;
+        protected readonly HttpClient _httpClient;
         public ClientCredentials(HttpClient httpClient)
         {
             _httpClient = httpClient;

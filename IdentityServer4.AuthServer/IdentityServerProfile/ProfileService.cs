@@ -15,7 +15,7 @@ namespace IdentityServer4.AuthServer.IdentityServerProfile
         }
         public Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
-            context.Subject.GetSubjectId();
+          var x= context.Subject.GetSubjectId();
 
             List<Claim> claims = new List<Claim>()
             {
@@ -23,7 +23,10 @@ namespace IdentityServer4.AuthServer.IdentityServerProfile
                 new Claim("claim2","olgun2")
 
             };
-
+            var list= context.RequestedClaimTypes.ToList();
+            var scoped= context.Client.AllowedScopes;
+            var llist2=  context.IssuedClaims.ToList();
+          var mm=  context.RequestedResources.Resources.IdentityResources.Select(r => r.UserClaims).ToList();//buradan erişilir
             context.AddRequestedClaims(claims);
             context.IssuedClaims = claims;
             return Task.CompletedTask;

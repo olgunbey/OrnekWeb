@@ -1,7 +1,9 @@
-﻿using IdentityModel.Client;
+﻿using IdentityModel;
+using IdentityModel.Client;
 using IdentityServer4.Repository.Dtos;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.Globalization;
@@ -13,10 +15,8 @@ namespace IdentityServer4.Client.HttpClients
 {
     public class HttpClientKullaniciApi: ClientCredentials
     {
-        private readonly HttpClient _httpClient;
         public HttpClientKullaniciApi(HttpClient http):base(http)
         {
-            _httpClient = http;
         }
 
         public async Task<ResponseDto<NoContentDto>> KullaniciKayitOl(KullaniciKayitOlDto KullaniciKayitOlDto)
@@ -44,7 +44,7 @@ namespace IdentityServer4.Client.HttpClients
             }
             _httpClient.SetBearerToken(tokenResponse.AccessToken!);
 
-          var disco= await _httpClient.GetDiscoveryDocumentAsync("https://localhost:7291");
+            var disco= await _httpClient.GetDiscoveryDocumentAsync("https://localhost:7291");
 
 
             PasswordTokenRequest passwordTokenRequest= new PasswordTokenRequest();
@@ -54,20 +54,24 @@ namespace IdentityServer4.Client.HttpClients
             passwordTokenRequest.ClientId = "Client1-ResourceOwner";
             passwordTokenRequest.ClientSecret = "secrets";
 
-            var PasswordtokenResponse=  await _httpClient.RequestPasswordTokenAsync(passwordTokenRequest);
+            
+            TokenResponse? PasswordtokenResponse=  await _httpClient.RequestPasswordTokenAsync(passwordTokenRequest);
             if(PasswordtokenResponse.IsError)
             {
                 //kullanıcıadı veya şifre yanlış
                 return ResponseDto<(ClaimsPrincipal, AuthenticationProperties)>.UnSuccessFul(200, "kullanıcı adı veya şifre yanlış");
             }
 
-            var jwtHander = new JwtSecurityTokenHandler();
-            var token= jwtHander.ReadJwtToken(PasswordtokenResponse.AccessToken);
+    
 
 
+            UserInfoRequest userInfoRequest= new UserInfoRequest();
+            userInfoRequest.Address = disco.UserInfoEndpoint;
+            userInfoRequest.Token = PasswordtokenResponse.AccessToken;
+            UserInfoResponse userInfoResponse= await _httpClient.GetUserInfoAsync(userInfoRequest);
 
      
-            var ClaimPrincipal = new ClaimsPrincipal(new List<ClaimsIdentity>() { new ClaimsIdentity(token.Claims.Where(x => x.Type == "claim1" || x.Type == "claim2").ToList(), CookieAuthenticationDefaults.AuthenticationScheme)});
+            var ClaimPrincipal = new ClaimsPrincipal(new List<ClaimsIdentity>() { new ClaimsIdentity(userInfoResponse.Claims, CookieAuthenticationDefaults.AuthenticationScheme)});
 
             var authenticationProperties = new AuthenticationProperties();
             authenticationProperties.StoreTokens(new List<AuthenticationToken>(){
@@ -93,7 +97,7 @@ namespace IdentityServer4.Client.HttpClients
 
 
 
-            HttpResponseMessage httpResponseMessage= await _httpClient.PostAsJsonAsync("Kullanici/KullaniciSorgula", kullaniciGirisDto);
+            HttpResponseMessage httpResponseMessage= await _httpClient.PostAsJsonAsync<KullaniciGirisDto>("Kullanici/KullaniciSorgula", kullaniciGirisDto);
             if(httpResponseMessage.IsSuccessStatusCode)
             {
                 return ResponseDto<(ClaimsPrincipal,AuthenticationProperties)>.Success((ClaimPrincipal,authenticationProperties),200);

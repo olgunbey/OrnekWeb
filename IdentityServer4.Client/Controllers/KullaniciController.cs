@@ -44,8 +44,8 @@ namespace IdentityServer4.Client.Controllers
         [HttpPost]
         public async Task<IActionResult> GirisYap(KullaniciGirisDto kullaniciGirisDto)
         {
-            var responseDto= await kullaniciApi.KullaniciGiris(kullaniciGirisDto);
-            if(responseDto.Errors!=null)
+            var responseDto = await kullaniciApi.KullaniciGiris(kullaniciGirisDto);
+            if (responseDto.Errors != null)
             {
                 responseDto.Errors.ForEach(err =>
                 {
@@ -53,13 +53,13 @@ namespace IdentityServer4.Client.Controllers
                 });
                 return View();
             }
-            await HttpContext.SignInAsync("Cookies", responseDto.Data.Item1,responseDto.Data.Item2);
+            await HttpContext.SignInAsync("Cookies", responseDto.Data.Item1, responseDto.Data.Item2);
             TempData["SuccessMessage"] = StringExample.GirisBasarili;
             return View();
         }
-
-        [Authorize]
-        public async Task<IActionResult> YasakliYer()
+        [Authorize(Policy ="YasakliYer")]
+        [HttpGet]
+        public IActionResult YasakliYer()
         {
             return View();
         }

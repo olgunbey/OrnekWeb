@@ -17,13 +17,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer4.Infrastruct
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer4.Presentation", "IdentityServer4.Presentation", "{4BA56983-6FCB-4EC6-957F-459DB6CA25E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer4.Repository", "IdentityServer4.Repository\IdentityServer4.Repository.csproj", "{56E815C9-6981-4CF0-A9B1-50633F65C122}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4.Repository", "IdentityServer4.Repository\IdentityServer4.Repository.csproj", "{56E815C9-6981-4CF0-A9B1-50633F65C122}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer4.Domain", "IdentityServer4.Domain\IdentityServer4.Domain.csproj", "{DD9EB522-AC2D-49C3-B593-8634256D055C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4.Domain", "IdentityServer4.Domain\IdentityServer4.Domain.csproj", "{DD9EB522-AC2D-49C3-B593-8634256D055C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer4.Infrastructure", "IdentityServer4.Infrastructure\IdentityServer4.Infrastructure.csproj", "{FAD3FA42-E53E-4BD8-AEB7-4033B6C0FB40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4.Infrastructure", "IdentityServer4.Infrastructure\IdentityServer4.Infrastructure.csproj", "{FAD3FA42-E53E-4BD8-AEB7-4033B6C0FB40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer4.Persistence", "IdentityServer4.Persistence\IdentityServer4.Persistence.csproj", "{4339766F-AD1E-4F63-B5CF-D43AC254C22F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer4.Persistence", "IdentityServer4.Persistence\IdentityServer4.Persistence.csproj", "{4339766F-AD1E-4F63-B5CF-D43AC254C22F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonFeature", "CommonFeature\CommonFeature.csproj", "{4630D319-5DFA-4D3A-B8D6-A622B5EB5C09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{4339766F-AD1E-4F63-B5CF-D43AC254C22F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4339766F-AD1E-4F63-B5CF-D43AC254C22F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4339766F-AD1E-4F63-B5CF-D43AC254C22F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4630D319-5DFA-4D3A-B8D6-A622B5EB5C09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4630D319-5DFA-4D3A-B8D6-A622B5EB5C09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4630D319-5DFA-4D3A-B8D6-A622B5EB5C09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4630D319-5DFA-4D3A-B8D6-A622B5EB5C09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

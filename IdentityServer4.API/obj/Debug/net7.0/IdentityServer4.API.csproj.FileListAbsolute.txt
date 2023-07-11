@@ -83,3 +83,5 @@ C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentitySe
 C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.API\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.API\bin\Debug\net7.0\IdentityServer4.Repository.dll
 C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.API\bin\Debug\net7.0\IdentityServer4.Repository.pdb
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.API\bin\Debug\net7.0\CommonFeature.dll
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.API\bin\Debug\net7.0\CommonFeature.pdb

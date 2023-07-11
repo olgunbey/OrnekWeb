@@ -26,6 +26,7 @@ builder.Services.AddScoped<UyelerIReadRepository, UyelerReadRepository>();
 builder.Services.AddIdentityServer().AddInMemoryApiResources(Config.ApiResources)
     .AddInMemoryApiScopes(Config.ApiScopes)
     .AddInMemoryClients(Config.Clients)
+    .AddInMemoryIdentityResources(Config.IdentityResources)
     .AddProfileService<ProfileService>()
     .AddResourceOwnerValidator<ServerProfile>()
     .AddDeveloperSigningCredential();
