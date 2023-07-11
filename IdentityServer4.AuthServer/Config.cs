@@ -5,10 +5,6 @@ namespace IdentityServer4.AuthServer
 {
     public static class Config
     {
-        //public static IEnumerable<IdentityResource> IdentityResources => new List<IdentityResource>()
-        //{
-        //    new IdentityResource()
-        //};
         public static IEnumerable<Client> Clients => new List<Client>()
         {
             new Client()
@@ -22,14 +18,12 @@ namespace IdentityServer4.AuthServer
             new Client()
             {
                 ClientId="Client1-ResourceOwner",
-                ClientName="Clien1 resourceowner uygulaması",
                 ClientSecrets=new[]{new Secret("secrets".Sha256())},
                 AllowedScopes={"api1.update","BirthDate","Roles",IdentityServerConstants.StandardScopes.OpenId,IdentityServerConstants.StandardScopes.Profile},
                 AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
                 AbsoluteRefreshTokenLifetime=DateTime.UtcNow.AddDays(30).Second,
                 AccessTokenLifetime=DateTime.UtcNow.AddMinutes(5).Second,
                 RefreshTokenUsage=TokenUsage.ReUse,
-                AccessTokenType=AccessTokenType.Jwt,
                 RefreshTokenExpiration=TokenExpiration.Absolute,
                 AllowOfflineAccess=true,
                 
@@ -62,8 +56,8 @@ namespace IdentityServer4.AuthServer
             new IdentityResources.Profile(),
             new IdentityResource()
             {
-                Name="BirthDateAndNameler",
-                UserClaims=new[]{"BirthDate","Nameler"}
+                Name="BirthDate",
+                UserClaims=new[]{"BirthDate"}
             },
             new IdentityResource()
             {

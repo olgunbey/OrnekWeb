@@ -1,3 +1,4 @@
+using CommonFeature;
 using IdentityServer4.API;
 using IdentityServer4.Persistence.Context;
 using IdentityServer4.Repository.Mapping;
@@ -36,11 +37,8 @@ builder.Services.AddAuthorization(opt => opt.AddPolicy("Policy1", policy =>
     policy.RequireClaim("scope","api1.read");
 }));
 
-
-
-
-
 builder.Services.Scoped();
+
 builder.Services.AddAutoMapper(opt=>opt.AddProfile<MappingProfile>());
 
 var app = builder.Build();

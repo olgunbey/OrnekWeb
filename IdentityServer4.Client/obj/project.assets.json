@@ -1758,6 +1758,21 @@
           }
         }
       },
+      "CommonFeature/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v7.0",
+        "dependencies": {
+          "IdentityServer4.Persistence": "1.0.0",
+          "IdentityServer4.Repository": "1.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0"
+        },
+        "compile": {
+          "bin/placeholder/CommonFeature.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CommonFeature.dll": {}
+        }
+      },
       "IdentityServer4.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
@@ -4536,6 +4551,11 @@
         "version.txt"
       ]
     },
+    "CommonFeature/1.0.0": {
+      "type": "project",
+      "path": "../CommonFeature/CommonFeature.csproj",
+      "msbuildProject": "../CommonFeature/CommonFeature.csproj"
+    },
     "IdentityServer4.Domain/1.0.0": {
       "type": "project",
       "path": "../IdentityServer4.Domain/IdentityServer4.Domain.csproj",
@@ -4554,6 +4574,7 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
+      "CommonFeature >= 1.0.0",
       "IdentityModel >= 6.1.0",
       "IdentityServer4.Persistence >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 7.0.8",
@@ -4595,6 +4616,9 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
+            "C:\\Users\\olgun\\OneDrive\\Masaüstü\\Çalışmalar\\IdentityServer4Ornek\\CommonFeature\\CommonFeature.csproj": {
+              "projectPath": "C:\\Users\\olgun\\OneDrive\\Masaüstü\\Çalışmalar\\IdentityServer4Ornek\\CommonFeature\\CommonFeature.csproj"
+            },
             "C:\\Users\\olgun\\OneDrive\\Masaüstü\\Çalışmalar\\IdentityServer4Ornek\\IdentityServer4.Persistence\\IdentityServer4.Persistence.csproj": {
               "projectPath": "C:\\Users\\olgun\\OneDrive\\Masaüstü\\Çalışmalar\\IdentityServer4Ornek\\IdentityServer4.Persistence\\IdentityServer4.Persistence.csproj"
             }

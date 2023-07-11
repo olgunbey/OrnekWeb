@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CommonFeature\CommonFeature.csproj" />
     <ProjectReference Include="..\IdentityServer4.Persistence\IdentityServer4.Persistence.csproj" />
   </ItemGroup>
 

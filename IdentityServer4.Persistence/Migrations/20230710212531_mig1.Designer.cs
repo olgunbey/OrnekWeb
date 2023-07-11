@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IdentityServer4.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230707163400_mig1")]
+    [Migration("20230710212531_mig1")]
     partial class mig1
     {
         /// <inheritdoc />

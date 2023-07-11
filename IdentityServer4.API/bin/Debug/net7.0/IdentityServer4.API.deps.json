@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "IdentityServer4.API/1.0.0": {
         "dependencies": {
+          "CommonFeature": "1.0.0",
           "IdentityServer4.Persistence": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.8",
           "Microsoft.AspNetCore.OpenApi": "7.0.7",
@@ -846,6 +847,16 @@
           }
         }
       },
+      "CommonFeature/1.0.0": {
+        "dependencies": {
+          "IdentityServer4.Persistence": "1.0.0",
+          "IdentityServer4.Repository": "1.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0"
+        },
+        "runtime": {
+          "CommonFeature.dll": {}
+        }
+      },
       "IdentityServer4.Domain/1.0.0": {
         "runtime": {
           "IdentityServer4.Domain.dll": {}
@@ -1559,6 +1570,11 @@
       "sha512": "sha512-c1ho9WU9ZxMZawML+ssPKZfdnrg/OjR3pe0m9v8230z3acqphwvPJqzAkH54xRYm5ntZHGG1EPP3sux9H3qSPg==",
       "path": "system.windows.extensions/5.0.0",
       "hashPath": "system.windows.extensions.5.0.0.nupkg.sha512"
+    },
+    "CommonFeature/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "IdentityServer4.Domain/1.0.0": {
       "type": "project",
