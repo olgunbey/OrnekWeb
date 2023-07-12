@@ -12,6 +12,7 @@ namespace IdentityServer4.Repository.IBusiness.UyelerIBusiness
     public interface UyelerIReadBusiness:IBusinesRead<Kullanicilar>
     {
         Task<ResponseDto<Kullanicilar>> KullaniciGiris(KullaniciGirisDto kullaniciGirisDto);
+        Task<ResponseDto<List<KullaniciRoleDto>>> KullaniciRoleGetir(int kullaniciID);
         
     }
 }

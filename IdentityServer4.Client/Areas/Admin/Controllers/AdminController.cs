@@ -6,7 +6,7 @@ namespace IdentityServer4.Client.Areas.Admin.Controllers
     [Area("Admin")]
     public class AdminController : Controller
     {
-        [Authorize]
+        [Authorize(Policy = "AdminPanel")]
         [HttpGet]
         public IActionResult Index()
         {
