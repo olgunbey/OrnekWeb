@@ -105,5 +105,22 @@ namespace IdentityServer4.Client.HttpClients
             return ResponseDto<(ClaimsPrincipal,AuthenticationProperties)>.UnSuccessFul(200,"fail");
 
         }
+
+        public async Task<ResponseDto<List<KullaniciRoleDto>>> KullaniciRole(int id)
+        {
+         TokenResponse tokenResponse=  await ClientCredentialsRequest();
+            if(tokenResponse.IsError)
+            {
+                //hata varsa 
+                return ResponseDto<List<KullaniciRoleDto>>.UnSuccessFul(200, "401-403 unauthorized,forbidden");
+            }
+
+            _httpClient.SetBearerToken(tokenResponse.AccessToken!);
+
+            return await _httpClient.GetFromJsonAsync<ResponseDto<List<KullaniciRoleDto>>>($"Kullanici/KullaniciRoleGetir/{id}");
+
+
+
+        }
     }
 }

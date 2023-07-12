@@ -1,4 +1,5 @@
 ﻿using IdentityServer4.Models;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using System.Security.Claims;
 
 namespace IdentityServer4.AuthServer
@@ -19,7 +20,7 @@ namespace IdentityServer4.AuthServer
             {
                 ClientId="Client1-ResourceOwner",
                 ClientSecrets=new[]{new Secret("secrets".Sha256())},
-                AllowedScopes={"api1.update","BirthDate","Roles",IdentityServerConstants.StandardScopes.OpenId,IdentityServerConstants.StandardScopes.Profile},
+                AllowedScopes={"api1.update", "Roles",IdentityServerConstants.StandardScopes.OpenId,IdentityServerConstants.StandardScopes.Profile},
                 AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
                 AbsoluteRefreshTokenLifetime=DateTime.UtcNow.AddDays(30).Second,
                 AccessTokenLifetime=DateTime.UtcNow.AddMinutes(5).Second,
@@ -54,11 +55,6 @@ namespace IdentityServer4.AuthServer
         { 
             new IdentityResources.OpenId(),
             new IdentityResources.Profile(),
-            new IdentityResource()
-            {
-                Name="BirthDate",
-                UserClaims=new[]{"BirthDate"}
-            },
             new IdentityResource()
             {
                 Name="Roles",

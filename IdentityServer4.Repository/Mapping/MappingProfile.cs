@@ -17,6 +17,7 @@ namespace IdentityServer4.Repository.Mapping
             CreateMap<KullaniciDto, Kullanicilar>().ReverseMap();
             CreateMap<KullaniciEkleDto, Kullanicilar>().ReverseMap();
             CreateMap<Kullanicilar,KullaniciKayitOlDto>().ReverseMap();
+
         }
 
     }

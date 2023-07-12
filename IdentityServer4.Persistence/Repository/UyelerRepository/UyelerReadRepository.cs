@@ -2,6 +2,7 @@
 using IdentityServer4.Persistence.Context;
 using IdentityServer4.Persistence.Repository;
 using IdentityServer4.Repository.UyelerIRepository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,13 @@ namespace IdentityServer4.Persistence.UyelerRepository
     {
         public UyelerReadRepository(AppDbContext appDbContext) : base(appDbContext)
         {
+        }
+
+
+        public async Task<List<RoleKullanicilarManyToMany>> KullaniciRoleGetir(int kullaniciID)
+        {
+          var kullaniciEntity= (await _dbSet.FirstOrDefaultAsync(x=>x.Id==kullaniciID));
+         return await _dbSet.Entry(kullaniciEntity).Collection(opt => opt.RoleKullanicilarManyToManies).Query().Include(opt=>opt.Role).ToListAsync();
         }
     }
 }

@@ -44,6 +44,12 @@ namespace IdentityServer4.API.Controllers
         {
             return ResponseDto<Kullanicilar>.ResponseStruct<Kullanicilar>.Response(await _uyelerIReadBusiness.KullaniciGiris(kullaniciGirisDto));
         }
+        [Authorize("PolicyClient")]
+        [HttpGet("[action]/{id}")]
+        public async Task<IActionResult> KullaniciRoleGetir(int id)
+        {
+            return ResponseDto<List<KullaniciRoleDto>>.ResponseStruct<List<KullaniciRoleDto>>.Response(await _uyelerIReadBusiness.KullaniciRoleGetir(id));
+        }
 
 
         

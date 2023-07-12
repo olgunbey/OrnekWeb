@@ -3,6 +3,7 @@ using IdentityServer4.Client.HttpClients;
 using IdentityServer4.Client.Models;
 using IdentityServer4.Repository.Dtos;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -53,14 +54,21 @@ namespace IdentityServer4.Client.Controllers
                 });
                 return View();
             }
-            await HttpContext.SignInAsync("Cookies", responseDto.Data.Item1, responseDto.Data.Item2);
+            
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, responseDto.Data.Item1, responseDto.Data.Item2);
             TempData["SuccessMessage"] = StringExample.GirisBasarili;
-            return View();
+            return View(); //burada ürün arama anasayfasına gönderilecek
         }
-        [Authorize(Policy ="YasakliYer")]
+        [Authorize]
         [HttpGet]
         public IActionResult YasakliYer()
         {
+            return View();
+        }
+        [Authorize]
+        public async Task<IActionResult> SignOut()
+        {
+          await HttpContext.SignOutAsync("Cookies");
             return View();
         }
         

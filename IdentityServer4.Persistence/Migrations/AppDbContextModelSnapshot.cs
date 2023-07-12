@@ -45,6 +45,75 @@ namespace IdentityServer4.Persistence.Migrations
 
                     b.ToTable("Kullanicilar");
                 });
+
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("RoleName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.RoleKullanicilarManyToMany", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("KullaniciID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KullaniciID");
+
+                    b.HasIndex("RoleID");
+
+                    b.ToTable("RoleKullanicilarManyToManies");
+                });
+
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.RoleKullanicilarManyToMany", b =>
+                {
+                    b.HasOne("IdentityServer4.Domain.Entities.Kullanicilar", "Kullanicilar")
+                        .WithMany("RoleKullanicilarManyToManies")
+                        .HasForeignKey("KullaniciID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IdentityServer4.Domain.Entities.Role", "Role")
+                        .WithMany("RoleKullanicilarManyToManies")
+                        .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kullanicilar");
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.Kullanicilar", b =>
+                {
+                    b.Navigation("RoleKullanicilarManyToManies");
+                });
+
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.Role", b =>
+                {
+                    b.Navigation("RoleKullanicilarManyToManies");
+                });
 #pragma warning restore 612, 618
         }
     }

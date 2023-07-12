@@ -10,5 +10,6 @@ namespace IdentityServer4.Repository.UyelerIRepository
 {
     public interface UyelerIReadRepository:IReadRepository<Kullanicilar>
     {
+        Task<List<RoleKullanicilarManyToMany>> KullaniciRoleGetir(int kullaniciID);
     }
 }

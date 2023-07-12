@@ -22,4 +22,8 @@
     <ProjectReference Include="..\IdentityServer4.Persistence\IdentityServer4.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Models\" />
+  </ItemGroup>
+
 </Project>

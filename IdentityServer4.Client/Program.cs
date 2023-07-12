@@ -24,15 +24,17 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     opt =>
     {
         opt.LoginPath = "/Kullanici/GirisYap";
+        opt.LogoutPath= "/Kullanici/SignOut";
         
         opt.ExpireTimeSpan = TimeSpan.FromSeconds(20);
     });
 
-builder.Services.AddScoped<IAuthorizationHandler, Authorizations>();
-builder.Services.AddAuthorization(opt => {
 
-    opt.AddPolicy("YasakliYer", opt => opt.AddRequirements(new AuthorizationBusiness()));
+builder.Services.AddScoped<IAuthorizationHandler, AdminPanelAuthorizationHandler>();
 
+builder.Services.AddAuthorization(opt =>
+{
+    opt.AddPolicy("AdminPanel", policy => policy.AddRequirements(new AdminPanelAuthorizationBusiness()));
 });
 var app = builder.Build();
 
@@ -50,7 +52,12 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(name:"MyAreas",
+        pattern:"{area}/{controller=Admin}/{action=Index}/{id?}");
+    endpoints.MapDefaultControllerRoute();
+});
 
-app.MapDefaultControllerRoute();
 
 app.Run();
