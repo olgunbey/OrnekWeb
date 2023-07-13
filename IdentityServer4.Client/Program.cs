@@ -20,13 +20,13 @@ builder.Services.Scoped();
 
 
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie("Cookies",
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
     opt =>
     {
         opt.LoginPath = "/Kullanici/GirisYap";
         opt.LogoutPath= "/Kullanici/SignOut";
-        
-        opt.ExpireTimeSpan = TimeSpan.FromSeconds(20);
+        opt.SlidingExpiration = true;
+        opt.ExpireTimeSpan = TimeSpan.FromHours(20);
     });
 
 
@@ -52,12 +52,6 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(name:"MyAreas",
-        pattern:"{area}/{controller=Admin}/{action=Index}/{id?}");
-    endpoints.MapDefaultControllerRoute();
-});
-
+app.MapDefaultControllerRoute();
 
 app.Run();

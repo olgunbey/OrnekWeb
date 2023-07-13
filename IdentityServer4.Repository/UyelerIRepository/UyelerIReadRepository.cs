@@ -1,4 +1,5 @@
 ﻿using IdentityServer4.Domain.Entities;
+using IdentityServer4.Repository.Dtos;
 using IdentityServer4.Repository.Interface;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,6 @@ namespace IdentityServer4.Repository.UyelerIRepository
     public interface UyelerIReadRepository:IReadRepository<Kullanicilar>
     {
         Task<List<RoleKullanicilarManyToMany>> KullaniciRoleGetir(int kullaniciID);
+        Task<IQueryable<Kullanicilar>> KullaniciRolesGetir();
     }
 }

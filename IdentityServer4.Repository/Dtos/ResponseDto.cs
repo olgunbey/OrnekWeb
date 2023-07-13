@@ -40,8 +40,8 @@ namespace IdentityServer4.Repository.Dtos
             {
                 if(response.StatusCode!=204)
                 {
-                    string JsonSerialize= JsonSerializer.Serialize(response);
-                    return new ObjectResult(JsonSerialize); //burada gelen response'u Json'a çevirdik
+                    //string JsonSerialize= JsonSerializer.Serialize(response);
+                    return new ObjectResult(response); //burada gelen response'u Json'a çevirdik
                 }
                 return new ObjectResult(null);
 

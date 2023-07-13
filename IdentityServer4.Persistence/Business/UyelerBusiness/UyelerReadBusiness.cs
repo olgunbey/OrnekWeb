@@ -9,6 +9,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace IdentityServer4.Persistence.Business.UyelerBusiness
@@ -41,12 +43,27 @@ namespace IdentityServer4.Persistence.Business.UyelerBusiness
                 KullaniciName = opt.Kullanicilar.KullaniciName,
                 RoleName = opt.Role.RoleName
             }).ToList();
-
-
             return ResponseDto<List<KullaniciRoleDto>>.Success(KullaniciDto, 200);
 
 
 
+
+        }
+
+        public async Task<ResponseDto<string>> KullanicilarRoleGetir()
+        {
+         List<Kullanicilar> KullanicilarsRole= await (await _uyelerIReadRepository.KullaniciRolesGetir()).ToListAsync();
+
+            List<KullaniciRollerDto> kullaniciRollerDtos = KullanicilarsRole.Select(opt =>
+              new KullaniciRollerDto()
+              {
+                  KullaniciID=opt.Id,
+                  KullaniciName=opt.KullaniciName,
+                  Role=opt.RoleKullanicilarManyToManies.Select(x=>x.Role).ToList()
+              }).ToList();
+
+           var jsonSerializeData= JsonSerializer.Serialize(kullaniciRollerDtos);
+            return ResponseDto<string>.Success(jsonSerializeData, 200);
 
         }
     }

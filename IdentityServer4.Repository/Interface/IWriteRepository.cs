@@ -1,4 +1,5 @@
 ﻿using IdentityServer4.Domain.Entities;
+using IdentityServer4.Repository.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
