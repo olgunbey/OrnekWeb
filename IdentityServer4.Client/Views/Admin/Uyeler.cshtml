@@ -1,0 +1,72 @@
+﻿@model List<KullaniciRollerDto>
+
+
+
+
+
+    @if(TempData["SuccessMessage"]!=null)
+{
+    <div class="alert-info">@TempData["SuccessMessage"]</div>
+}
+
+<div class="row">
+    <div class="col-md-6 offset-md-2">
+        <h2>Roller</h2>
+    </div>
+    <div class="col-md-2">
+        <a class="btn btn-primary" asp-action="RoleCreate" asp-controller="Admin">Role ekle</a>
+    </div>
+</div>
+
+
+
+<div class="row">
+
+    <div class="col-md-8 offset-md-2">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Kullanıcı Adı </th>
+                    <th>Kullanıcı Rolü </th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+              @*  @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>@item.KullaniciName</td>
+                        @foreach(var itemname in item.RolesDtos.RoleName)
+                        {
+                            <td>@itemname</td>
+                            @foreach(var roleName in item.RolesDtos.RoleName)
+                            {
+                                <td>@roleName</td>
+                            }
+                        }
+                        @foreach(var roleID in item.RolesDtos.RoleID)
+                        {
+                            <td><a asp-action="RoleUpdate" asp-controller="Admin" class="btn btn-primary" asp-route-roleID="@roleID" asp-route-kullaniciId="@item.KullaniciID">Rol Değiştir</a></td>
+                            <td><a asp-action="RoleDelete" asp-controller="Admin" class="btn btn-primary" asp-route-roleID="@roleID" asp-route-kullaniciId="@item.KullaniciID">Rol Sil</a></td>
+                        }
+
+                        
+
+
+                    </tr>
+                }*@
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<div asp-validation-summary="All">
+
+</div>
+
+
+

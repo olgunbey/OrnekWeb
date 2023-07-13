@@ -1,12 +1,16 @@
 ﻿using IdentityServer4.Persistence.Business;
+using IdentityServer4.Persistence.Business.RoleBusiness;
 using IdentityServer4.Persistence.Business.UyelerBusiness;
 using IdentityServer4.Persistence.Repository;
+using IdentityServer4.Persistence.Repository.RolesRepository;
 using IdentityServer4.Persistence.Repository.UyelerRepository;
 using IdentityServer4.Persistence.UnitOfWorks;
 using IdentityServer4.Persistence.UyelerRepository;
+using IdentityServer4.Repository.IBusiness.RoleIBusiness;
 using IdentityServer4.Repository.IBusiness.UyelerIBusiness;
 using IdentityServer4.Repository.Interface;
 using IdentityServer4.Repository.Mapping;
+using IdentityServer4.Repository.RolesIRepository;
 using IdentityServer4.Repository.UyelerIRepository;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -32,6 +36,13 @@ namespace CommonFeature
             services.AddScoped<UyelerIWriteRepository, UyelerWriteRepository>();
             services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
             services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
+
+            services.AddScoped<RoleIReadBusiness, RoleReadBusiness>();
+            services.AddScoped<RoleIWriteBusiness, RoleWriteBusiness>();
+
+            services.AddScoped<RolesIReadRepository,RolesReadRepository>();
+            services.AddScoped<RolesIWriteRepository,RolesWriteRepository>();
+
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddScoped<IUnitOfWorks, UnitOfWork>();
         }

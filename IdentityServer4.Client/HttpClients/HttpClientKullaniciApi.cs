@@ -10,6 +10,8 @@ using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
+using System.Text;
+using System.Text.Json;
 
 namespace IdentityServer4.Client.HttpClients
 {
@@ -122,5 +124,32 @@ namespace IdentityServer4.Client.HttpClients
 
 
         }
+
+        public async Task<ResponseDto<List<KullaniciRollerDto>>> KullaniciRollerGetir()
+        {
+            TokenResponse tokenResponse=await ClientCredentialsRequest();
+            if(tokenResponse.IsError)
+            {
+              return ResponseDto<List<KullaniciRollerDto>>.UnSuccessFul(401, "401-403 forbidden");
+            }
+            _httpClient.SetBearerToken(tokenResponse.AccessToken!);
+
+          return await _httpClient.GetFromJsonAsync<ResponseDto<List<KullaniciRollerDto>>>("Kullanici/KullanicilarRolleriGetir");
+        }
+
+        public async Task<ResponseDto<NoContentDto>> RoleCreate(RoleEkleDto roleName)
+        {
+            TokenResponse tokenResponse= await ClientCredentialsRequest();
+            if(tokenResponse.IsError)
+            {
+                return ResponseDto<NoContentDto>.UnSuccessFul(401, "401-403forbidden");
+            }
+            _httpClient.SetBearerToken(tokenResponse.AccessToken!);
+
+            
+            HttpResponseMessage HttpResponseMessage = await _httpClient.PostAsJsonAsync("Kullanici/RoleOlustur", roleName);
+            return !(HttpResponseMessage.IsSuccessStatusCode) ? ResponseDto<NoContentDto>.UnSuccessFul(404, "api bağlantı hatası") :await HttpResponseMessage.Content.ReadFromJsonAsync<ResponseDto<NoContentDto>>();
+        }
+
     }
 }

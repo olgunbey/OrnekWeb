@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using IdentityServer4.Domain.Entities;
 using IdentityServer4.Repository.Dtos;
+using IdentityServer4.Repository.IBusiness.RoleIBusiness;
 using IdentityServer4.Repository.IBusiness.UyelerIBusiness;
 using IdentityServer4.Repository.Interface;
 using System;
@@ -14,7 +15,7 @@ namespace IdentityServer4.Persistence.Business.UyelerBusiness
     public class UyelerWriteBusiness : WriteBusiness<Kullanicilar>, UyelerIWriteBusiness
     {
         
-        public UyelerWriteBusiness(IWriteRepository<Kullanicilar> writeRepository, IUnitOfWorks unitOfWorks,IMapper mapper) : base(writeRepository, unitOfWorks)
+        public UyelerWriteBusiness(IWriteRepository<Kullanicilar> writeRepository, IUnitOfWorks unitOfWorks,IMapper mapper,RoleIReadBusiness roleIReadBusiness) : base(writeRepository, unitOfWorks,roleIReadBusiness)
         {
             _unitOfWorks = unitOfWorks;
             _writeRepository = writeRepository;
