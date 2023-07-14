@@ -15,6 +15,8 @@ namespace IdentityServer4.Repository.IBusiness.UyelerIBusiness
         Task<ResponseDto<List<KullaniciRoleDto>>> KullaniciRoleGetir(int kullaniciID);
 
         Task<ResponseDto<string>> KullanicilarRoleGetir();
-        
+        Task<ResponseDto<bool>> KullaniciRoleUpdate(int roleID, int kullaniciID, string roleName);
+
+
     }
 }

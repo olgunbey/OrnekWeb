@@ -2,6 +2,7 @@
 using IdentityServer4.Repository.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace IdentityServer4.Client.Controllers
 {
@@ -25,7 +26,7 @@ namespace IdentityServer4.Client.Controllers
         public async Task<IActionResult> Uyeler()
         {
           var ResponseKullaniciRoller= await _clientKullaniciApi.KullaniciRollerGetir();
-            return View(ResponseKullaniciRoller.Data);
+            return View(ResponseKullaniciRoller);
         }
 
         [HttpGet]
@@ -54,8 +55,29 @@ namespace IdentityServer4.Client.Controllers
         [HttpGet]
         public async Task<IActionResult> RoleUpdate(int roleID,string kullaniciId)
         {
-
-            return View(nameof(RoleCreate));
+            TempData["roleID"] = roleID;
+            TempData["kullaniciId"]= kullaniciId;
+            return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> RoleUpdate(string RoleName)
+        {
+            var roleId= TempData["roleID"];
+            var kullaniciId = TempData["kullaniciId"];
+            var ResponseDto= await _clientKullaniciApi.RoleUpdate(Convert.ToInt32(roleId), Convert.ToInt32(kullaniciId),RoleName);
+
+            if (ResponseDto.Data)
+            {
+                TempData["SuccessMessage"] = "Başarıyla role güncellediniz";
+                return View();
+            }
+            ResponseDto.Errors?.ForEach(error =>
+            {
+                ModelState.AddModelError("error",error);
+            });
+            return View();
+        }
+
     }
 }

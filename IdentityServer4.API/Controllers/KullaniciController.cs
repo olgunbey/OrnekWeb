@@ -54,7 +54,7 @@ namespace IdentityServer4.API.Controllers
             return ResponseDto<List<KullaniciRoleDto>>.ResponseStruct<List<KullaniciRoleDto>>.Response(await _uyelerIReadBusiness.KullaniciRoleGetir(id));
         }
         [HttpGet("KullanicilarRolleriGetir")]
-        //[Authorize("PolicyClient")]
+        [Authorize("PolicyClient")]
         public async Task<IActionResult> KullanicilarRolleriGetir()
         {
            var deserialize= JsonSerializer.Deserialize<List<KullaniciRollerDto>>((await _uyelerIReadBusiness.KullanicilarRoleGetir()).Data);
@@ -66,6 +66,14 @@ namespace IdentityServer4.API.Controllers
         public async Task<IActionResult> RoleCreate(RoleEkleDto RoleName)
         {
             return ResponseDto<NoContentDto>.ResponseStruct<NoContentDto>.Response(await _roleIWriteBusiness.AddAsync(new Role() { RoleName = RoleName.RoleName }));
+        }
+
+        [HttpGet("[action]/{roleID}/{kullaniciID}/{newRoleName}")]
+        [Authorize("PolicyClient")]
+
+        public async Task<IActionResult> RoleUpdate(int roleID,int kullaniciID,string newRoleName)
+        {
+            return ResponseDto<bool>.ResponseStruct<bool>.Response(await _uyelerIReadBusiness.KullaniciRoleUpdate(roleID, kullaniciID, newRoleName));
         }
 
 

@@ -87,3 +87,5 @@ C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentitySe
 C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.AuthServer\bin\Debug\net7.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.AuthServer\bin\Debug\net7.0\Mono.TextTemplating.dll
 C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.AuthServer\bin\Debug\net7.0\System.CodeDom.dll
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.AuthServer\bin\Debug\net7.0\CommonFeature.dll
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.AuthServer\bin\Debug\net7.0\CommonFeature.pdb
