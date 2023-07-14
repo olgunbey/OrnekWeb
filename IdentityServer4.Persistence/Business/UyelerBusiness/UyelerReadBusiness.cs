@@ -3,6 +3,7 @@ using IdentityServer4.Domain.Entities;
 using IdentityServer4.Repository.Dtos;
 using IdentityServer4.Repository.IBusiness.UyelerIBusiness;
 using IdentityServer4.Repository.Interface;
+using IdentityServer4.Repository.RolesIRepository;
 using IdentityServer4.Repository.UyelerIRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,13 +18,18 @@ namespace IdentityServer4.Persistence.Business.UyelerBusiness
 {
     public class UyelerReadBusiness : ReadBusiness<Kullanicilar>, UyelerIReadBusiness
     {
-        public UyelerReadBusiness(IReadRepository<Kullanicilar> readRepository,IMapper mapper, UyelerIReadRepository uyelerIReadRepository) : base(readRepository)
+        public UyelerReadBusiness(IReadRepository<Kullanicilar> readRepository,IMapper mapper, UyelerIReadRepository uyelerIReadRepository,RolesIReadRepository rolesIReadRepository,RolesIWriteRepository rolesIWriteRepository,IUnitOfWorks unitOfWorks) : base(readRepository)
         {
             _mapper = mapper;
             _readRepository = readRepository;
             _uyelerIReadRepository = uyelerIReadRepository;
-
+            _unitOfWorks = unitOfWorks;
+            _rolesIWriteRepository = rolesIWriteRepository;
+            _rolesIReadRepository = rolesIReadRepository;
         }
+        private readonly IUnitOfWorks _unitOfWorks;
+        private readonly RolesIWriteRepository _rolesIWriteRepository;
+        private readonly RolesIReadRepository _rolesIReadRepository;
         private readonly UyelerIReadRepository _uyelerIReadRepository;
         private readonly IMapper _mapper;
         private readonly IReadRepository<Kullanicilar> _readRepository;
@@ -65,6 +71,41 @@ namespace IdentityServer4.Persistence.Business.UyelerBusiness
            var jsonSerializeData= JsonSerializer.Serialize(kullaniciRollerDtos);
             return ResponseDto<string>.Success(jsonSerializeData, 200);
 
+        }
+
+        public async Task<ResponseDto<bool>> KullaniciRoleUpdate(int roleID,int kullaniciID,string roleName)
+        {
+
+            try
+            {
+                Role eskirole = await _rolesIReadRepository.GetIdAsync(roleID);
+                Role eklenenrole = await _rolesIReadRepository.GetAsync(x => x.RoleName == roleName);
+                if (eklenenrole is null)
+                {
+                    await _rolesIWriteRepository.AddAsync(new Role() { RoleName = roleName });
+                    await _unitOfWorks.SaveAsync();
+                    eklenenrole = await _rolesIReadRepository.GetAsync(x => x.RoleName == roleName);
+                }
+           var kullaniciroller= await (await _uyelerIReadRepository.KullaniciRolesGetir()).ToListAsync();
+
+              var Kullanicilar= kullaniciroller.FirstOrDefault(x => x.Id == kullaniciID);
+
+
+                //var Kullanicilar = await _readRepository.GetAsync(x => x.RoleKullanicilarManyToManies.FirstOrDefault(x => x.RoleID == eskirole.Id).KullaniciID == kullaniciID);
+
+                var roleKullanicilarManyToMany = Kullanicilar.RoleKullanicilarManyToManies.FirstOrDefault(X => X.RoleID == eskirole.Id);
+
+
+                roleKullanicilarManyToMany.RoleID = eklenenrole.Id;
+                await _unitOfWorks.SaveAsync();
+                return ResponseDto<bool>.Success(true, 200);
+            }
+            catch (Exception e)
+            {
+                return ResponseDto<bool>.UnSuccessFul(200, "!!");
+                throw;
+            }
+            
         }
     }
 }

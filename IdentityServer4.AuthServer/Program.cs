@@ -1,3 +1,4 @@
+using CommonFeature;
 using IdentityServer4.AuthServer;
 using IdentityServer4.AuthServer.IdentityServerProfile;
 using IdentityServer4.Persistence.Business;
@@ -16,13 +17,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<UyelerIReadBusiness, UyelerReadBusiness>();
-builder.Services.AddScoped(typeof(IBusinesRead<>), typeof(ReadBusiness<>));
+
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer("Data Source=OLGUNBEY\\OLGUNBEYSQL;Initial Catalog=AnaProje;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"));
-builder.Services.AddAutoMapper(typeof(MappingProfile));
-builder.Services.AddScoped<IUnitOfWorks, UnitOfWork>();
-builder.Services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
-builder.Services.AddScoped<UyelerIReadRepository, UyelerReadRepository>();
+
+builder.Services.Scoped();
+
 builder.Services.AddIdentityServer().AddInMemoryApiResources(Config.ApiResources)
     .AddInMemoryApiScopes(Config.ApiScopes)
     .AddInMemoryClients(Config.Clients)

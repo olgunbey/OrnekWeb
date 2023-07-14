@@ -33,30 +33,19 @@
 
 
             <tbody>
-              @*  @foreach (var item in Model)
+                @foreach (var item in Model)
                 {
                     <tr>
 
                         <td>@item.KullaniciName</td>
-                        @foreach(var itemname in item.RolesDtos.RoleName)
+                         @foreach(var roller in item.Role)
                         {
-                            <td>@itemname</td>
-                            @foreach(var roleName in item.RolesDtos.RoleName)
-                            {
-                                <td>@roleName</td>
-                            }
+                            <td>@roller.RoleName</td>
+                            <td><a asp-action="RoleUpdate" asp-controller="Admin" class="btn btn-primary" asp-route-roleID="@roller.Id" asp-route-kullaniciId="@item.KullaniciID">Rol Değiştir</a></td>
+                            <td><a asp-action="RoleDelete" asp-controller="Admin" class="btn btn-primary" asp-route-roleID="@roller.Id" asp-route-kullaniciId="@item.KullaniciID">Rol Sil</a></td>
                         }
-                        @foreach(var roleID in item.RolesDtos.RoleID)
-                        {
-                            <td><a asp-action="RoleUpdate" asp-controller="Admin" class="btn btn-primary" asp-route-roleID="@roleID" asp-route-kullaniciId="@item.KullaniciID">Rol Değiştir</a></td>
-                            <td><a asp-action="RoleDelete" asp-controller="Admin" class="btn btn-primary" asp-route-roleID="@roleID" asp-route-kullaniciId="@item.KullaniciID">Rol Sil</a></td>
-                        }
-
-                        
-
-
                     </tr>
-                }*@
+                }
             </tbody>
         </table>
 

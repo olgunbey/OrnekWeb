@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Persistence.Business;
+﻿using IdentityServer4.Domain.Entities;
+using IdentityServer4.Persistence.Business;
 using IdentityServer4.Persistence.Business.RoleBusiness;
 using IdentityServer4.Persistence.Business.UyelerBusiness;
 using IdentityServer4.Persistence.Repository;
@@ -36,6 +37,9 @@ namespace CommonFeature
             services.AddScoped<UyelerIWriteRepository, UyelerWriteRepository>();
             services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
             services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
+
+            //services.AddScoped<IWriteRepository<Role>, WriteRepository<Role>>();
+            //services.AddScoped<IReadRepository<Role>, ReadRepository<Role>>();
 
             services.AddScoped<RoleIReadBusiness, RoleReadBusiness>();
             services.AddScoped<RoleIWriteBusiness, RoleWriteBusiness>();

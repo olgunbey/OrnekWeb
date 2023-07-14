@@ -125,16 +125,16 @@ namespace IdentityServer4.Client.HttpClients
 
         }
 
-        public async Task<ResponseDto<List<KullaniciRollerDto>>> KullaniciRollerGetir()
+        public async Task<List<KullaniciRollerDto>> KullaniciRollerGetir()
         {
             TokenResponse tokenResponse=await ClientCredentialsRequest();
             if(tokenResponse.IsError)
             {
-              return ResponseDto<List<KullaniciRollerDto>>.UnSuccessFul(401, "401-403 forbidden");
+                //middleware
             }
             _httpClient.SetBearerToken(tokenResponse.AccessToken!);
 
-          return await _httpClient.GetFromJsonAsync<ResponseDto<List<KullaniciRollerDto>>>("Kullanici/KullanicilarRolleriGetir");
+          return await _httpClient.GetFromJsonAsync<List<KullaniciRollerDto>>("Kullanici/KullanicilarRolleriGetir");
         }
 
         public async Task<ResponseDto<NoContentDto>> RoleCreate(RoleEkleDto roleName)
@@ -149,6 +149,20 @@ namespace IdentityServer4.Client.HttpClients
             
             HttpResponseMessage HttpResponseMessage = await _httpClient.PostAsJsonAsync("Kullanici/RoleOlustur", roleName);
             return !(HttpResponseMessage.IsSuccessStatusCode) ? ResponseDto<NoContentDto>.UnSuccessFul(404, "api bağlantı hatası") :await HttpResponseMessage.Content.ReadFromJsonAsync<ResponseDto<NoContentDto>>();
+        }
+
+        public async Task<ResponseDto<bool>> RoleUpdate(int roleID,int kullaniciID,string RoleName)
+        {
+         TokenResponse tokenResponse=await  ClientCredentialsRequest();
+            if(tokenResponse.IsError)
+            {
+                return ResponseDto<bool>.UnSuccessFul(400, "401-403 forbidden");
+            }
+            _httpClient.SetBearerToken(tokenResponse.AccessToken!);
+          return await _httpClient.GetFromJsonAsync<ResponseDto<bool>>($"Kullanici/RoleUpdate/{roleID}/{kullaniciID}/{RoleName}");
+
+
+
         }
 
     }
