@@ -15,9 +15,6 @@ namespace IdentityServer4.Client.Controllers
             _clientKullaniciApi = httpClientKullaniciApi;
         }
 
-
-
-
         public IActionResult Index()
         {
             return View();
