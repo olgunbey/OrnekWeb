@@ -1,6 +1,7 @@
 using CommonFeature;
 using IdentityServer4.Client.AuthBusiness;
 using IdentityServer4.Client.HttpClients;
+using IdentityServer4.Client.Middlewares;
 using IdentityServer4.Persistence.Context;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -50,9 +51,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.MiddlewareExtension();
 
 
 app.MapDefaultControllerRoute();

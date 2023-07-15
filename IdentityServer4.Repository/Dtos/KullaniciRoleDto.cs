@@ -9,6 +9,7 @@ namespace IdentityServer4.Repository.Dtos
 {
     public class KullaniciRoleDto
     {
+        public int Id { get; set; }
         public string KullaniciName{ get; set; }
         public string RoleName{ get; set; }
 

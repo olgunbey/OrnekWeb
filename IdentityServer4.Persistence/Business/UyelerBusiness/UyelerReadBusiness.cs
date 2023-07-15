@@ -43,9 +43,9 @@ namespace IdentityServer4.Persistence.Business.UyelerBusiness
         public async Task<ResponseDto<List<KullaniciRoleDto>>> KullaniciRoleGetir(int kullaniciID)
         {
             var KullaniciRole = await _uyelerIReadRepository.KullaniciRoleGetir(kullaniciID);
-
             var KullaniciDto = KullaniciRole.Select(opt => new KullaniciRoleDto()
             {
+                Id = opt.Id,
                 KullaniciName = opt.Kullanicilar.KullaniciName,
                 RoleName = opt.Role.RoleName
             }).ToList();

@@ -16,17 +16,17 @@ namespace IdentityServer4.AuthServer.IdentityServerProfile
         }
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
-           var ResponseDto=await _uyelerIReadBusiness.KullaniciRoleGetir(Convert.ToInt32(context.Subject.GetSubjectId())); //kullanıcının rolleri gelecek
+            var userClaims = context.RequestedResources.Resources.IdentityResources.SelectMany(r => r.UserClaims).ToList();//buradan erişilir
+
+            var ResponseDto =await _uyelerIReadBusiness.KullaniciRoleGetir(Convert.ToInt32(context.Subject.GetSubjectId())); //kullanıcının rolleri gelecek //db'ten çekiyor rolleri
             ResponseDto.Data.ForEach(x =>
             {
-                var userClaims = context.RequestedResources.Resources.IdentityResources.SelectMany(r => r.UserClaims).ToList();//buradan erişilir
-              string? claimRole= userClaims.FirstOrDefault(x => x == ClaimTypes.Role);
+                string? claimRole= userClaims.FirstOrDefault(x => x == ClaimTypes.Role);
+                
                 context.IssuedClaims.AddRange(GeneratedClaim(claimRole!, x.RoleName).ToList());
             });
-            
-
-
-
+            string? claimSub = userClaims.FirstOrDefault(x => x == "sub");
+            context.IssuedClaims.AddRange(GeneratedClaim(claimSub,context.Subject.GetSubjectId()));
         }
 
         public async Task IsActiveAsync(IsActiveContext context)
