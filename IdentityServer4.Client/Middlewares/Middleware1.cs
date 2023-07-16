@@ -26,8 +26,7 @@ namespace IdentityServer4.Client.Middlewares
             {
                 Claim? claim = Claims.FirstOrDefault(x => x.Type == "sub");
                 var ResponseDto = await _httpClientKullaniciApi.KullaniciRole(Convert.ToInt32(claim.Value));
-                bool kontrol = false;
-                //1. claim admin  2. claim admin.added => admin.created
+                bool kontrol = true;
                 Claims.Remove(claim);
                 foreach (var Kullaniciclaim in Claims)
                 {
@@ -36,7 +35,6 @@ namespace IdentityServer4.Client.Middlewares
                         if (Kullaniciclaim.Value == KullaniciDbRole.RoleName)
                         {
                             kontrol = true;
-                            break;
                         }
                         else
                         {

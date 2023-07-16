@@ -38,6 +38,7 @@
                     <tr>
 
                         <td>@item.KullaniciName</td>
+                        <td><a asp-action="KullaniciRoleEkle" asp-controller="Admin" class="btn btn-primary" asp-route-kullaniciId="@item.KullaniciID">Role Ekle</a></td>
                          @foreach(var roller in item.Role)
                         {
                             <td>@roller.RoleName</td>

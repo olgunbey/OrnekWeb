@@ -1,7 +1,10 @@
 ﻿using IdentityServer4.Domain.Entities;
 using IdentityServer4.Persistence.Context;
 using IdentityServer4.Persistence.Repository;
+using IdentityServer4.Repository.CustomExceptions;
 using IdentityServer4.Repository.Dtos;
+using IdentityServer4.Repository.Interface;
+using IdentityServer4.Repository.RolesIRepository;
 using IdentityServer4.Repository.UyelerIRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,8 +17,10 @@ namespace IdentityServer4.Persistence.UyelerRepository
 {
     public class UyelerReadRepository : ReadRepository<Kullanicilar>, UyelerIReadRepository
     {
+
         public UyelerReadRepository(AppDbContext appDbContext) : base(appDbContext)
         {
+
         }
 
 
@@ -29,5 +34,6 @@ namespace IdentityServer4.Persistence.UyelerRepository
         {
             return Task.FromResult(_dbSet.Include(opt => opt.RoleKullanicilarManyToManies).ThenInclude(opt => opt.Role).AsQueryable());
         }
+
     }
 }

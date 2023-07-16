@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Configuration.Conventions;
 using IdentityServer4.Domain.Entities;
 using IdentityServer4.Repository.Dtos;
 using IdentityServer4.Repository.IBusiness.RoleIBusiness;
@@ -19,12 +20,14 @@ namespace IdentityServer4.API.Controllers
         private readonly IMapper _mapper;
         private readonly UyelerIReadBusiness _uyelerIReadBusiness;
         private readonly RoleIWriteBusiness _roleIWriteBusiness;
-        public KullaniciController(UyelerIWriteBusiness uyelerIWriteBusiness,IMapper mapper, UyelerIReadBusiness uyelerIReadBusiness,RoleIWriteBusiness roleIWriteBusiness)
+        private readonly RoleIReadBusiness _roleIReadBusiness;
+        public KullaniciController(UyelerIWriteBusiness uyelerIWriteBusiness,IMapper mapper, UyelerIReadBusiness uyelerIReadBusiness,RoleIWriteBusiness roleIWriteBusiness,RoleIReadBusiness roleIReadBusiness)
         {
             _uyelerIWriteBusiness = uyelerIWriteBusiness;
             _mapper = mapper;
             _uyelerIReadBusiness = uyelerIReadBusiness;
             _roleIWriteBusiness = roleIWriteBusiness;
+            _roleIReadBusiness= roleIReadBusiness;
         }
         [HttpPost("KullaniciEkle")]
         [Authorize("PolicyClient")]
@@ -76,6 +79,26 @@ namespace IdentityServer4.API.Controllers
             return ResponseDto<bool>.ResponseStruct<bool>.Response(await _uyelerIReadBusiness.KullaniciRoleUpdate(roleID, kullaniciID, newRoleName));
         }
 
+        [HttpGet("RoleListele")]
+        [Authorize("PolicyClient")]
+        public async Task<IActionResult> RoleListele()
+        {
+            IQueryable<Role> roles= await _roleIReadBusiness.GetListAsync();
+
+          List<RollerDto> rollerDtos= await roles.Select(x => new RollerDto()
+            {
+                RoleName = x.RoleName,
+            }).ToListAsync();
+
+            return ResponseDto<List<RollerDto>>.ResponseStruct<List<RollerDto>>.Response(ResponseDto<List<RollerDto>>.Success(rollerDtos, 200));
+        }
+        [HttpGet("[action]/{kullaniciId}/{RoleName}")]
+        public async Task<IActionResult> KullaniciRoleEkle(int kullaniciId,string RoleName)
+        {
+         var Response=  await _uyelerIReadBusiness.KullaniciRoleEkle(kullaniciId, RoleName);
+
+         return ResponseDto<string>.ResponseStruct<string>.Response(Response);
+        }
 
         
         
