@@ -32,6 +32,10 @@ namespace IdentityServer4.Persistence.Repository
 
         public  Task<IQueryable<T>> GetListAsync(Expression<Func<T, bool>> predicate = null)
         {
+            if(predicate == null)
+            {
+                return Task.FromResult(_dbSet.AsQueryable());
+            }
             return Task.FromResult(_dbSet.Where(predicate).AsQueryable());
         }
     }

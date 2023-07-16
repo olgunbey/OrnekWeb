@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using IdentityServer4.Domain.Entities;
+using IdentityServer4.Persistence.Repository;
 using IdentityServer4.Repository.Dtos;
 using IdentityServer4.Repository.IBusiness.UyelerIBusiness;
 using IdentityServer4.Repository.Interface;
@@ -18,7 +19,7 @@ namespace IdentityServer4.Persistence.Business.UyelerBusiness
 {
     public class UyelerReadBusiness : ReadBusiness<Kullanicilar>, UyelerIReadBusiness
     {
-        public UyelerReadBusiness(IReadRepository<Kullanicilar> readRepository,IMapper mapper, UyelerIReadRepository uyelerIReadRepository,RolesIReadRepository rolesIReadRepository,RolesIWriteRepository rolesIWriteRepository,IUnitOfWorks unitOfWorks) : base(readRepository)
+        public UyelerReadBusiness(IReadRepository<Kullanicilar> readRepository,IMapper mapper, UyelerIReadRepository uyelerIReadRepository,RolesIReadRepository rolesIReadRepository,RolesIWriteRepository rolesIWriteRepository,IUnitOfWorks unitOfWorks,IWriteRepository<RoleKullanicilarManyToMany> writeRepository) : base(readRepository)
         {
             _mapper = mapper;
             _readRepository = readRepository;
@@ -26,6 +27,7 @@ namespace IdentityServer4.Persistence.Business.UyelerBusiness
             _unitOfWorks = unitOfWorks;
             _rolesIWriteRepository = rolesIWriteRepository;
             _rolesIReadRepository = rolesIReadRepository;
+            _writeRepository = writeRepository;
         }
         private readonly IUnitOfWorks _unitOfWorks;
         private readonly RolesIWriteRepository _rolesIWriteRepository;
@@ -33,6 +35,7 @@ namespace IdentityServer4.Persistence.Business.UyelerBusiness
         private readonly UyelerIReadRepository _uyelerIReadRepository;
         private readonly IMapper _mapper;
         private readonly IReadRepository<Kullanicilar> _readRepository;
+        private readonly IWriteRepository<RoleKullanicilarManyToMany> _writeRepository;
         public async Task<ResponseDto<Kullanicilar>> KullaniciGiris(KullaniciGirisDto kullaniciGirisDto)
         {
           Kullanicilar kullanicilar= await _readRepository.GetAsync(x => x.KullaniciName == kullaniciGirisDto.KullaniciName && x.KullaniciSifre == kullaniciGirisDto.KullaniciSifre);
@@ -106,6 +109,42 @@ namespace IdentityServer4.Persistence.Business.UyelerBusiness
                 throw;
             }
             
+        }
+
+        public async Task<ResponseDto<string>> KullaniciRoleEkle(int kullaniciId,string RoleName)
+        {
+            Role role = await _rolesIReadRepository.GetAsync(x => x.RoleName == RoleName);
+            if (role is null)
+            {
+                return ResponseDto<string>.UnSuccessFul(200,"böyle bir rol yok!");
+            }
+            IQueryable<Kullanicilar> kullanicilar = await _uyelerIReadRepository.KullaniciRolesGetir();
+            var Kullanicim=  await kullanicilar.FirstOrDefaultAsync(x => x.Id == kullaniciId);
+            IQueryable<RoleKullanicilarManyToMany> roleKullanicilarManyToManies = kullanicilar.SelectMany(x => x.RoleKullanicilarManyToManies);
+            var RoleKullanici = Kullanicim.RoleKullanicilarManyToManies.Select(x => x.Role).ToList();
+            if(RoleKullanici is not null)
+            {
+                foreach (var item in RoleKullanici)
+                {
+                    if (item.RoleName == RoleName)
+                    {
+                        return ResponseDto<string>.UnSuccessFul(200, "bu rol zaten bu kullanıcıya tanımlı!");
+                    }
+                }
+                
+
+            }
+            var Kullanici = await kullanicilar.FirstOrDefaultAsync(x => x.Id == kullaniciId);
+
+            RoleKullanicilarManyToMany roleKullanicilarManyToMany = new()
+            {
+                KullaniciID = Kullanici!.Id,
+                RoleID = role.Id
+            };
+            await _writeRepository.AddAsync(roleKullanicilarManyToMany);
+            await _unitOfWorks.SaveAsync();
+
+            return ResponseDto<string>.Success(200);
         }
     }
 }

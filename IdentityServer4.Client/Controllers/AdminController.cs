@@ -10,9 +10,12 @@ namespace IdentityServer4.Client.Controllers
     public class AdminController : Controller
     {
         private readonly HttpClientKullaniciApi _clientKullaniciApi;
-        public AdminController(HttpClientKullaniciApi httpClientKullaniciApi)
+        private readonly HttpClientRoleApi _clientRoleApi;
+        public AdminController(HttpClientKullaniciApi httpClientKullaniciApi, HttpClientRoleApi clientRoleApi)
         {
             _clientKullaniciApi = httpClientKullaniciApi;
+            _clientRoleApi = clientRoleApi;
+
         }
 
         public IActionResult Index()
@@ -74,6 +77,49 @@ namespace IdentityServer4.Client.Controllers
                 ModelState.AddModelError("error",error);
             });
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> KullaniciRoleEkle(int kullaniciId)
+        {
+            TempData["kullaniciId"] = kullaniciId;
+            var ResponseData = await _clientRoleApi.RoleListeleApi();
+            try
+            {
+                if (!ResponseData.Errors.Any())
+                {
+                    ResponseData.Errors.ForEach(error =>
+                    {
+                        ModelState.AddModelError("error", error);
+                    });
+                    return View();
+                }
+                return View();
+                
+            }
+            catch (Exception e)
+            {
+                return View(ResponseData.Data);
+            }
+            
+        }
+        [HttpPost]
+        public async Task<IActionResult> KullaniciRoleEkle(string roleName)
+        {
+           var kullaniciId = (int)TempData["kullaniciId"];
+
+         ResponseDto<string> ResponseDto= await _clientRoleApi.KullaniciRoleEkleApi(kullaniciId, roleName);
+            var ResponseData = await _clientRoleApi.RoleListeleApi();
+            if(ResponseDto.Errors is not null)
+            {
+                ResponseDto.Errors.ForEach((error) =>
+                {
+                    ModelState.AddModelError("kullanicirolekleerror", error);
+                });
+                return View(ResponseData.Data);
+            }
+            TempData["SuccessMessage"] = "bu kullanıcıya başarılı rol eklendi";
+            return View(ResponseData.Data);
         }
 
     }

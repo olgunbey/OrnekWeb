@@ -1,4 +1,5 @@
 ﻿using IdentityServer4.Domain.Entities;
+using IdentityServer4.Repository.Dtos;
 using IdentityServer4.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -33,8 +34,9 @@ namespace IdentityServer4.Persistence.Business
 
         public async Task<IQueryable<T>> GetListAsync(Expression<Func<T, bool>> predicate = null)
         {
-           List<T> entities= await (await _readRepository.GetListAsync(predicate)).ToListAsync();
-           return entities !=null? entities.AsQueryable() : Enumerable.Empty<T>().AsQueryable();
+           var entities= await _readRepository.GetListAsync(predicate);
+            return entities!=null ? entities : Enumerable.Empty<T>().AsQueryable();
+
         }
     }
 }

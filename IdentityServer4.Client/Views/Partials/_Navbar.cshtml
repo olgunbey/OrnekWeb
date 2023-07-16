@@ -8,7 +8,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            @if(User.Identity.IsAuthenticated)
+            @if(User.Identity!.IsAuthenticated)
             {
                 <li class="nav-item active">
                     <a class="nav-link" asp-action="SignOut" asp-controller="Kullanici">Çıkış Yap</a>

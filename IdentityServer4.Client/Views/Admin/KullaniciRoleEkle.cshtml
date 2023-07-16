@@ -1,0 +1,37 @@
+﻿
+@model List<RollerDto>
+
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert-info">@TempData["SuccessMessage"]</div>
+}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h2>Role oluşturma</h2>
+        <form asp-action="KullaniciRoleEkle" asp-controller="Admin" method="post">
+            <div class="form-control">
+                <label class="control-label">Rol giriniz: </label>
+                <input name="RoleName" class="form-control" />
+                <button type="submit" class="btn btn-primary">Oluştur</button>
+            </div>
+        </form>
+        <div>
+            <a asp-action="Uyeler" asp-controller="Admin">Rol listesine geri dön</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+@foreach (var rol in Model)
+{
+    <ul>
+        <li>@rol.RoleName</li>
+    </ul>
+}
+<br />
+<div asp-validation-summary="All" class="text-danger"></div>
+

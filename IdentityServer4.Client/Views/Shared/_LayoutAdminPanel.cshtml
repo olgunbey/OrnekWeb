@@ -9,7 +9,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            @if (User.Identity.IsAuthenticated)
+            @if (User.Identity!.IsAuthenticated)
             {
                 <li class="nav-item active">
                     <a class="nav-link" asp-action="SignOut" asp-controller="Kullanici">Çıkış Yap</a>
@@ -25,13 +25,16 @@
                 <a class="nav-link" asp-action="KayitOl" asp-controller="Kullanici">Urun Ekle</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Urun Ara</a>
+                <a class="nav-link" asp-action="Uyeler" asp-controller="Admin">Urun Ekle</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Siparişler</a>
+                <a class="nav-link" href="#">Urun Ara</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" asp-action="Uyeler" asp-controller="Admin">Uyeler</a>
+                <a class="nav-link" href="#">Siparişler</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" asp-action="Uyeler" asp-controller="Admin">Uyeler</a>
             </li>
         </ul>
     </div>
