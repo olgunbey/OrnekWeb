@@ -12,6 +12,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using System.Text;
 using System.Text.Json;
+using IdentityServer4.Domain.Entities;
 
 namespace IdentityServer4.Client.HttpClients
 {
@@ -163,6 +164,24 @@ namespace IdentityServer4.Client.HttpClients
 
 
 
+        }
+
+        public async Task<ResponseDto<Kullanicilar>> KullaniciSorgula(KullaniciGirisDto kullaniciGirisDto)
+        {
+          TokenResponse tokenResponse= await ClientCredentialsRequest();
+            if(tokenResponse.IsError)
+            {
+                //hata varsa
+                return ResponseDto<Kullanicilar>.UnSuccessFul(400, "401-403 unauthorized");
+            }
+            _httpClient.SetBearerToken(tokenResponse.AccessToken!);
+         HttpResponseMessage httpResponseMessage=  await _httpClient.PostAsJsonAsync("Kullanici/KullaniciSorgula", kullaniciGirisDto);
+
+            if(!httpResponseMessage.IsSuccessStatusCode)
+            {
+                return ResponseDto<Kullanicilar>.UnSuccessFul(200, "hata");
+            }
+            return await httpResponseMessage.Content.ReadFromJsonAsync<ResponseDto<Kullanicilar>>();
         }
 
     }

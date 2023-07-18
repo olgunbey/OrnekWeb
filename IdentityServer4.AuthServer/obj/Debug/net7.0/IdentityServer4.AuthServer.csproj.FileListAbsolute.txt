@@ -89,3 +89,9 @@ C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentitySe
 C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.AuthServer\bin\Debug\net7.0\System.CodeDom.dll
 C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.AuthServer\bin\Debug\net7.0\CommonFeature.dll
 C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.AuthServer\bin\Debug\net7.0\CommonFeature.pdb
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.AuthServer\bin\Debug\net7.0\IdentityServer4.Client.deps.json
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.AuthServer\bin\Debug\net7.0\IdentityServer4.Client.runtimeconfig.json
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.AuthServer\bin\Debug\net7.0\IdentityServer4.Client.staticwebassets.runtime.json
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.AuthServer\bin\Debug\net7.0\IdentityServer4.Client.exe
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.AuthServer\bin\Debug\net7.0\IdentityServer4.Client.dll
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.AuthServer\bin\Debug\net7.0\IdentityServer4.Client.pdb

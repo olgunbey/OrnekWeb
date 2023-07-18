@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CommonFeature\CommonFeature.csproj" />
+    <ProjectReference Include="..\IdentityServer4.Client\IdentityServer4.Client.csproj" />
     <ProjectReference Include="..\IdentityServer4.Persistence\IdentityServer4.Persistence.csproj" />
     <ProjectReference Include="..\IdentityServer4.Repository\IdentityServer4.Repository.csproj" />
   </ItemGroup>

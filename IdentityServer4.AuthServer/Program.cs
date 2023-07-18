@@ -1,6 +1,7 @@
 using CommonFeature;
 using IdentityServer4.AuthServer;
 using IdentityServer4.AuthServer.IdentityServerProfile;
+using IdentityServer4.Client.HttpClients;
 using IdentityServer4.Persistence.Business;
 using IdentityServer4.Persistence.Business.UyelerBusiness;
 using IdentityServer4.Persistence.Context;
@@ -10,15 +11,16 @@ using IdentityServer4.Persistence.UyelerRepository;
 using IdentityServer4.Repository.IBusiness.UyelerIBusiness;
 using IdentityServer4.Repository.Interface;
 using IdentityServer4.Repository.Mapping;
-using IdentityServer4.Repository.UyelerIRepository;
+using IdentityServer4.Repository.IRepository.UyelerIRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpClient<HttpClientKullaniciApi>(opt => opt.BaseAddress = new Uri("https://localhost:7237/api/"));
+builder.Services.AddHttpClient<HttpClientRoleApi>(opt => opt.BaseAddress = new Uri("https://localhost:7237/api/"));
 builder.Services.AddControllersWithViews();
-
-builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer("Data Source=OLGUNBEY\\OLGUNBEYSQL;Initial Catalog=AnaProje;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"));
+builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer("Data Source=OLGUNBEY\\OLGUNBEYSQL;Initial Catalog=Ana Proje;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"));
 
 builder.Services.Scoped();
 

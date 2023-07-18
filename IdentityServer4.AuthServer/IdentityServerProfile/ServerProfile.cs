@@ -1,4 +1,5 @@
 ﻿using IdentityModel;
+using IdentityServer4.Client.HttpClients;
 using IdentityServer4.Domain.Entities;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
@@ -11,18 +12,20 @@ namespace IdentityServer4.AuthServer.IdentityServerProfile
 {
     public class ServerProfile : IResourceOwnerPasswordValidator
     {
-        private readonly UyelerIReadBusiness _uyelerIReadBusiness;
-        public ServerProfile(UyelerIReadBusiness uyelerIReadBusiness)
+        private readonly HttpClientKullaniciApi _httpClientKullaniciApi;
+        public ServerProfile(HttpClientKullaniciApi httpClientKullaniciApi)
         {
-            _uyelerIReadBusiness = uyelerIReadBusiness;
+            _httpClientKullaniciApi = httpClientKullaniciApi;
         }
 
         public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
-        Kullanicilar kullanicilar=await _uyelerIReadBusiness.GetAsync(x => x.KullaniciName == context.UserName && x.KullaniciSifre == context.Password);
-            if(kullanicilar!=null)
+            
+           var Kullanicilar=  await  _httpClientKullaniciApi.KullaniciSorgula(new Repository.Dtos.KullaniciGirisDto() { KullaniciName=context.UserName,KullaniciSifre=context.Password});
+            //Kullanicilar kullanicilar=await _uyelerIReadBusiness.GetAsync(x => x.KullaniciName == context.UserName && x.KullaniciSifre == context.Password);
+            if (Kullanicilar.Data != null)
             {
-                context.Result = new GrantValidationResult(kullanicilar.Id.ToString(), OidcConstants.AuthenticationMethods.Password);
+                context.Result = new GrantValidationResult(Kullanicilar.Data.Id.ToString(), OidcConstants.AuthenticationMethods.Password);
             }
         }
     }

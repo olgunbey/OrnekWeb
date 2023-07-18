@@ -1,0 +1,93 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = IdentityServer4.Client
+build_property.RootNamespace = IdentityServer4.Client
+build_property.ProjectDir = C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.Client\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.Client
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Admin/KullaniciRoleEkle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cS3VsbGFuaWNpUm9sZUVrbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Admin/RoleCreate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUm9sZUNyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Admin/RoleUpdate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cUm9sZVVwZGF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Admin/Uyeler.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cVXllbGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Kullanici/GirisYap.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS3VsbGFuaWNpXEdpcmlzWWFwLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Kullanici/KayitOl.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS3VsbGFuaWNpXEtheWl0T2wuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Kullanici/SignOut.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS3VsbGFuaWNpXFNpZ25PdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Kullanici/YasakliYer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcS3VsbGFuaWNpXFlhc2FrbGlZZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Partials/_Navbar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydGlhbHNcX05hdmJhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Shared/_LayoutAdminPanel.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRBZG1pblBhbmVsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Urunler/Listele.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXJ1bmxlclxMaXN0ZWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-kp21splvp0

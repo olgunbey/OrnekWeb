@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "CfFAVl8+f8uCJQijVANMJEvUOeFj4vSIPpsU/aspSxI=",
+  "Source": "IdentityServer4.API",
+  "BasePath": "_content/IdentityServer4.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

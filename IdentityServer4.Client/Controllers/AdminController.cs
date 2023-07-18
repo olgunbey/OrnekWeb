@@ -32,25 +32,28 @@ namespace IdentityServer4.Client.Controllers
         [HttpGet]
         public async Task<IActionResult> RoleCreate()
         {
-            return View();
+            var ResponseData = await _clientRoleApi.RoleListeleApi();
+            return View(ResponseData.Data);
         }
         [HttpPost]
         public async Task<IActionResult> RoleCreate(string RoleName)
         {
             RoleEkleDto roleEkleDto = new();
             roleEkleDto.RoleName = RoleName;
-          ResponseDto<NoContentDto> ResponseDto=  await _clientKullaniciApi.RoleCreate(roleEkleDto);
-
-          if(ResponseDto.Errors == null)
+            ResponseDto<NoContentDto> ResponseDto=  await _clientKullaniciApi.RoleCreate(roleEkleDto);
+            var ResponseData = await _clientRoleApi.RoleListeleApi();
+            if (ResponseDto.Errors == null)
             {
+               
+
                 TempData["SuccessMessage"] = "Başarıyla role kaydedildi";
-                return View();
+                return View(ResponseData.Data);
             }
             ResponseDto.Errors.ForEach(e =>
             {
                 ModelState.AddModelError("roleCreateError", e);
             });
-            return View();
+            return View(ResponseData.Data);
         }
         [HttpGet]
         public async Task<IActionResult> RoleUpdate(int roleID,string kullaniciId)
@@ -121,6 +124,7 @@ namespace IdentityServer4.Client.Controllers
             TempData["SuccessMessage"] = "bu kullanıcıya başarılı rol eklendi";
             return View(ResponseData.Data);
         }
+
 
     }
 }

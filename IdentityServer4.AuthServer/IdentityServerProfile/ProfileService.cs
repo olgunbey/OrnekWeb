@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Extensions;
+﻿using IdentityServer4.Client.HttpClients;
+using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Repository.Dtos;
 using IdentityServer4.Repository.IBusiness.UyelerIBusiness;
@@ -7,18 +8,23 @@ using System.Security.Claims;
 
 namespace IdentityServer4.AuthServer.IdentityServerProfile
 {
-    public class ProfileService : IProfileService
+    public class ProfileService : IProfileService //burada api ile bağlanılacak
     {
         private readonly UyelerIReadBusiness _uyelerIReadBusiness;
-        public ProfileService(UyelerIReadBusiness uyelerIReadBusiness)
+
+        private readonly HttpClientRoleApi _httpClientRoleApi;
+        public ProfileService(UyelerIReadBusiness uyelerIReadBusiness,HttpClientRoleApi httpClientRoleApi)
         {
             _uyelerIReadBusiness = uyelerIReadBusiness;
+            _httpClientRoleApi = httpClientRoleApi;
         }
         public async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
             var userClaims = context.RequestedResources.Resources.IdentityResources.SelectMany(r => r.UserClaims).ToList();//buradan erişilir
 
-            var ResponseDto =await _uyelerIReadBusiness.KullaniciRoleGetir(Convert.ToInt32(context.Subject.GetSubjectId())); //kullanıcının rolleri gelecek //db'ten çekiyor rolleri
+          var ResponseDto= await _httpClientRoleApi.KullaniciRollerGetirApi(Convert.ToInt16(context.Subject.GetSubjectId()));
+
+            //var ResponseDto =await _uyelerIReadBusiness.KullaniciRoleGetir(Convert.ToInt32(context.Subject.GetSubjectId())); //kullanıcının rolleri gelecek //db'ten çekiyor rolleri
             ResponseDto.Data.ForEach(x =>
             {
                 string? claimRole= userClaims.FirstOrDefault(x => x == ClaimTypes.Role);

@@ -36,5 +36,21 @@ namespace IdentityServer4.Client.HttpClients
           return await  _httpClient.GetFromJsonAsync<ResponseDto<string>>($"Kullanici/KullaniciRoleEkle/{kullaniciId}/{roleName}");
 
         }
+
+        public async Task<ResponseDto<List<KullaniciRoleDto>>> KullaniciRollerGetirApi(int id)
+        {
+         TokenResponse tokenResponse= await ClientCredentialsRequest();
+            if(tokenResponse.IsError)
+            {
+                //hata varsa
+                return ResponseDto<List<KullaniciRoleDto>>.UnSuccessFul(401, "401-403 unauthorized");
+            }
+            _httpClient.SetBearerToken(tokenResponse.AccessToken!);
+
+          return await _httpClient.GetFromJsonAsync<ResponseDto<List<KullaniciRoleDto>>>($"Kullanici/KullaniciRoleGetir/{id}");
+
+
+
+        }
     }
 }
