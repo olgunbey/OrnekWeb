@@ -30,7 +30,7 @@ namespace IdentityServer4.API.Controllers
             _roleIReadBusiness= roleIReadBusiness;
         }
         [HttpPost("KullaniciEkle")]
-        [Authorize("PolicyClient")]
+        [Authorize(Policy ="PolicyClient")]
         public async Task<IActionResult> KullaniciEkle(KullaniciKayitOlDto kullaniciKayitOlDto) //eski kullanıcı kayıt ol api'si alttaki güncel
         {
            Kullanicilar kullanicilar = _mapper.Map<Kullanicilar>(kullaniciKayitOlDto);
@@ -38,26 +38,26 @@ namespace IdentityServer4.API.Controllers
            return ResponseDto<NoContentDto>.ResponseStruct<NoContentDto>.Response(ResponseDto<NoContentDto>.Success(200));
         }
         [HttpPost("NewKullaniciEkle")]
-        [Authorize("PolicyClient")]
+        [Authorize(Policy ="PolicyClient")]
         public async Task<IActionResult> NewKullaniciEkle(KullaniciKayitOlDto kullaniciKayitOlDto) //kullanıcı kayıt ol
         {
             var response=  await _uyelerIWriteBusiness.NewAddAsync(kullaniciKayitOlDto);
             return ResponseDto<NoContentDto>.ResponseStruct<NoContentDto>.Response(response);
         }
         [HttpPost("KullaniciSorgula")]
-        [Authorize("PolicyClient")]
+        [Authorize(Policy = "PolicyClient")]
         public async Task<IActionResult> KullaniciSorgula(KullaniciGirisDto kullaniciGirisDto) //kullanicigiriş için.
         {
             return ResponseDto<Kullanicilar>.ResponseStruct<Kullanicilar>.Response(await _uyelerIReadBusiness.KullaniciGiris(kullaniciGirisDto));
         }
         [HttpGet("[action]/{id}")]
-        [Authorize("PolicyClient")]
+        [Authorize(Policy = "PolicyClient")]
         public async Task<IActionResult> KullaniciRoleGetir(int id)
         {
             return ResponseDto<List<KullaniciRoleDto>>.ResponseStruct<List<KullaniciRoleDto>>.Response(await _uyelerIReadBusiness.KullaniciRoleGetir(id));
         }
         [HttpGet("KullanicilarRolleriGetir")]
-        [Authorize("PolicyClient")]
+        [Authorize(Policy = "PolicyClient")]
         public async Task<IActionResult> KullanicilarRolleriGetir()
         {
            var deserialize= JsonSerializer.Deserialize<List<KullaniciRollerDto>>((await _uyelerIReadBusiness.KullanicilarRoleGetir()).Data);
@@ -65,14 +65,14 @@ namespace IdentityServer4.API.Controllers
         }
         
         [HttpPost("RoleOlustur")]
-        [Authorize("PolicyClient")]
+        [Authorize(Policy = "PolicyClient")]
         public async Task<IActionResult> RoleCreate(RoleEkleDto RoleName)
         {
             return ResponseDto<NoContentDto>.ResponseStruct<NoContentDto>.Response(await _roleIWriteBusiness.AddAsync(new Role() { RoleName = RoleName.RoleName }));
         }
 
         [HttpGet("[action]/{roleID}/{kullaniciID}/{newRoleName}")]
-        [Authorize("PolicyClient")]
+        [Authorize(Policy = "PolicyClient")]
 
         public async Task<IActionResult> RoleUpdate(int roleID,int kullaniciID,string newRoleName)
         {
@@ -80,7 +80,7 @@ namespace IdentityServer4.API.Controllers
         }
 
         [HttpGet("RoleListele")]
-        [Authorize("PolicyClient")]
+        [Authorize(Policy = "PolicyClient")]
         public async Task<IActionResult> RoleListele()
         {
             IQueryable<Role> roles= await _roleIReadBusiness.GetListAsync();
@@ -93,6 +93,7 @@ namespace IdentityServer4.API.Controllers
             return ResponseDto<List<RollerDto>>.ResponseStruct<List<RollerDto>>.Response(ResponseDto<List<RollerDto>>.Success(rollerDtos, 200));
         }
         [HttpGet("[action]/{kullaniciId}/{RoleName}")]
+        [Authorize(Policy = "PolicyClient")]
         public async Task<IActionResult> KullaniciRoleEkle(int kullaniciId,string RoleName)
         {
          var Response=  await _uyelerIReadBusiness.KullaniciRoleEkle(kullaniciId, RoleName);

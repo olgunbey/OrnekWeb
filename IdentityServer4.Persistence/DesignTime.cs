@@ -14,7 +14,7 @@ namespace IdentityServer4.Persistence
         public AppDbContext CreateDbContext(string[] args)
         {
             var dbcontextoptions = new DbContextOptionsBuilder<AppDbContext>();
-            dbcontextoptions.UseSqlServer("Data Source=OLGUNBEY\\OLGUNBEYSQL; Initial Catalog=AnaProje;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+            dbcontextoptions.UseSqlServer("Data Source=OLGUNBEY\\OLGUNBEYSQL;Initial Catalog=Ana Proje;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
             return new AppDbContext(dbcontextoptions.Options);
         }
     }

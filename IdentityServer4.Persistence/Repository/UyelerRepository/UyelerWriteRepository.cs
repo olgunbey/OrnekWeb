@@ -1,7 +1,7 @@
 ﻿using IdentityServer4.Domain.Entities;
 using IdentityServer4.Persistence.Context;
 using IdentityServer4.Persistence.Repository;
-using IdentityServer4.Repository.UyelerIRepository;
+using IdentityServer4.Repository.IRepository.UyelerIRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;

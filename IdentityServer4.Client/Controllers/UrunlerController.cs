@@ -6,16 +6,17 @@ namespace IdentityServer4.Client.Controllers
 {
     public class UrunlerController : Controller
     {
-        private readonly HttpClientApi _httpApi;
-        public UrunlerController(HttpClientApi httpApi)
+
+        private readonly HttpClientUrunlerApi _httpClientUrunlerApi;
+        public UrunlerController(HttpClientUrunlerApi httpClientUrunlerApi)
         {
-            _httpApi = httpApi;
+            _httpClientUrunlerApi = httpClientUrunlerApi;
         }
-        public async Task<IActionResult> Listele()
+        [HttpGet]
+        public async Task<IActionResult> Anasayfa()
         {
            
-         List<UrunlerModelView> urunler= await _httpApi.HomeListeleApi();
-            return View(urunler);
+            return View();
         }
     }
 }

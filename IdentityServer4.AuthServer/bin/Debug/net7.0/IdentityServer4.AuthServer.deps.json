@@ -10,6 +10,7 @@
         "dependencies": {
           "CommonFeature": "1.0.0",
           "IdentityServer4": "4.1.2",
+          "IdentityServer4.Client": "1.0.0",
           "IdentityServer4.Persistence": "1.0.0",
           "IdentityServer4.Repository": "1.0.0",
           "Microsoft.EntityFrameworkCore": "7.0.8",
@@ -77,6 +78,7 @@
           }
         }
       },
+      "bootstrap/5.3.0": {},
       "Humanizer.Core/2.14.1": {
         "runtime": {
           "lib/net6.0/Humanizer.dll": {
@@ -85,21 +87,17 @@
           }
         }
       },
-      "IdentityModel/4.4.0": {
-        "dependencies": {
-          "Newtonsoft.Json": "12.0.2",
-          "System.Text.Encodings.Web": "7.0.0"
-        },
+      "IdentityModel/6.1.0": {
         "runtime": {
-          "lib/netstandard2.0/IdentityModel.dll": {
-            "assemblyVersion": "4.4.0.0",
-            "fileVersion": "4.4.0.0"
+          "lib/net6.0/IdentityModel.dll": {
+            "assemblyVersion": "6.1.0.0",
+            "fileVersion": "6.1.0.0"
           }
         }
       },
       "IdentityServer4/4.1.2": {
         "dependencies": {
-          "IdentityModel": "4.4.0",
+          "IdentityModel": "6.1.0",
           "IdentityServer4.Storage": "4.1.2",
           "Microsoft.AspNetCore.Authentication.OpenIdConnect": "3.1.0",
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.21.0",
@@ -114,7 +112,7 @@
       },
       "IdentityServer4.Storage/4.1.2": {
         "dependencies": {
-          "IdentityModel": "4.4.0"
+          "IdentityModel": "6.1.0"
         },
         "runtime": {
           "lib/netstandard2.0/IdentityServer4.Storage.dll": {
@@ -844,6 +842,19 @@
           "CommonFeature.dll": {}
         }
       },
+      "IdentityServer4.Client/1.0.0": {
+        "dependencies": {
+          "CommonFeature": "1.0.0",
+          "IdentityModel": "6.1.0",
+          "IdentityServer4.Persistence": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "7.0.8",
+          "Microsoft.EntityFrameworkCore.SqlServer": "7.0.8",
+          "bootstrap": "5.3.0"
+        },
+        "runtime": {
+          "IdentityServer4.Client.dll": {}
+        }
+      },
       "IdentityServer4.Domain/1.0.0": {
         "runtime": {
           "IdentityServer4.Domain.dll": {}
@@ -907,6 +918,13 @@
       "path": "azure.identity/1.6.0",
       "hashPath": "azure.identity.1.6.0.nupkg.sha512"
     },
+    "bootstrap/5.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Glct0CeNsN5ETcAmV4IsIGa8VEvnWphT4Wb+IaF7/4KAMaZjxpr0eZ8Uf6H/gWKPcUB2p235/3alyhmYBbU6FQ==",
+      "path": "bootstrap/5.3.0",
+      "hashPath": "bootstrap.5.3.0.nupkg.sha512"
+    },
     "Humanizer.Core/2.14.1": {
       "type": "package",
       "serviceable": true,
@@ -914,12 +932,12 @@
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
     },
-    "IdentityModel/4.4.0": {
+    "IdentityModel/6.1.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-b18wrIx5wnZlMxAX7oVsE+nDtAJ4hajYlH0xPlaRvo4r/fz08K6pPeZvbiqS9nfNbzfIgLFmNX+FL9qR9ZR5PA==",
-      "path": "identitymodel/4.4.0",
-      "hashPath": "identitymodel.4.4.0.nupkg.sha512"
+      "sha512": "sha512-W9A6U26se5Jeo+QoczLfXW5LgBDXL0bBfnb2DWWZMivv9L52ls/85WtEGZQ8kSgOUecuBUlQZdpu02Uni8n1tg==",
+      "path": "identitymodel/6.1.0",
+      "hashPath": "identitymodel.6.1.0.nupkg.sha512"
     },
     "IdentityServer4/4.1.2": {
       "type": "package",
@@ -1538,6 +1556,11 @@
       "hashPath": "system.windows.extensions.5.0.0.nupkg.sha512"
     },
     "CommonFeature/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "IdentityServer4.Client/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

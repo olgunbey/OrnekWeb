@@ -1,5 +1,5 @@
 ﻿
-
+@model List<RollerDto>
 
 
 @if(TempData["SuccessMessage"]!=null)
@@ -22,7 +22,18 @@
         </div>
     </div>
 </div>
-<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div asp-validation-summary="All" class="text-danger"></div>
+<br />
+
+@foreach(RollerDto item in Model)
+{
+    <ul>
+        <li>@item.RoleName</li>
+    </ul>
+}
+
+
+
 
 
 

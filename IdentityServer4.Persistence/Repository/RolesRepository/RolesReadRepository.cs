@@ -1,6 +1,6 @@
 ﻿using IdentityServer4.Domain.Entities;
 using IdentityServer4.Persistence.Context;
-using IdentityServer4.Repository.RolesIRepository;
+using IdentityServer4.Repository.IRepository.RolesIRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;

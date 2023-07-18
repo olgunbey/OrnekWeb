@@ -1,22 +1,22 @@
-﻿using IdentityServer4.Models;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+﻿
+
+using IdentityServer4.Models;
 using System.Security.Claims;
 
 namespace IdentityServer4.AuthServer
 {
     public static class Config
     {
-        public static IEnumerable<Client> Clients => new List<Client>()
+        public static IEnumerable<IdentityServer4.Models.Client> Clients => new List<IdentityServer4.Models.Client>()
         {
-            new Client()
+            new IdentityServer4.Models.Client()
             {
                 ClientId="Client1",
                 ClientSecrets=new[]{new Secret("secret".Sha256())},
                 AllowedScopes={"api1.client"}, //client1'den üretilecek tokenin erişebileceği scopelar
                 AllowedGrantTypes=GrantTypes.ClientCredentials
-                
             },
-            new Client()
+            new IdentityServer4.Models.Client()
             {
                 ClientId="Client1-ResourceOwner",
                 ClientSecrets=new[]{new Secret("secrets".Sha256())},
@@ -26,8 +26,7 @@ namespace IdentityServer4.AuthServer
                 AccessTokenLifetime=DateTime.UtcNow.AddMinutes(5).Second,
                 RefreshTokenUsage=TokenUsage.ReUse,
                 RefreshTokenExpiration=TokenExpiration.Absolute,
-                AllowOfflineAccess=true,
-                
+                AllowOfflineAccess=true,     
             }
 
         };
