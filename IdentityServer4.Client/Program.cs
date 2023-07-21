@@ -17,7 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer("Data Source
 builder.Services.AddHttpClient<HttpClientKullaniciApi>(opt => opt.BaseAddress = new Uri("https://localhost:7237/api/"));
 builder.Services.AddHttpClient<ClientCredentials>(opt => opt.BaseAddress = new Uri("https://localhost:7237/api/"));
 builder.Services.AddHttpClient<HttpClientRoleApi>(opt => opt.BaseAddress = new Uri("https://localhost:7237/api/"));
-builder.Services.AddHttpClient<HttpClientUrunlerApi>(opt => opt.BaseAddress = new Uri("https://localhost:7237/api/Urunler"));
+builder.Services.AddHttpClient<HttpClientUrunlerApi>(opt => opt.BaseAddress = new Uri("https://localhost:7237/api/Urunler/"));
 
 
 builder.Services.Scoped();

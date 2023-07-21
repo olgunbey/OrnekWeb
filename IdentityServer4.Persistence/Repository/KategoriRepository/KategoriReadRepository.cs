@@ -14,17 +14,20 @@ namespace IdentityServer4.Persistence.Repository.KategoriRepository
     {
         public KategoriReadRepository(AppDbContext appDbContext) : base(appDbContext)
         {
+
         }
 
-        public Task<IQueryable<Kategoriler>> GetKategorilersAsync()
+        public Task<IQueryable<OneChildKategoriler>> GetKategorilersAsync()
         {
-            return Task.FromResult( _dbSet.Include(x => x.OneChildKategori)
-                  .ThenInclude(x => x.TwoChildKategori)
-                  .ThenInclude(x => x.ThreeChildKategori)
-                  .ThenInclude(x => x.TwoChildKategorilers)
-                  .ThenInclude(x => x.OneChildKategorilers)
-                  .ThenInclude(x => x.OneChildRelationshipCinsiyets).AsQueryable());
+           return Task.FromResult(oneChildKategorilersdbset.Include(x=>x.Kategorilers)
+                .Include(x => x.ThreeChildKategori)
+                .Include(x => x.TwoChildKategori).ThenInclude(x=>x.ThreeChildKategori).AsQueryable());
 
+        }
+
+        public Task<(IQueryable<ThreeChildKategori>,IQueryable<OneChildKategoriler>,IQueryable<TwoChildKategoriler>)> GetThreeChildKategoriesAsync()
+        {
+            return Task.FromResult((threeChildKategoris.AsQueryable(),oneChildKategorilersdbset.AsQueryable(),twoChildKategorilerdbset.AsQueryable()));
         }
     }
 }
