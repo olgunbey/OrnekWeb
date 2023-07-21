@@ -15,10 +15,16 @@ namespace IdentityServer4.Persistence.Repository
     {
         protected readonly AppDbContext _context;
         protected readonly DbSet<T> _dbSet;
+        protected readonly DbSet<OneChildKategoriler> oneChildKategorilersdbset;
+        protected readonly DbSet<ThreeChildKategori> threeChildKategoris;
+        protected readonly DbSet<TwoChildKategoriler> twoChildKategorilerdbset;
         public ReadRepository(AppDbContext appDbContext)
         {
             _context = appDbContext;
             _dbSet=_context.Set<T>();
+            twoChildKategorilerdbset = _context.Set<TwoChildKategoriler>();
+            oneChildKategorilersdbset =_context.Set<OneChildKategoriler>();
+            threeChildKategoris=_context.Set<ThreeChildKategori>();
         }
         public async Task<T> GetAsync(Expression<Func<T, bool>> predicate = null)
         {

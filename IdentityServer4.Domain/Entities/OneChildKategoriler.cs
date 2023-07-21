@@ -10,9 +10,11 @@ namespace IdentityServer4.Domain.Entities
     {
         public string? OneChildKategoriName{ get; set; }
         public ICollection<Kategoriler> Kategorilers{ get; set; }
+       
         public TwoChildKategoriler? TwoChildKategori { get; set; }
         public int? TwoChildKategoriID{ get; set; }
         public ICollection<OneChildRelationshipCinsiyet> OneChildRelationshipCinsiyets { get; set; }
+
         public ThreeChildKategori ThreeChildKategori{ get; set; }
         public int? ThreeChildKategoriID{ get; set; }
     }

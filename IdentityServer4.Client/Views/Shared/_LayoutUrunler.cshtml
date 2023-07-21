@@ -1,4 +1,4 @@
-﻿
+﻿@model List<ThreeChildKategori>
 
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -11,28 +11,12 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            @if (User.Identity!.IsAuthenticated)
+            @foreach(var onechildkategoriler in Model)
             {
-                <li class="nav-item active">
-                    <a class="nav-link" asp-action="SignOut" asp-controller="Kullanici">Çıkış Yap</a>
+                <li class="nav-item">
+                    <a class="nav-link" asp-action="KategoriGetir" asp-controller="Urunler" >@onechildkategoriler.ThreeChildKategoriName</a>
                 </li>
             }
-
-            <li class="nav-item">
-                <a class="nav-link" asp-action="KayitOl" asp-controller="Kullanici">Urun Ekle</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-action="Uyeler" asp-controller="Admin">Urun Ekle</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Urun Ara</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Siparişler</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" asp-action="Uyeler" asp-controller="Admin">Uyeler</a>
-            </li>
         </ul>
     </div>
 </nav>
