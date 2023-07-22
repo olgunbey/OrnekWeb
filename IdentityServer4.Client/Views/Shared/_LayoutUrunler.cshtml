@@ -1,5 +1,4 @@
-﻿@model List<ThreeChildKategori>
-
+﻿@model Tuple<List<ThreeChildKategori>,List<OneChildKategoriler>, List<TwoChildKategoriler>>
 
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -11,13 +10,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-            @foreach(var onechildkategoriler in Model)
-            {
-                <li class="nav-item">
-                    <a class="nav-link" asp-action="KategoriGetir" asp-controller="Urunler" >@onechildkategoriler.ThreeChildKategoriName</a>
-                </li>
-            }
         </ul>
+
+
     </div>
 </nav>
 
@@ -26,3 +21,70 @@
         @RenderBody()
     </main>
 </div>
+            
+          <script>
+    const ulnavbar=document.querySelector(".navbar-nav");
+    var threeChildKategori = @Html.Raw(Json.Serialize(Model.Item1));
+    var oneChildKategori = @Html.Raw(Json.Serialize(Model.Item2));
+    var TwoChildKategori = @Html.Raw(Json.Serialize(Model.Item3));
+    const ThreeChildEl=[];
+    const OneChildEl=[];
+
+    for(let threechild in threeChildKategori)
+    {
+        const ThreeChildElement = document.createElement("li");
+        ThreeChildElement.className="nav-item";
+
+        const ThreeChildAppendChild=document.createElement("a");
+        ThreeChildAppendChild.className="nav-link";
+
+        ThreeChildAppendChild.textContent = threeChildKategori[threechild].threeChildKategoriName;
+        ThreeChildElement.appendChild(ThreeChildAppendChild);
+        ThreeChildEl.push(ThreeChildElement);
+
+    } 
+    for(let index in ThreeChildEl)
+    {
+        ulnavbar.appendChild(ThreeChildEl[index]);
+    }
+    const navlink = document.querySelectorAll(".nav-link");
+    const aeris = document.querySelector(".nav-link");
+
+
+
+    for(let index in navlink)
+    {
+        
+        for (let oneChildindex in oneChildKategori)
+        {
+            if (oneChildKategori[oneChildindex].twoChildKategori != null) 
+            {
+                if (oneChildKategori[oneChildindex].twoChildKategori.threeChildKategori.threeChildKategoriName==navlink[index].textContent)
+                {
+                    var threechildli = document.createElement("li");
+                    threechildli.className = "subcategoryli";
+                    threechildli.style.color="red";
+                    const threechilda = document.createElement("a");
+                    threechilda.className = "subcategorya";
+                    threechilda.textContent = oneChildKategori[oneChildindex].oneChildKategoriName;
+                    threechildli.appendChild(threechilda);
+                    navlink[index].append(threechildli);
+                }                
+           }
+           else
+           {
+                if (oneChildKategori[oneChildindex].threeChildKategori.threeChildKategoriName == navlink[index].textContent) {
+                    var onechildli = document.createElement("li");
+                    onechildli.className = "subcategoryli";
+                    onechildli.style.color="red";
+                    const onechilda = document.createElement("a");
+                    onechilda.className = "subcategorya";
+                    onechilda.textContent = oneChildKategori[oneChildindex].oneChildKategoriName;
+                    onechildli.appendChild(onechilda);
+                    navlink[index].append(onechildli);
+                }
+           }
+        }
+    }
+
+          </script>
