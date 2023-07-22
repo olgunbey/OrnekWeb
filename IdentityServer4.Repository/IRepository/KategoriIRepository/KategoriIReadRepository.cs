@@ -11,6 +11,6 @@ namespace IdentityServer4.Repository.IRepository.KategoriIRepository
     public interface KategoriIReadRepository:IReadRepository<Kategoriler>
     {
          Task<IQueryable<OneChildKategoriler>> GetKategorilersAsync();
-        Task<(IQueryable<ThreeChildKategori>, IQueryable<OneChildKategoriler>, IQueryable<TwoChildKategoriler>)> GetThreeChildKategoriesAsync(); 
+        Task<Tuple<IQueryable<ThreeChildKategori>, IQueryable<OneChildKategoriler>, IQueryable<TwoChildKategoriler>>> GetThreeChildKategoriesAsync(); 
     }
 }

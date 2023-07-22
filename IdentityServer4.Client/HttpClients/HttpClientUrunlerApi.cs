@@ -21,16 +21,16 @@ namespace IdentityServer4.Client.HttpClients
             httpClient.SetBearerToken(TokenResponse.AccessToken);
           return await  httpClient.GetFromJsonAsync<ResponseDto<List<OneChildKategoriler>>>("KategoryList");
         }
-        public async Task<ResponseDto<(List<ThreeChildKategori>, List<OneChildKategoriler>, List<TwoChildKategoriler>)>> ThreeChildKategoriesList()
+        public async Task<ResponseDto<Tuple<List<ThreeChildKategori>, List<OneChildKategoriler>, List<TwoChildKategoriler>>>> ThreeChildKategoriesList()
         {
             var TokenResponse = await ClientCredentialsRequest();
             if (TokenResponse.IsError)
             {
-                return ResponseDto<(List<ThreeChildKategori>, List<OneChildKategoriler>, List<TwoChildKategoriler>)>.UnSuccessFul(40, "401-403 unauthorized-forbidden");
+                return ResponseDto<Tuple<List<ThreeChildKategori>, List<OneChildKategoriler>, List<TwoChildKategoriler>>>.UnSuccessFul(40, "401-403 unauthorized-forbidden");
             }
             httpClient.SetBearerToken(TokenResponse.AccessToken!);
             
-            return await httpClient.GetFromJsonAsync<ResponseDto<(List<ThreeChildKategori>, List<OneChildKategoriler>, List<TwoChildKategoriler>)>>("ThreeChildKategoryiesList");
-        }
+            return await httpClient.GetFromJsonAsync<ResponseDto<Tuple<List<ThreeChildKategori>, List<OneChildKategoriler>, List<TwoChildKategoriler>>>>("ThreeChildKategoryiesList");
+        }   
     }
 }

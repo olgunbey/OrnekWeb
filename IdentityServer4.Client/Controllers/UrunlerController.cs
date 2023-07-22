@@ -15,14 +15,16 @@ namespace IdentityServer4.Client.Controllers
         [HttpGet]
         public async Task<IActionResult> Anasayfa()
         {
-           //ilk başta kategorileri getir
-            return View();
+            var ResponseDto = await _httpClientUrunlerApi.ThreeChildKategoriesList();
+
+            //ilk başta kategorileri getir
+            return View(ResponseDto.Data);
         }
         [HttpGet]
         public async Task<IActionResult> KategoriGetir()
         {
-         var ResponseDto=  await _httpClientUrunlerApi.ThreeChildKategoriesList();
-            return View(ResponseDto.Data);
+
+            return View();
         }
     }
 }

@@ -11,5 +11,6 @@ namespace IdentityServer4.Domain.Entities
         public string? UrunName{ get; set; }
         public Kategoriler? Kategori { get; set; }
         public int KategoriID  { get; set; }
+
     }
 }

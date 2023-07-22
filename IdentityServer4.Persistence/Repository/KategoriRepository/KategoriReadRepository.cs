@@ -22,12 +22,11 @@ namespace IdentityServer4.Persistence.Repository.KategoriRepository
            return Task.FromResult(oneChildKategorilersdbset.Include(x=>x.Kategorilers)
                 .Include(x => x.ThreeChildKategori)
                 .Include(x => x.TwoChildKategori).ThenInclude(x=>x.ThreeChildKategori).AsQueryable());
-
         }
 
-        public Task<(IQueryable<ThreeChildKategori>,IQueryable<OneChildKategoriler>,IQueryable<TwoChildKategoriler>)> GetThreeChildKategoriesAsync()
+        public Task<Tuple<IQueryable<ThreeChildKategori>,IQueryable<OneChildKategoriler>,IQueryable<TwoChildKategoriler>>> GetThreeChildKategoriesAsync()
         {
-            return Task.FromResult((threeChildKategoris.AsQueryable(),oneChildKategorilersdbset.AsQueryable(),twoChildKategorilerdbset.AsQueryable()));
+            return Task.FromResult((threeChildKategoris.AsQueryable(),oneChildKategorilersdbset.AsQueryable(),twoChildKategorilerdbset.AsQueryable()).ToTuple());
         }
     }
 }
