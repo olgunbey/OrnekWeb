@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace IdentityServer4.Domain.Entities
@@ -10,7 +11,8 @@ namespace IdentityServer4.Domain.Entities
     {
         public string? OneChildKategoriName{ get; set; }
         public ICollection<Kategoriler> Kategorilers{ get; set; }
-       
+
+        [JsonIgnore]
         public TwoChildKategoriler? TwoChildKategori { get; set; }
         public int? TwoChildKategoriID{ get; set; }
         public ICollection<OneChildRelationshipCinsiyet> OneChildRelationshipCinsiyets { get; set; }

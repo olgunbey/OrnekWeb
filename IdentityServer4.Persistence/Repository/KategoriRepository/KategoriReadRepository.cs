@@ -17,16 +17,32 @@ namespace IdentityServer4.Persistence.Repository.KategoriRepository
 
         }
 
-        public Task<IQueryable<OneChildKategoriler>> GetKategorilersAsync()
+        public Task<IQueryable<OneChildKategoriler>> AltKategoriler(string KategoriName)
+        {
+            return Task.FromResult(oneChildKategorilersdbset.Include(x=>x.Kategorilers)
+                .ThenInclude(x=>x.Urunlers)
+                .Where(x=>x.OneChildKategoriName==KategoriName));
+        }
+
+        public Task<IQueryable<OneChildKategoriler>> GetKategorilersAsync( )
         {
            return Task.FromResult(oneChildKategorilersdbset.Include(x=>x.Kategorilers)
                 .Include(x => x.ThreeChildKategori)
-                .Include(x => x.TwoChildKategori).ThenInclude(x=>x.ThreeChildKategori).AsQueryable());
+                .Include(x => x.TwoChildKategori)
+                .ThenInclude(x=>x.ThreeChildKategori).AsQueryable());
         }
 
         public Task<Tuple<IQueryable<ThreeChildKategori>,IQueryable<OneChildKategoriler>,IQueryable<TwoChildKategoriler>>> GetThreeChildKategoriesAsync()
         {
             return Task.FromResult((threeChildKategoris.AsQueryable(),oneChildKategorilersdbset.AsQueryable(),twoChildKategorilerdbset.AsQueryable()).ToTuple());
+        }
+
+        public Task<IQueryable<TwoChildKategoriler>> UstKategoriler(string kategoriName)
+        {
+            return Task.FromResult(twoChildKategorilerdbset.Include(x => x.OneChildKategorilers)
+                .ThenInclude(x => x.Kategorilers)
+                .ThenInclude(x => x.Urunlers)
+                .Where(x => x.TwoChildKategoriName == kategoriName));
         }
     }
 }
