@@ -11,6 +11,6 @@ namespace IdentityServer4.Repository.IBusiness.UrunlerIBusiness
 {
     public interface UrunlerIReadBusiness:IBusinesRead<Urunler>
     {
-        Task<ResponseDto<List<Urunler>>> GetCategoryUrunler(int categoryId);
+        Task<ResponseDto<List<UrunDto>>> GetCategoryUrunler(int categoryId);
     }
 }

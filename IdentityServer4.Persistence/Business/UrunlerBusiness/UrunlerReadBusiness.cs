@@ -22,14 +22,19 @@ namespace IdentityServer4.Persistence.Business.UrunlerBusiness
             _urunlerIReadRepository = urunlerIReadRepository;
         }
 
-        public async Task<ResponseDto<List<Urunler>>> GetCategoryUrunler(int categoryId)
+        public async Task<ResponseDto<List<UrunDto>>> GetCategoryUrunler(int categoryId)
         {
          var Response=await(await  _urunlerIReadRepository.GetIdCategory(categoryId)).ToListAsync();
          if(Response.Count == 0)
             {
                 throw new EmptyException("bu kategori boştur");
             }
-            return ResponseDto<List<Urunler>>.Success(Response, 200);
+          var ResponseDto=  Response.Select(x => new UrunDto()
+            {
+                UrunID=x.Id,
+                UrunName=x.UrunName
+            }).ToList();
+            return ResponseDto<List<UrunDto>>.Success(ResponseDto, 200);
         }
     }
 }

@@ -2,17 +2,21 @@
 using IdentityServer4.Persistence.Business;
 using IdentityServer4.Persistence.Business.KategoriBusiness;
 using IdentityServer4.Persistence.Business.RoleBusiness;
+using IdentityServer4.Persistence.Business.UrunlerBusiness;
 using IdentityServer4.Persistence.Business.UyelerBusiness;
 using IdentityServer4.Persistence.Repository;
 using IdentityServer4.Persistence.Repository.KategoriRepository;
 using IdentityServer4.Persistence.Repository.RolesRepository;
+using IdentityServer4.Persistence.Repository.UrunlerRepository;
 using IdentityServer4.Persistence.Repository.UyelerRepository;
 using IdentityServer4.Persistence.UnitOfWorks;
 using IdentityServer4.Persistence.UyelerRepository;
 using IdentityServer4.Repository.IBusiness.KategoriIBusiness;
 using IdentityServer4.Repository.IBusiness.RoleIBusiness;
+using IdentityServer4.Repository.IBusiness.UrunlerIBusiness;
 using IdentityServer4.Repository.IBusiness.UyelerIBusiness;
 using IdentityServer4.Repository.Interface;
+using IdentityServer4.Repository.IRepository.IUrunlerRepository;
 using IdentityServer4.Repository.IRepository.KategoriIRepository;
 using IdentityServer4.Repository.IRepository.RolesIRepository;
 using IdentityServer4.Repository.IRepository.UyelerIRepository;
@@ -56,6 +60,12 @@ namespace CommonFeature
 
             services.AddScoped<KategoriIReadRepository, KategoriReadRepository>();
             services.AddScoped<KategoriIWriteRepository, KategoriWriteRepository>();
+
+            services.AddScoped<UrunlerIReadBusiness, UrunlerReadBusiness>();
+            services.AddScoped<UrunlerIWriteBusiness, UrunlerWriteBusiness>();
+
+            services.AddScoped<UrunlerIReadRepository,UrunlerReadRepository>();
+            services.AddScoped<UrunlerIWriteRepository,UrunlerWriteRepository>();
 
 
             services.AddAutoMapper(typeof(MappingProfile));

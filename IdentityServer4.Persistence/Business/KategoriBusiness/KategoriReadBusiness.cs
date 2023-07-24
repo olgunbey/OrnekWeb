@@ -20,6 +20,12 @@ namespace IdentityServer4.Persistence.Business.KategoriBusiness
             _kategoriIReadRepository = kategoriIReadRepository;
         }
 
+        public async Task<ResponseDto<List<OneChildKategoriler>>> AltKategorilerList(string kategoriName)
+        {
+         var kategorilers=await _kategoriIReadRepository.AltKategoriler(kategoriName);
+            return ResponseDto<List<OneChildKategoriler>>.Success(await kategorilers.ToListAsync(),200);
+        }
+
         public async Task<ResponseDto<List<OneChildKategoriler>>> KategoryList()
         {
             var Kategorilers= await (await _kategoriIReadRepository.GetKategorilersAsync()).ToListAsync();
@@ -36,6 +42,12 @@ namespace IdentityServer4.Persistence.Business.KategoriBusiness
             var x= (newTuple1, newTuple2, newTuple3).ToTuple();
             return ResponseDto<Tuple<List<ThreeChildKategori>, List<OneChildKategoriler>, List<TwoChildKategoriler>>>.Success(x, 200);
             
+        }
+
+        public async Task<ResponseDto<List<TwoChildKategoriler>>> UstKategorilerList(string kategoriName)
+        {
+           ;
+            return ResponseDto<List<TwoChildKategoriler>>.Success(await (await _kategoriIReadRepository.UstKategoriler(kategoriName)).ToListAsync(), 200);
         }
     }
 }

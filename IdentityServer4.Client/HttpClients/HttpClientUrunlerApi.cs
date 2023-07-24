@@ -32,5 +32,31 @@ namespace IdentityServer4.Client.HttpClients
             
             return await httpClient.GetFromJsonAsync<ResponseDto<Tuple<List<ThreeChildKategori>, List<OneChildKategoriler>, List<TwoChildKategoriler>>>>("ThreeChildKategoryiesList");
         }   
+
+        public async Task<ResponseDto<List<TwoChildKategoriler>>> UstKategoriler(string KategoriName)
+        {
+            var TokenResponse = await ClientCredentialsRequest();
+            if(TokenResponse.IsError)
+            {
+                return ResponseDto<List<TwoChildKategoriler>>.UnSuccessFul(400, "401-403 unauthorized");
+            }
+            httpClient.SetBearerToken(TokenResponse.AccessToken!);
+
+            return await httpClient.GetFromJsonAsync<ResponseDto<List<TwoChildKategoriler>>>($"UstKategoriUrunlerGetir/{KategoriName}");
+        }
+
+
+        public async Task<ResponseDto<List<OneChildKategoriler>>> AltKategoriler(string KategoriName)
+        {
+            var TokenResponse = await ClientCredentialsRequest();
+            if(TokenResponse.IsError)
+            {
+                return ResponseDto<List<OneChildKategoriler>>.UnSuccessFul(400, "401-403 unauthorized");
+            }
+            httpClient.SetBearerToken(TokenResponse.AccessToken!);
+
+            return await httpClient.GetFromJsonAsync<ResponseDto<List<OneChildKategoriler>>>($"AltKategoriUrunlerGetir/{KategoriName}");
+        }
     }
+    
 }

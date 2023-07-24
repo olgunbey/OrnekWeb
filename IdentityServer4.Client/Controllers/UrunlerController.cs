@@ -21,10 +21,17 @@ namespace IdentityServer4.Client.Controllers
             return View(ResponseDto.Data);
         }
         [HttpGet]
-        public async Task<IActionResult> KategoriGetir()
+        public async Task<IActionResult> AltKategori(string kategories)
         {
+         var ResponseDTo= await _httpClientUrunlerApi.AltKategoriler(kategories);
+            return View(ResponseDTo.Data);
+        }
+        [HttpGet]
+        public async Task<IActionResult> UstKategori(string kategori)
+        {
+          var ResponseDto= await _httpClientUrunlerApi.UstKategoriler(kategori);
 
-            return View();
+            return View(ResponseDto.Data);
         }
     }
 }

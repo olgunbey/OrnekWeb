@@ -34,11 +34,24 @@ namespace IdentityServer4.API.Controllers
                 ResponseStruct<Tuple<List<ThreeChildKategori>, List<OneChildKategoriler>, List<TwoChildKategoriler>>>.
                 Response(await _kategoriIReadBusiness.ThreeChildKategoriList());
         }
-        [HttpGet("UrunEkle")]
+        [HttpGet("[action]/{KategoriID}")]
         [Authorize(Policy = "PolicyClient")]
         public async Task<IActionResult> CategoryIdUrunler(int KategoriID)
         {
-            return ResponseDto<List<Urunler>>.ResponseStruct<List<Urunler>>.Response(await _urunlerIReadBusiness.GetCategoryUrunler(KategoriID));
+            return ResponseDto<List<UrunDto>>.ResponseStruct<List<UrunDto>>.Response(await _urunlerIReadBusiness.GetCategoryUrunler(KategoriID));
+        }
+        [HttpGet("[action]/{kategoriName}")]
+        [Authorize(Policy = "PolicyClient")]
+        public async Task<IActionResult> AltKategoriUrunlerGetir(string kategoriName)
+        {
+            return ResponseDto<List<OneChildKategoriler>>.ResponseStruct<List<OneChildKategoriler>>.Response(await _kategoriIReadBusiness.AltKategorilerList(kategoriName));
+        }
+        [HttpGet("[action]/{kategoriName}")]
+        [Authorize(Policy = "PolicyClient")]
+
+        public async Task<IActionResult> UstKategoriUrunlerGetir(string kategoriName)
+        {
+            return ResponseDto<List<TwoChildKategoriler>>.ResponseStruct<List<TwoChildKategoriler>>.Response(await _kategoriIReadBusiness.UstKategorilerList(kategoriName));
         }
     }
 }
