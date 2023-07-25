@@ -34,7 +34,7 @@ namespace IdentityServer4.Persistence.Repository.KategoriRepository
 
         public Task<Tuple<IQueryable<ThreeChildKategori>,IQueryable<OneChildKategoriler>,IQueryable<TwoChildKategoriler>>> GetThreeChildKategoriesAsync()
         {
-            return Task.FromResult((threeChildKategoris.AsQueryable(),oneChildKategorilersdbset.AsQueryable(),twoChildKategorilerdbset.AsQueryable()).ToTuple());
+            return Task.FromResult((threeChildKategoris.AsQueryable(),oneChildKategorilersdbset.Include(x=>x.TwoChildKategori).Include(x=>x.ThreeChildKategori).Include(x=>x.Kategorilers).AsQueryable(),twoChildKategorilerdbset.AsQueryable()).ToTuple());
         }
 
         public Task<IQueryable<TwoChildKategoriler>> UstKategoriler(string kategoriName)

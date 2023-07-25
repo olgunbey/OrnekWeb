@@ -21,6 +21,8 @@ builder.Services.AddHttpClient<HttpClientKullaniciApi>(opt => opt.BaseAddress = 
 builder.Services.AddHttpClient<HttpClientRoleApi>(opt => opt.BaseAddress = new Uri("https://localhost:7237/api/"));
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer("Data Source=OLGUNBEY\\OLGUNBEYSQL;Initial Catalog=Ana Proje;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"));
+builder.Services.AddCors(opt => opt.AddPolicy("myclients", builder => builder.WithOrigins("http://localhost:5230", "https://localhost:7210").AllowAnyMethod().AllowAnyHeader()));
+
 
 builder.Services.Scoped();
 
@@ -41,6 +43,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseCors("myclients");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

@@ -1,3 +1,14 @@
-﻿<p>Alt kategori
+﻿@{
+    Layout = "~/Views/Shared/_LayoutUrunler.cshtml";
+}
 
-</p>
+@model List<AltKategoriUrunlerDto>
+
+
+    @foreach(AltKategoriUrunlerDto item in Model){
+        @foreach(var urunler in item.UrunDtos)
+    {
+        <p>@urunler.UrunName @urunler.UrunID</p>
+        
+    }
+}

@@ -30,8 +30,8 @@ namespace IdentityServer4.API.Controllers
         [Authorize(Policy = "PolicyClient")]
         public async Task<IActionResult> ThreeChildKategoryiesList()
         {
-            return ResponseDto<Tuple<List<ThreeChildKategori>, List<OneChildKategoriler>, List<TwoChildKategoriler>>>.
-                ResponseStruct<Tuple<List<ThreeChildKategori>, List<OneChildKategoriler>, List<TwoChildKategoriler>>>.
+            return ResponseDto<RootKategoriDto>.
+                ResponseStruct<RootKategoriDto>.
                 Response(await _kategoriIReadBusiness.ThreeChildKategoriList());
         }
         [HttpGet("[action]/{KategoriID}")]
@@ -44,14 +44,16 @@ namespace IdentityServer4.API.Controllers
         [Authorize(Policy = "PolicyClient")]
         public async Task<IActionResult> AltKategoriUrunlerGetir(string kategoriName)
         {
-            return ResponseDto<List<OneChildKategoriler>>.ResponseStruct<List<OneChildKategoriler>>.Response(await _kategoriIReadBusiness.AltKategorilerList(kategoriName));
+            string katgori = Uri.UnescapeDataString(kategoriName);
+            return ResponseDto<List<AltKategoriUrunlerDto>>.ResponseStruct<List<AltKategoriUrunlerDto>>.Response(await _kategoriIReadBusiness.AltKategorilerList(katgori));
         }
         [HttpGet("[action]/{kategoriName}")]
         [Authorize(Policy = "PolicyClient")]
 
         public async Task<IActionResult> UstKategoriUrunlerGetir(string kategoriName)
         {
-            return ResponseDto<List<TwoChildKategoriler>>.ResponseStruct<List<TwoChildKategoriler>>.Response(await _kategoriIReadBusiness.UstKategorilerList(kategoriName));
+            string katgori=  Uri.UnescapeDataString(kategoriName);
+            return ResponseDto<List<UstKategoriUrunlerDto>>.ResponseStruct<List<UstKategoriUrunlerDto>>.Response(await _kategoriIReadBusiness.UstKategorilerList(katgori));
         }
     }
 }

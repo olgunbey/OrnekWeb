@@ -9,11 +9,9 @@ namespace IdentityServer4.Domain.Entities
 {
     public class OneChildKategoriler:Baseclass
     {
-        public string? OneChildKategoriName{ get; set; }
+        public string OneChildKategoriName{ get; set; }
         public ICollection<Kategoriler> Kategorilers{ get; set; }
-
-        [JsonIgnore]
-        public TwoChildKategoriler? TwoChildKategori { get; set; }
+        public TwoChildKategoriler TwoChildKategori { get; set; }
         public int? TwoChildKategoriID{ get; set; }
         public ICollection<OneChildRelationshipCinsiyet> OneChildRelationshipCinsiyets { get; set; }
 
