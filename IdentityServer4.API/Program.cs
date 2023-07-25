@@ -13,6 +13,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(opt => opt.AddPolicy("myclients", builder => builder.WithOrigins("http://localhost:5230", "https://localhost:7210").AllowAnyMethod().AllowAnyHeader()));
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer("Data Source=OLGUNBEY\\OLGUNBEYSQL;Initial Catalog=Ana Proje;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"));
 
 
@@ -48,7 +49,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("myclients");
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

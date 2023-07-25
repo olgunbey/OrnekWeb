@@ -1,5 +1,8 @@
-﻿@model Tuple<List<ThreeChildKategori>,List<OneChildKategoriler>, List<TwoChildKategoriler>>
+﻿
 
+<script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+        crossorigin="anonymous"></script>
 <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 <link rel="stylesheet" href="~/IdentityServer4.Client.styles.css" asp-append-version="true" />
@@ -13,7 +16,6 @@
         <ul class="navbar-nav">
         </ul>
 
-
     </div>
 </nav>
 
@@ -25,9 +27,138 @@
             
           <script>
     const ul=document.querySelector(".navbar-nav");
-    var threeChildKategori = @Html.Raw(Json.Serialize(Model.Item1));
-    var oneChildKategori = @Html.Raw(Json.Serialize(Model.Item2));
-    var TwoChildKategori = @Html.Raw(Json.Serialize(Model.Item3));
+
+
+    function makeProtectedApiCall(accessToken) {
+        $.ajax({
+            type: 'GET',
+            url: 'https://localhost:7237/api/Urunler/ThreeChildKategoryiesList',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+            },
+            success: function (data) {
+              var  oneChildKategori = data.data.oneChildKategorilerDtos;
+              var  threeChildKategori = data.data.threeChildKategoriDtos;
+              var  TwoChildKategori = data.data.twoChildKategorilerDtos;
+
+                for (let category of threeChildKategori) {
+                    var createli = document.createElement("li");
+                    createli.className = "categoryli";
+                    var createa = document.createElement("a");
+                    createa.className = "categorya";
+                    createa.className = "nav-link";
+                    createa.textContent = category.threeChildKategoriName;
+                    createli.appendChild(createa);
+                    ul.appendChild(createli);
+
+
+
+                    for (twoChildCategories of TwoChildKategori) {
+                        if (twoChildCategories.threeChildID == category.id) {
+                            var createsubli = document.createElement("li");
+                            createsubli.className = "categoryli";
+                            var createsuba = document.createElement("a");
+                            createsuba.textContent = twoChildCategories.twoChildKategoriName;
+                            createsuba.style.color = "red";
+                            createsuba.href = `/Urunler/Ustkategori?kategori=${twoChildCategories.twoChildKategoriName}`
+                            createsuba.className = "categorya";
+                            createsuba.className = "nav-link";
+                            createsubli.appendChild(createsuba);
+                            createli.appendChild(createsubli);
+
+
+                            for (oneChildCategories of oneChildKategori) {
+                                if (oneChildCategories.twoChildKategorilerDto != null) {
+                                    if (twoChildCategories.id == oneChildCategories.twoChildKategoriID) {
+                                        var createsubsubli = document.createElement("li");
+                                        createsubsubli.className = "categoryli";
+                                        var createsubsuba = document.createElement("a");
+                                        createsubsuba.style.color = "orange";
+                                        createsubsuba.textContent = oneChildCategories.oneChildKategoriName;
+                                        createsubsuba.href = `/Urunler/AltKategori?kategories=${oneChildCategories.oneChildKategoriName}`;
+                                        createsubsuba.className = "categorya";
+                                        createsubsuba.className = "nav-link";
+                                        createsubsubli.appendChild(createsubsuba);
+                                        createsubli.appendChild(createsubsubli);
+                                    }
+                                }
+                                if (oneChildCategories.threeChildKategoriDto != null) {
+                                    if (oneChildCategories.threeChildKategoriID == category.id) {
+                                        var anasubli = document.createElement("li");
+                                        anasubli.className = "categoryli";
+                                        var anasubba = document.createElement("a");
+                                        anasubba.style.color = "orange";
+                                        anasubba.textContent = oneChildCategories.oneChildKategoriName;
+                                        anasubba.href = `/Urunler/AltKategori?kategories=${oneChildCategories.oneChildKategoriName}`;
+                                        anasubba.className = "categorya";
+                                        anasubba.className = "nav-link";
+                                        anasubli.appendChild(anasubba);
+                                        createli.appendChild(anasubli);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    for (oneChildCategories of oneChildKategori) {
+                        if (oneChildCategories.twoChildKategorilerDto != null) {
+                            if (twoChildCategories.id == oneChildCategories.twoChildKategoriID) {
+                                var createsubsubli = document.createElement("li");
+                                createsubsubli.className = "categoryli";
+                                var createsubsuba = document.createElement("a");
+                                createsubsuba.style.color = "orange";
+                                createsubsuba.textContent = oneChildCategories.oneChildKategoriName;
+                                createsubsuba.href = `/Urunler/AltKategori?kategories=${oneChildCategories.oneChildKategoriName}`;
+                                createsubsuba.className = "categorya";
+                                createsubsuba.className = "nav-link";
+                                createsubsubli.appendChild(createsubsuba);
+                                createsubli.appendChild(createsubsubli);
+                            }
+                        }
+                        if (oneChildCategories.threeChildKategoriDto != null) {
+                            if (oneChildCategories.threeChildKategoriID == category.id) {
+                                var anasubli = document.createElement("li");
+                                anasubli.className = "categoryli";
+                                var anasubba = document.createElement("a");
+                                anasubba.style.color = "orange";
+                                anasubba.textContent = oneChildCategories.oneChildKategoriName;
+                                anasubba.href = `/Urunler/AltKategori?kategories=${oneChildCategories.oneChildKategoriName}`;
+                                anasubba.className = "categorya";
+                                anasubba.className = "nav-link";
+                                anasubli.appendChild(anasubba);
+                                createli.appendChild(anasubli);
+                            }
+                        }
+                    }
+                }
+
+            },
+            error: function (error) {
+                console.error('Error:', error);
+            },
+        });
+    }
+   
+    function getAccessToken()
+    {
+        return $.ajax({
+            type: 'POST',
+            url: 'https://localhost:7291/connect/token',
+            data: {
+                grant_type: 'client_credentials',
+                client_id: 'Client1',
+                client_secret: 'secret'
+            },
+        });
+    }
+
+
+    getAccessToken().done(function (accessTokenResponse) {
+        var accessToken = accessTokenResponse.access_token;
+
+        // Make the AJAX GET request to the protected API with the access token
+        makeProtectedApiCall(accessToken);
+    });
+
 
     for(let category of threeChildKategori)
     {
@@ -39,17 +170,17 @@
         createa.textContent = category.threeChildKategoriName;
         createli.appendChild(createa);
         ul.appendChild(createli);       
-
+         
 
 
         for(twoChildCategories of TwoChildKategori)
         {
-            if(twoChildCategories.threeChildKategoriID==category.id)
+            if (twoChildCategories.threeChildID == category.id) 
             {
                 var createsubli = document.createElement("li");
                 createsubli.className = "categoryli";
                 var createsuba = document.createElement("a");
-                createsuba.textContent=twoChildCategories.twoChildKategoriName;
+                createsuba.textContent = twoChildCategories.twoChildKategoriName;
                 createsuba.style.color="red";
                 createsuba.href = `/Urunler/Ustkategori?kategori=${twoChildCategories.twoChildKategoriName}`
                 createsuba.className = "categorya";
@@ -60,9 +191,9 @@
 
                 for(oneChildCategories of oneChildKategori)
                 {
-                    if(oneChildCategories.twoChildKategori!=null)
+                    if (oneChildCategories.twoChildKategorilerDto != null)
                     {
-                        if(twoChildCategories.id==oneChildCategories.twoChildKategoriID)
+                        if (twoChildCategories.id == oneChildCategories.twoChildKategoriID)
                         {
                             var createsubsubli = document.createElement("li");
                             createsubsubli.className = "categoryli";
@@ -76,7 +207,7 @@
                             createsubli.appendChild(createsubsubli);
                         }
                     }
-                    if(oneChildCategories.threeChildKategori!=null)
+                    if (oneChildCategories.threeChildKategoriDto != null) 
                     {
                         if (oneChildCategories.threeChildKategoriID == category.id)
                         {
@@ -95,37 +226,32 @@
                 }
             }
         }
-        for (oneChildCategories of oneChildKategori) 
-        {
-            if (oneChildCategories.twoChildKategori != null) 
-            {
-                if (twoChildCategories.id == oneChildCategories.twoChildKategoriID)
-                {
+        for (oneChildCategories of oneChildKategori) {
+            if (oneChildCategories.twoChildKategorilerDto != null) {
+                if (twoChildCategories.id == oneChildCategories.twoChildKategoriID) {
                     var createsubsubli = document.createElement("li");
                     createsubsubli.className = "categoryli";
                     var createsubsuba = document.createElement("a");
-                    createsubsuba.style.color="orange";
+                    createsubsuba.style.color = "orange";
                     createsubsuba.textContent = oneChildCategories.oneChildKategoriName;
-                    createsubsuba.href = `/Urunler/AltKategori?kategories=${oneChildCategories.oneChildKategoriName}`
+                    createsubsuba.href = `/Urunler/AltKategori?kategories=${oneChildCategories.oneChildKategoriName}`;
                     createsubsuba.className = "categorya";
                     createsubsuba.className = "nav-link";
                     createsubsubli.appendChild(createsubsuba);
                     createsubli.appendChild(createsubsubli);
                 }
             }
-            if (oneChildCategories.threeChildKategori != null)
-            {
-                if (oneChildCategories.threeChildKategoriID == category.id) 
-                {
+            if (oneChildCategories.threeChildKategoriDto != null) {
+                if (oneChildCategories.threeChildKategoriID == category.id) {
                     var anasubli = document.createElement("li");
                     anasubli.className = "categoryli";
-                    var anasuba = document.createElement("a");
-                    anasuba.style.color="orange";
-                    anasuba.textContent = oneChildCategories.oneChildKategoriName;
-                    anasuba.href = `/Urunler/Altkategori?kategories=${oneChildCategories.oneChildKategoriName}`;
-                    anasuba.className = "categorya";
-                    anasuba.className = "nav-link";
-                    anasubli.appendChild(anasuba);
+                    var anasubba = document.createElement("a");
+                    anasubba.style.color = "orange";
+                    anasubba.textContent = oneChildCategories.oneChildKategoriName;
+                    anasubba.href = `/Urunler/AltKategori?kategories=${oneChildCategories.oneChildKategoriName}`;
+                    anasubba.className = "categorya";
+                    anasubba.className = "nav-link";
+                    anasubli.appendChild(anasubba);
                     createli.appendChild(anasubli);
                 }
             }

@@ -12,8 +12,8 @@ namespace IdentityServer4.Repository.IBusiness.KategoriIBusiness
     public interface KategoriIReadBusiness:IBusinesRead<Kategoriler>
     {
         Task<ResponseDto<List<OneChildKategoriler>>> KategoryList();
-        Task<ResponseDto<List<OneChildKategoriler>>> AltKategorilerList(string kategoriName);
-        Task<ResponseDto<List<TwoChildKategoriler>>> UstKategorilerList(string kategoriName);
-        Task<ResponseDto<Tuple<List<ThreeChildKategori>, List<OneChildKategoriler>, List<TwoChildKategoriler>>>> ThreeChildKategoriList();
+        Task<ResponseDto<List<AltKategoriUrunlerDto>>> AltKategorilerList(string kategoriName);
+        Task<ResponseDto<List<UstKategoriUrunlerDto>>> UstKategorilerList(string kategoriName);
+        Task<ResponseDto<RootKategoriDto>> ThreeChildKategoriList();
     }
 }

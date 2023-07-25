@@ -21,41 +21,41 @@ namespace IdentityServer4.Client.HttpClients
             httpClient.SetBearerToken(TokenResponse.AccessToken);
           return await  httpClient.GetFromJsonAsync<ResponseDto<List<OneChildKategoriler>>>("KategoryList");
         }
-        public async Task<ResponseDto<Tuple<List<ThreeChildKategori>, List<OneChildKategoriler>, List<TwoChildKategoriler>>>> ThreeChildKategoriesList()
+        public async Task<ResponseDto<RootKategoriDto>> ThreeChildKategoriesList()
         {
             var TokenResponse = await ClientCredentialsRequest();
             if (TokenResponse.IsError)
             {
-                return ResponseDto<Tuple<List<ThreeChildKategori>, List<OneChildKategoriler>, List<TwoChildKategoriler>>>.UnSuccessFul(40, "401-403 unauthorized-forbidden");
+                return ResponseDto<RootKategoriDto>.UnSuccessFul(40, "401-403 unauthorized-forbidden");
             }
             httpClient.SetBearerToken(TokenResponse.AccessToken!);
             
-            return await httpClient.GetFromJsonAsync<ResponseDto<Tuple<List<ThreeChildKategori>, List<OneChildKategoriler>, List<TwoChildKategoriler>>>>("ThreeChildKategoryiesList");
+            return await httpClient.GetFromJsonAsync<ResponseDto<RootKategoriDto>>("ThreeChildKategoryiesList");
         }   
 
-        public async Task<ResponseDto<List<TwoChildKategoriler>>> UstKategoriler(string KategoriName)
+        public async Task<ResponseDto<List<UstKategoriUrunlerDto>>> UstKategoriler(string KategoriName)
         {
             var TokenResponse = await ClientCredentialsRequest();
             if(TokenResponse.IsError)
             {
-                return ResponseDto<List<TwoChildKategoriler>>.UnSuccessFul(400, "401-403 unauthorized");
+                return ResponseDto<List<UstKategoriUrunlerDto>>.UnSuccessFul(400, "401-403 unauthorized");
             }
             httpClient.SetBearerToken(TokenResponse.AccessToken!);
 
-            return await httpClient.GetFromJsonAsync<ResponseDto<List<TwoChildKategoriler>>>($"UstKategoriUrunlerGetir/{KategoriName}");
+            return await httpClient.GetFromJsonAsync<ResponseDto<List<UstKategoriUrunlerDto>>>($"UstKategoriUrunlerGetir/{KategoriName}");
         }
 
 
-        public async Task<ResponseDto<List<OneChildKategoriler>>> AltKategoriler(string KategoriName)
+        public async Task<ResponseDto<List<AltKategoriUrunlerDto>>> AltKategoriler(string KategoriName)
         {
             var TokenResponse = await ClientCredentialsRequest();
             if(TokenResponse.IsError)
             {
-                return ResponseDto<List<OneChildKategoriler>>.UnSuccessFul(400, "401-403 unauthorized");
+                return ResponseDto<List<AltKategoriUrunlerDto>>.UnSuccessFul(400, "401-403 unauthorized");
             }
             httpClient.SetBearerToken(TokenResponse.AccessToken!);
 
-            return await httpClient.GetFromJsonAsync<ResponseDto<List<OneChildKategoriler>>>($"AltKategoriUrunlerGetir/{KategoriName}");
+            return await httpClient.GetFromJsonAsync<ResponseDto<List<AltKategoriUrunlerDto>>>($"AltKategoriUrunlerGetir/{KategoriName}");
         }
     }
     

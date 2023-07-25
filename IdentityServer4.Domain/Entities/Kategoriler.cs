@@ -9,7 +9,7 @@ namespace IdentityServer4.Domain.Entities
 {
     public class Kategoriler:Baseclass
     {
-        public string? KategoriName{ get; set; }
+        public string KategoriName{ get; set; }
         [JsonIgnore]
         public OneChildKategoriler? OneChildKategori{ get; set; }
 

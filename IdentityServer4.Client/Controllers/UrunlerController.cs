@@ -15,10 +15,10 @@ namespace IdentityServer4.Client.Controllers
         [HttpGet]
         public async Task<IActionResult> Anasayfa()
         {
+            
             var ResponseDto = await _httpClientUrunlerApi.ThreeChildKategoriesList();
-
-            //ilk başta kategorileri getir
-            return View(ResponseDto.Data);
+            ViewData["Kategoriler"] = ResponseDto.Data;
+            return View();
         }
         [HttpGet]
         public async Task<IActionResult> AltKategori(string kategories)
@@ -30,7 +30,6 @@ namespace IdentityServer4.Client.Controllers
         public async Task<IActionResult> UstKategori(string kategori)
         {
           var ResponseDto= await _httpClientUrunlerApi.UstKategoriler(kategori);
-
             return View(ResponseDto.Data);
         }
     }
