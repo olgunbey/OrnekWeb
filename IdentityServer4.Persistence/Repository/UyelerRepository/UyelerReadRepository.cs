@@ -1,5 +1,4 @@
 ﻿using IdentityServer4.Domain.Entities;
-using IdentityServer4.Persistence.Context;
 using IdentityServer4.Persistence.Repository;
 using IdentityServer4.Repository.CustomExceptions;
 using IdentityServer4.Repository.Dtos;
@@ -12,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IdentityServer4.Persistence.Context;
 
 namespace IdentityServer4.Persistence.UyelerRepository
 {

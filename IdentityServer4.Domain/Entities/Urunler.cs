@@ -13,6 +13,10 @@ namespace IdentityServer4.Domain.Entities
         [JsonIgnore]
         public Kategoriler? Kategori { get; set; }
         public int KategoriID  { get; set; }
+        public ProductDetail ProductDetail { get; set; }
+        public Markalar Markalar { get; set; }
+        public int MarkalarID { get; set; }
+        public ICollection<Stock>  Stocks{ get; set; }
 
     }
 }

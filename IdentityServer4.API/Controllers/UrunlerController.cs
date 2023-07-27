@@ -55,5 +55,10 @@ namespace IdentityServer4.API.Controllers
             string katgori=  Uri.UnescapeDataString(kategoriName);
             return ResponseDto<List<UstKategoriUrunlerDto>>.ResponseStruct<List<UstKategoriUrunlerDto>>.Response(await _kategoriIReadBusiness.UstKategorilerList(katgori));
         }
+
+        public async Task<IActionResult> UrunlerListele(string kategoriName) 
+        {
+            return Ok();
+        }
     }
 }

@@ -4,7 +4,6 @@ using IdentityServer4.AuthServer.IdentityServerProfile;
 using IdentityServer4.Client.HttpClients;
 using IdentityServer4.Persistence.Business;
 using IdentityServer4.Persistence.Business.UyelerBusiness;
-using IdentityServer4.Persistence.Context;
 using IdentityServer4.Persistence.Repository;
 using IdentityServer4.Persistence.UnitOfWorks;
 using IdentityServer4.Persistence.UyelerRepository;
@@ -13,6 +12,7 @@ using IdentityServer4.Repository.Interface;
 using IdentityServer4.Repository.Mapping;
 using IdentityServer4.Repository.IRepository.UyelerIRepository;
 using Microsoft.EntityFrameworkCore;
+using IdentityServer4.Persistence.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 

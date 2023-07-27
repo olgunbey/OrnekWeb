@@ -39,6 +39,23 @@ namespace IdentityServer4.Persistence.Migrations
                     b.ToTable("Cinsiyets");
                 });
 
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.Color", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("RenkIsim")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Color");
+                });
+
             modelBuilder.Entity("IdentityServer4.Domain.Entities.Kategoriler", b =>
                 {
                     b.Property<int>("Id")
@@ -48,6 +65,7 @@ namespace IdentityServer4.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("KategoriName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("OneChildKategoriID")
@@ -85,6 +103,22 @@ namespace IdentityServer4.Persistence.Migrations
                     b.ToTable("Kullanicilar");
                 });
 
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.Markalar", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("MarkaName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Markalar");
+                });
+
             modelBuilder.Entity("IdentityServer4.Domain.Entities.OneChildKategoriler", b =>
                 {
                     b.Property<int>("Id")
@@ -94,6 +128,7 @@ namespace IdentityServer4.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("OneChildKategoriName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ThreeChildKategoriID")
@@ -132,6 +167,38 @@ namespace IdentityServer4.Persistence.Migrations
                     b.HasIndex("OneChildID");
 
                     b.ToTable("OneChildRelationshipCinsiyets");
+                });
+
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.ProductDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Evaluation")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Size")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UrunlerID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UrunlerID")
+                        .IsUnique();
+
+                    b.ToTable("ProductDetail");
                 });
 
             modelBuilder.Entity("IdentityServer4.Domain.Entities.Role", b =>
@@ -174,6 +241,32 @@ namespace IdentityServer4.Persistence.Migrations
                     b.ToTable("RoleKullanicilarManyToManies");
                 });
 
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.Stock", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("RenklerID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Stok")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UrunlerID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasAlternateKey("RenklerID", "UrunlerID", "Id");
+
+                    b.HasIndex("UrunlerID");
+
+                    b.ToTable("Stock");
+                });
+
             modelBuilder.Entity("IdentityServer4.Domain.Entities.ThreeChildKategori", b =>
                 {
                     b.Property<int>("Id")
@@ -203,6 +296,7 @@ namespace IdentityServer4.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("TwoChildKategoriName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -223,12 +317,17 @@ namespace IdentityServer4.Persistence.Migrations
                     b.Property<int>("KategoriID")
                         .HasColumnType("int");
 
+                    b.Property<int>("MarkalarID")
+                        .HasColumnType("int");
+
                     b.Property<string>("UrunName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("KategoriID");
+
+                    b.HasIndex("MarkalarID");
 
                     b.ToTable("Urunlers");
                 });
@@ -276,6 +375,17 @@ namespace IdentityServer4.Persistence.Migrations
                     b.Navigation("OneChildKategori");
                 });
 
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.ProductDetail", b =>
+                {
+                    b.HasOne("IdentityServer4.Domain.Entities.Urunler", "Urunler")
+                        .WithOne("ProductDetail")
+                        .HasForeignKey("IdentityServer4.Domain.Entities.ProductDetail", "UrunlerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Urunler");
+                });
+
             modelBuilder.Entity("IdentityServer4.Domain.Entities.RoleKullanicilarManyToMany", b =>
                 {
                     b.HasOne("IdentityServer4.Domain.Entities.Kullanicilar", "Kullanicilar")
@@ -293,6 +403,25 @@ namespace IdentityServer4.Persistence.Migrations
                     b.Navigation("Kullanicilar");
 
                     b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.Stock", b =>
+                {
+                    b.HasOne("IdentityServer4.Domain.Entities.Color", "Color")
+                        .WithMany("Stocks")
+                        .HasForeignKey("RenklerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IdentityServer4.Domain.Entities.Urunler", "Urunler")
+                        .WithMany("Stocks")
+                        .HasForeignKey("UrunlerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Color");
+
+                    b.Navigation("Urunler");
                 });
 
             modelBuilder.Entity("IdentityServer4.Domain.Entities.TwoChildKategoriler", b =>
@@ -314,12 +443,25 @@ namespace IdentityServer4.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("IdentityServer4.Domain.Entities.Markalar", "Markalar")
+                        .WithMany("Urunlers")
+                        .HasForeignKey("MarkalarID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Kategori");
+
+                    b.Navigation("Markalar");
                 });
 
             modelBuilder.Entity("IdentityServer4.Domain.Entities.Cinsiyet", b =>
                 {
                     b.Navigation("OneChildRelationshipCinsiyets");
+                });
+
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.Color", b =>
+                {
+                    b.Navigation("Stocks");
                 });
 
             modelBuilder.Entity("IdentityServer4.Domain.Entities.Kategoriler", b =>
@@ -330,6 +472,11 @@ namespace IdentityServer4.Persistence.Migrations
             modelBuilder.Entity("IdentityServer4.Domain.Entities.Kullanicilar", b =>
                 {
                     b.Navigation("RoleKullanicilarManyToManies");
+                });
+
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.Markalar", b =>
+                {
+                    b.Navigation("Urunlers");
                 });
 
             modelBuilder.Entity("IdentityServer4.Domain.Entities.OneChildKategoriler", b =>
@@ -354,6 +501,14 @@ namespace IdentityServer4.Persistence.Migrations
             modelBuilder.Entity("IdentityServer4.Domain.Entities.TwoChildKategoriler", b =>
                 {
                     b.Navigation("OneChildKategorilers");
+                });
+
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.Urunler", b =>
+                {
+                    b.Navigation("ProductDetail")
+                        .IsRequired();
+
+                    b.Navigation("Stocks");
                 });
 #pragma warning restore 612, 618
         }

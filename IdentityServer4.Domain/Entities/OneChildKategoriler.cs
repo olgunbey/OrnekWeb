@@ -15,7 +15,7 @@ namespace IdentityServer4.Domain.Entities
         public int? TwoChildKategoriID{ get; set; }
         public ICollection<OneChildRelationshipCinsiyet> OneChildRelationshipCinsiyets { get; set; }
 
-        public ThreeChildKategori ThreeChildKategori{ get; set; }
+        public ThreeChildKategori? ThreeChildKategori{ get; set; }
         public int? ThreeChildKategoriID{ get; set; }
     }
 }

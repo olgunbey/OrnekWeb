@@ -1,3 +1,16 @@
-﻿<p>Ust kategori
+﻿@{
+    Layout = "~/Views/Shared/_LayoutUrunler.cshtml";
+}
+@model List<UstKategoriUrunlerDto> 
 
-</p>
+
+
+@foreach (UstKategoriUrunlerDto item in Model)
+{
+    @foreach (var urunler in item.UrunDtos)
+    {
+        <p>@urunler.UrunName @urunler.UrunID</p>
+
+    }
+}
+

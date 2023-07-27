@@ -10,5 +10,6 @@ namespace IdentityServer4.Domain.Entities
     public class Markalar:Baseclass
     {
         public string? MarkaName { get; set; }
+        public ICollection<Urunler> Urunlers { get; set; }
     }
 }
