@@ -20,5 +20,14 @@ namespace IdentityServer4.Persistence.Repository.UrunlerRepository
         {
             return Task.FromResult(_dbSet.Where(x => x.KategoriID == CategoryID));
         }
+
+        public Task<IQueryable<Urunler>> UrunlerListele(string kategoriName)
+        {
+           return Task.FromResult(_context.Set<Urunler>().
+                Include(x => x.ProductDetail)
+                .Include(x => x.Markalar)
+                .Include(x => x.Kategori)
+                .Include(x => x.Stocks).AsQueryable());
+        }
     }
 }

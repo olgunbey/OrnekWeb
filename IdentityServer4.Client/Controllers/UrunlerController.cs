@@ -16,8 +16,6 @@ namespace IdentityServer4.Client.Controllers
         public async Task<IActionResult> Anasayfa()
         {
             
-            var ResponseDto = await _httpClientUrunlerApi.ThreeChildKategoriesList();
-            ViewData["Kategoriler"] = ResponseDto.Data;
             return View();
         }
         [HttpGet]

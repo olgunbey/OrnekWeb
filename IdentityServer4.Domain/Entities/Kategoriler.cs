@@ -15,7 +15,7 @@ namespace IdentityServer4.Domain.Entities
 
         public int? OneChildKategoriID { get; set; }
 
-
         public ICollection<Urunler> Urunlers{ get; set; }
+
     }
 }

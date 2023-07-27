@@ -11,5 +11,6 @@ namespace IdentityServer4.Repository.IRepository.IUrunlerRepository
     public interface UrunlerIReadRepository:IReadRepository<Urunler>
     {
         Task<IQueryable<Urunler>> GetIdCategory(int CategoryID);
+        Task<IQueryable<Urunler>> UrunlerListele(string kategoriName);
     }
 }
