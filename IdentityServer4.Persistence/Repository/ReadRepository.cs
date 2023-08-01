@@ -18,6 +18,7 @@ namespace IdentityServer4.Persistence.Repository
         protected readonly DbSet<OneChildKategoriler> oneChildKategorilersdbset;
         protected readonly DbSet<ThreeChildKategori> threeChildKategoris;
         protected readonly DbSet<TwoChildKategoriler> twoChildKategorilerdbset;
+        protected readonly DbSet<ProductDetail> _productDetails;
         public ReadRepository(AppDbContext appDbContext)
         {
             _context = appDbContext;
@@ -25,6 +26,7 @@ namespace IdentityServer4.Persistence.Repository
             twoChildKategorilerdbset = _context.Set<TwoChildKategoriler>();
             oneChildKategorilersdbset =_context.Set<OneChildKategoriler>();
             threeChildKategoris=_context.Set<ThreeChildKategori>();
+            _productDetails = _context.Set<ProductDetail>();
         }
         public async Task<T> GetAsync(Expression<Func<T, bool>> predicate = null)
         {

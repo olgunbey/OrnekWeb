@@ -3,12 +3,10 @@
 }
 
 @model List<AltKategoriUrunlerDto>
-
-
+<partial name="~/Views/Partials/_UrunlerFeaturebar.cshtml"></partial>
     @foreach(AltKategoriUrunlerDto item in Model){
         @foreach(var urunler in item.UrunDtos)
     {
         <p>@urunler.UrunName @urunler.UrunID</p>
-        
     }
 }

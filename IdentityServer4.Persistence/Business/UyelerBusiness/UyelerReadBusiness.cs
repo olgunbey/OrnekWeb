@@ -146,5 +146,7 @@ namespace IdentityServer4.Persistence.Business.UyelerBusiness
 
             return ResponseDto<string>.Success(200);
         }
+
+
     }
 }

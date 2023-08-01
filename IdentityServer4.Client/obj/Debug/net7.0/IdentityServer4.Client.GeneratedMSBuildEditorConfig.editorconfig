@@ -64,6 +64,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydGlhbHNcX05hdmJhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Partials/_UrunlerFeaturebar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFydGlhbHNcX1VydW5sZXJGZWF0dXJlYmFyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -86,6 +90,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Urunler/Anasayfa.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXJ1bmxlclxBbmFzYXlmYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Urunler/Urunler.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXJ1bmxlclxVcnVubGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Urunler/UrunlerDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXJ1bmxlclxVcnVubGVyRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/olgun/OneDrive/Masaüstü/Çalışmalar/IdentityServer4Ornek/IdentityServer4.Client/Views/Urunler/UstKategori.cshtml]

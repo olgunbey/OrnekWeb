@@ -1,4 +1,5 @@
 ﻿using IdentityServer4.Domain.Entities;
+using IdentityServer4.Repository.Dtos;
 using IdentityServer4.Repository.Interface;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,11 @@ namespace IdentityServer4.Repository.IRepository.IUrunlerRepository
     {
         Task<IQueryable<Urunler>> GetIdCategory(int CategoryID);
         Task<IQueryable<Urunler>> UrunlerListele(string kategoriName);
+        Task<IQueryable<Urunler>> ProductDetail(int id);
+        Task<IQueryable<Urunler>> GetProductCategory(int id);
+
+        Task<IQueryable<Urunler>> KategoriMarkaList(string categoryName);
+        Task<int> UrunSayi(int id);
+        Task<IQueryable<OneChildKategoriler>> ProductKategori(string oneChildKategori);
     }
 }
