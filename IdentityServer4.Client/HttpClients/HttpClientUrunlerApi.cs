@@ -57,6 +57,42 @@ namespace IdentityServer4.Client.HttpClients
 
             return await httpClient.GetFromJsonAsync<ResponseDto<List<AltKategoriUrunlerDto>>>($"AltKategoriUrunlerGetir/{KategoriName}");
         }
+
+        public async Task<ResponseDto<List<UrunListeleDto>>> UrunListele(string kategoriName)
+        {
+            var TokenResponse = await ClientCredentialsRequest();
+            if(TokenResponse.IsError)
+            {
+                return ResponseDto<List<UrunListeleDto>>.UnSuccessFul(401, "401-403 unauthorized");
+            }
+            _httpClient.SetBearerToken(TokenResponse.AccessToken!);
+
+            return (await _httpClient.GetFromJsonAsync<ResponseDto<List<UrunListeleDto>>>($"UrunlerListele/{kategoriName}"))!;
+
+        }
+
+        public async Task<ResponseDto<List<ProductDetailDto>>> ProductDetails(int id)
+        {
+            var TokenResponse = await ClientCredentialsRequest();
+            if(TokenResponse.IsError)
+            {
+                return ResponseDto<List<ProductDetailDto>>.UnSuccessFul(401, "401-403 unauthorized forbidden");
+            }
+            _httpClient.SetBearerToken(TokenResponse.AccessToken!);
+
+           return await _httpClient.GetFromJsonAsync<ResponseDto<List<ProductDetailDto>>>($"GetUrunDetails/{id}");
+
+        }
+
+        public async Task<ResponseDto<List<MarkalarDto>>> ProductCategoryList(string KategoriName)
+        {
+            var TokenResponse = await ClientCredentialsRequest();
+            if(TokenResponse.IsError)
+            {
+                return ResponseDto<List<MarkalarDto>>.UnSuccessFul(401, "401-403 unauthorized");
+            }
+        return await _httpClient.GetFromJsonAsync<ResponseDto<List<MarkalarDto>>>($"ProductCategoryDetails/{KategoriName}");
+        }
     }
     
 }

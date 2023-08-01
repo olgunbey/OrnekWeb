@@ -1,0 +1,239 @@
+﻿
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+        crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/IdentityServer4.Client.styles.css" asp-append-version="true" />
+<style>
+    .genelDiv {
+        width: 100%;
+    }
+
+    .Kategoriler {
+        border: 2px solid gray;
+        margin: 50px;
+        border-radius: 5%;
+        width: 10rem;
+        height: 30rem;
+    }
+
+    .productList {
+        border: 2px solid gray;
+    }
+
+    .urunsayisi {
+        /* margin-bottom: 50px; */
+        padding-bottom: 10px;
+        border-bottom: 2px solid gray;
+        text-align: center;
+        /* width: 100%; */
+    }
+
+    .kategoriMarka {
+        border-bottom: 2px solid gray;
+        padding-top: 10px;
+        /* width: 100%; */
+    }
+
+    #Input0 {
+        margin-top: 15px;
+    }
+
+    .Inputs {
+        width: 50px;
+    }
+
+
+    .kategorip {
+        margin-left: 10px;
+    }
+
+    .GenelKapsam {
+        display: flex;
+        align-items: baseline;
+        justify-content: left;
+    }
+
+    .fiyatAralik {
+        padding-left: 10px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid gray;
+    }
+
+    .degerlendirme {
+        padding-left: 10px;
+    }
+
+    .degerlendirmep {
+        margin-bottom: 5px;
+    }
+
+</style>
+
+<div asp-validation-summary="All">
+</div>
+
+
+<div class="genelDiv">
+    <div class="GenelKapsam">
+        <div class="Kategoriler">
+            <div class="urunsayisi">
+                <p class="urungir"></p>
+            </div>
+
+            <div class="kategoriMarka">
+                <h4 class="kategorip">Marka</h4>
+            </div>
+
+            <div class="fiyatAralik">
+                <h4 id="fiyataralikp">Fiyat Aralığı</h4>
+                <input type="text" placeholder="En az" class="Inputs" />
+                <input type="text" placeholder="En çok" class="Inputs" />
+            </div>
+
+            <div class="degerlendirme">
+                <h4 id="degerlendirmep">Değerlendirmeler</h4>
+                <input type="radio" class="evaulation" value="abc" />
+                <label>4 yıldız ve üzeri</label>
+                <br>
+                <input type="radio" class="evaulation" value="def" />
+                <label>3 yıldız ve üzeri</label>
+                <br>
+                <input type="radio" class="evaulation" value="ghe" />
+                <label>2 yıldız ve üzeri</label>
+                <br>
+                <input type="radio" class="evaulation" value="jkl" />
+                <label>1 yıldız ve üzeri</label>
+
+            </div>
+        </div>
+
+        <div class="productList">
+            <p>ASADSAD</p>
+            <ul id="productListUl"></ul>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+    const productLists = document.querySelector(".productList");
+    const AltKategori = @Html.Raw(Json.Serialize(TempData["abc"]));
+    const Markap = document.querySelector(".kategorip");
+    const Urunsayp=document.querySelector(".urungir");
+    const AltKategoriler = document.getElementsByClassName("categorysuba");
+    const UstKategoriler = document.getElementsByClassName("categorya");
+    const dizi=[];
+    function AltKategoriGonder(Alperen)
+    {
+        $.ajax({
+            type: 'GET',
+            url: `https://localhost:7237/api/Urunler/KategoriGetir/${AltKategori}`, 
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + Alperen);
+            },
+            success: function (data)
+            {
+                console.log(data);
+                for(let Marka in data.data[0].kategoriDtos[0].markalarDtos)
+                {
+                    if (dizi.indexOf(data.data[0].kategoriDtos[0].markalarDtos[Marka].markaName)==-1)
+                    {
+                        const input = document.createElement("input");
+                        input.type = "radio";
+                        input.id = `Input${Marka}`
+                        input.value = data.data[0].kategoriDtos[0].markalarDtos[Marka].markaName;
+                        const label = document.createElement("label");
+                        label.innerHTML = data.data[0].kategoriDtos[0].markalarDtos[Marka].markaName;
+
+                        Markap.append(document.createElement("br"));
+                        Markap.append(input);
+                        Markap.appendChild(label);
+                    }
+                    dizi.push(data.data[0].kategoriDtos[0].markalarDtos[Marka].markaName);
+                }
+
+            }, 
+            error: function (error)
+            {
+                console.log(error);
+            },
+        });
+    }
+
+    function UstKategoriGonder(Alperen)
+    {
+        $.ajax({
+        type: 'GET',
+            url: `https://localhost:7237/api/Urunler/`,
+            beforeSend: function (xhr)
+            {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + Alperen);
+            },
+            success: function (data)
+            {
+                console.log(data);
+            },
+            error: function (errors)
+            {
+                console.log(errors);
+            }
+        });
+    }
+
+
+    
+    //function UrunSayisiApi(Alperen)
+    //{
+    //    $.ajax({
+    //        type: 'GET',
+    //        url: `https://localhost:7237/api/Urunler/UrunSayisi/${kategoriID}`,
+    //        beforeSend: function (xhr) {
+    //            xhr.setRequestHeader('Authorization', 'Bearer ' + Alperen);
+    //        },
+    //        success: function (data) {
+    //            kategoriUrunSayisip.textContent = data.data + ' adet ürün bulundu';
+    //            console.log(data);
+
+    //        },
+    //        error: function (error) {
+    //            console.log(error);
+    //        },
+
+    //    });
+    //}
+
+    
+    AltKategoriler.forEach(element=>{
+        element.addEventListener('click',()=>{
+            console.log("avc");
+        });
+    })
+
+    function getAccessTokens() {
+        return $.ajax({
+            type: 'POST',
+            url: 'https://localhost:7291/connect/token',
+            data: {
+                grant_type: 'client_credentials',
+                client_id: 'Client1',
+                client_secret: 'secret'
+            },
+        });
+    }
+
+    getAccessTokens().done(function (accessTokenResponses)
+    {
+        var Alperen = accessTokenResponses.access_token;
+        //UrunSayisiApi(Alperen);
+        AltKategoriGonder(Alperen);
+    });
+
+   
+
+</script>

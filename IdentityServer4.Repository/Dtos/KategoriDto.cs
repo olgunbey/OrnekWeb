@@ -10,5 +10,6 @@ namespace IdentityServer4.Repository.Dtos
     {
         public int? Id { get; set; }
         public string? KategoriName { get; set; }
+        public ICollection<MarkalarDto>  MarkalarDtos{ get; set; }
     }
 }

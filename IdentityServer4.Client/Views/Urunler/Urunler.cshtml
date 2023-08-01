@@ -1,0 +1,49 @@
+﻿@model List<UrunListeleDto>
+@{
+    Layout = "~/Views/Shared/_LayoutUrunler.cshtml";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - IdentityServer4.Client</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/IdentityServer4.Client.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <partial name="~/Views/Partials/_UrunlerFeaturebar.cshtml" CategoryName="abc"></partial>
+    <div class="container">
+        <h1>Ürün Listesi</h1>
+        <ul class="productList">
+        </ul>
+
+    </div>
+
+</body>
+</html>
+
+
+
+
+<script>
+ var Urunler= @Html.Raw(Json.Serialize(Model));
+ var ProductListul=document.querySelector(".productList");
+ console.log(ProductListul);
+ 
+ for(let item of Urunler)
+ {
+     var createElementli=document.createElement("li");
+     var createElementA=document.createElement("a");
+     var createElementp=document.createElement("p");
+     createElementA.className="productA";
+     createElementA.href = `/Urunler/UrunlerDetails?id=${item.id}`;
+     createElementA.innerText=item.urunAdı;
+     createElementp.textContent=item.price;
+     createElementli.className="productLi";
+     createElementli.appendChild(createElementA);
+     createElementli.append(createElementp);
+     ProductListul.appendChild(createElementli);
+ }
+</script>
