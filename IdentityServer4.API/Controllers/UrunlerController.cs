@@ -89,6 +89,7 @@ namespace IdentityServer4.API.Controllers
             return ResponseDto<int>.ResponseStruct<int>.Response(await _urunlerIReadBusiness.KategoriUrunSayisi(id));
         }
         [HttpGet("[action]/{categoryName}")]
+        [Authorize(Policy = "PolicyClient")]
         public async Task<IActionResult> KategoriGetir(string categoryName)
         {
 

@@ -41,8 +41,8 @@ namespace IdentityServer4.Client.HttpClients
                 return ResponseDto<List<UstKategoriUrunlerDto>>.UnSuccessFul(400, "401-403 unauthorized");
             }
             httpClient.SetBearerToken(TokenResponse.AccessToken!);
-
-            return await httpClient.GetFromJsonAsync<ResponseDto<List<UstKategoriUrunlerDto>>>($"UstKategoriUrunlerGetir/{KategoriName}");
+            string escapeDataKategori=  Uri.EscapeDataString(KategoriName);
+            return await httpClient.GetFromJsonAsync<ResponseDto<List<UstKategoriUrunlerDto>>>($"UstKategoriUrunlerGetir/{escapeDataKategori}");
         }
 
 
@@ -54,8 +54,9 @@ namespace IdentityServer4.Client.HttpClients
                 return ResponseDto<List<AltKategoriUrunlerDto>>.UnSuccessFul(400, "401-403 unauthorized");
             }
             httpClient.SetBearerToken(TokenResponse.AccessToken!);
+            string escapeDataKategori = Uri.EscapeDataString(KategoriName);
 
-            return await httpClient.GetFromJsonAsync<ResponseDto<List<AltKategoriUrunlerDto>>>($"AltKategoriUrunlerGetir/{KategoriName}");
+            return await httpClient.GetFromJsonAsync<ResponseDto<List<AltKategoriUrunlerDto>>>($"AltKategoriUrunlerGetir/{escapeDataKategori}");
         }
 
         public async Task<ResponseDto<List<UrunListeleDto>>> UrunListele(string kategoriName)
