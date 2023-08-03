@@ -24,11 +24,18 @@ namespace IdentityServer4.Persistence.Business.KategoriBusiness
         public async Task<ResponseDto<List<AltKategoriUrunlerDto>>> AltKategorilerList(string kategoriName)
         {
          var kategorilers=await _kategoriIReadRepository.AltKategoriler(kategoriName);
-            var abc = kategorilers.ToList();
          var KategoriDto= kategorilers.Select(x => new AltKategoriUrunlerDto()
             {
+                MarkalarDtos=x.Kategorilers.SelectMany(y=>y.Urunlers).Select(z=>z.Markalar).Select(marka=> new MarkalarDto()
+                {
+                    MarkaName=marka.MarkaName
+                }).ToList(),
                 ID=x.Id,
-                UrunDtos=x.Kategorilers.SelectMany(y=>y.Urunlers).Select(s=>new UrunDto() {UrunID=s.Id,UrunName=s.UrunName }).ToList()
+                UrunDtos=x.Kategorilers.SelectMany(y=>y.Urunlers).Select(s=>new UrunDto()
+                {
+                    UrunID=s.Id,UrunName=s.UrunName,
+                    KategoriID=s.KategoriID
+                }).ToList()
             }).ToList();
             return ResponseDto<List<AltKategoriUrunlerDto>>.Success(KategoriDto,200);
         }

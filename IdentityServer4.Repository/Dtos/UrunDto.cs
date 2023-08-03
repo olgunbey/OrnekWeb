@@ -10,5 +10,7 @@ namespace IdentityServer4.Repository.Dtos
     {
         public int UrunID { get; set; }
         public string UrunName{ get; set; }
+        public int KategoriID { get; set; }
+        public KategoriDto KategoriDto { get; set; }
     }
 }

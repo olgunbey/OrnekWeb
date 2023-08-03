@@ -31,8 +31,13 @@ namespace IdentityServer4.Client.Controllers
         [HttpGet]
         public async Task<IActionResult> UstKategori(string kategori)
         {
-          var ResponseDto= await _httpClientUrunlerApi.UstKategoriler(kategori);
+            var ResponseDto= await _httpClientUrunlerApi.UstKategoriler(kategori);
             return View(ResponseDto.Data);
+        }
+        [HttpGet]
+        public async Task<IActionResult> UrunlerListele(string kategories)
+        {
+            return View();
         }
         [HttpGet]
         public async Task<IActionResult> Urunler(string kategoriName)

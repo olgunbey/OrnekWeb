@@ -1,4 +1,6 @@
-﻿
+﻿@{
+    Layout = "~/Views/Shared/_LayoutUrunler.cshtml";
+}
 
 <script src="https://code.jquery.com/jquery-3.7.0.js"
         integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
@@ -113,7 +115,7 @@
 
         <div class="productList">
             <p>ASADSAD</p>
-            <ul id="productListUl"></ul>
+            <ul class="productListUl"></ul>
         </div>
 
     </div>
@@ -122,73 +124,91 @@
 
 
 <script>
-    const productLists = document.querySelector(".productList");
-    const AltKategori = @Html.Raw(Json.Serialize(TempData["abc"]));
-    const Markap = document.querySelector(".kategorip");
-    const Urunsayp=document.querySelector(".urungir");
-    const AltKategoriler = document.getElementsByClassName("categorysuba");
-    const UstKategoriler = document.getElementsByClassName("categorya");
+    const productLists = document.querySelector(".productListUl");
+    //const AltKategori = @Html.Raw(Json.Serialize(TempData["abc"])); //burayı duzelt altkategori null geliyor
+    const Markap=document.querySelector(".kategorip");
+    const kategoriUrunSayisip=document.querySelector(".urungir");
+    const storedDataAltKategori= localStorage.getItem("Categories");
+    console.log(storedDataAltKategori);
+    let kategoriID=0;
     const dizi=[];
+
+        const JsonSerializeStoredAltData=JSON.parse(storedDataAltKategori);
+    console.log(JsonSerializeStoredAltData);
+        kategoriID=JsonSerializeStoredAltData.data[0].id;
+    console.log(JsonSerializeStoredAltData.data[0].markalarDtos[0].markaName);
+        for (let Datam of JsonSerializeStoredAltData.data[0].urunDtos) 
+        {
+         var UrunLi=document.createElement("li");
+         UrunLi.textContent=Datam.urunName;
+         productLists.appendChild(UrunLi);
+        }
+
+    for (let kategorim in JsonSerializeStoredAltData.data[0].markalarDtos) 
+    {
+        if (dizi.indexOf(JsonSerializeStoredAltData.data[0].markalarDtos[kategorim].markaName) == -1) {
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.id = `Input${kategorim}`
+            input.value = JsonSerializeStoredAltData.data[0].markalarDtos[kategorim].markaName;
+            const label = document.createElement("label");
+            label.innerHTML = JsonSerializeStoredAltData.data[0].markalarDtos[kategorim].markaName;
+
+            Markap.append(document.createElement("br"));
+            Markap.append(input);
+            Markap.appendChild(label);
+        }
+        dizi.push(JsonSerializeStoredAltData.data[0].markalarDtos[kategorim].markaName);
+
+    } 
+     
+
+    
+
+
+
     function AltKategoriGonder(Alperen)
     {
-        $.ajax({
-            type: 'GET',
-            url: `https://localhost:7237/api/Urunler/KategoriGetir/${AltKategori}`, 
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + Alperen);
-            },
-            success: function (data)
-            {
-                console.log(data);
-                for(let Marka in data.data[0].kategoriDtos[0].markalarDtos)
-                {
-                    if (dizi.indexOf(data.data[0].kategoriDtos[0].markalarDtos[Marka].markaName)==-1)
-                    {
-                        const input = document.createElement("input");
-                        input.type = "radio";
-                        input.id = `Input${Marka}`
-                        input.value = data.data[0].kategoriDtos[0].markalarDtos[Marka].markaName;
-                        const label = document.createElement("label");
-                        label.innerHTML = data.data[0].kategoriDtos[0].markalarDtos[Marka].markaName;
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+                type: 'GET',
+                url: `https://localhost:7237/api/Urunler/KategoriGetir/${AltKategori}`,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + Alperen);
+                },
+                success: function (data) {
+                    console.log(data);
+                    for (let Marka in data.data[0].kategoriDtos[0].markalarDtos) {
+                        if (dizi.indexOf(data.data[0].kategoriDtos[0].markalarDtos[Marka].markaName) == -1) {
+                            const input = document.createElement("input");
+                            input.type = "radio";
+                            input.id = `Input${Marka}`
+                            input.value = data.data[0].kategoriDtos[0].markalarDtos[Marka].markaName;
+                            const label = document.createElement("label");
+                            label.innerHTML = data.data[0].kategoriDtos[0].markalarDtos[Marka].markaName;
 
-                        Markap.append(document.createElement("br"));
-                        Markap.append(input);
-                        Markap.appendChild(label);
+                            Markap.append(document.createElement("br"));
+                            Markap.append(input);
+                            Markap.appendChild(label);
+                        }
+                        dizi.push(data.data[0].kategoriDtos[0].markalarDtos[Marka].markaName);
                     }
-                    dizi.push(data.data[0].kategoriDtos[0].markalarDtos[Marka].markaName);
-                }
+                },
+                error: function (error) {
+                    console.log(error);
+                },
+            });
 
-            }, 
-            error: function (error)
-            {
-                console.log(error);
-            },
+
         });
+        
     }
 
-    function UstKategoriGonder(Alperen)
-    {
-        $.ajax({
-        type: 'GET',
-            url: `https://localhost:7237/api/Urunler/`,
-            beforeSend: function (xhr)
-            {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + Alperen);
-            },
-            success: function (data)
-            {
-                console.log(data);
-            },
-            error: function (errors)
-            {
-                console.log(errors);
-            }
-        });
-    }
+  
 
 
     
-    //function UrunSayisiApi(Alperen)
+    //function UrunSayisiApi(Alperen) //burası düzeltilecek
     //{
     //    $.ajax({
     //        type: 'GET',
@@ -209,11 +229,9 @@
     //}
 
     
-    AltKategoriler.forEach(element=>{
-        element.addEventListener('click',()=>{
-            console.log("avc");
-        });
-    })
+    
+   //alt kategori ve üst kategori için ayrı api den alıcaz ve döndürücez
+    
 
     function getAccessTokens() {
         return $.ajax({
@@ -227,11 +245,12 @@
         });
     }
 
-    getAccessTokens().done(function (accessTokenResponses)
+    getAccessTokens().done(async function (accessTokenResponses)
     {
         var Alperen = accessTokenResponses.access_token;
-        //UrunSayisiApi(Alperen);
-        AltKategoriGonder(Alperen);
+        
+      //const promisesMarka= AltKategoriGonder(Alperen);
+      //await promisesMarka;
     });
 
    

@@ -20,7 +20,7 @@ namespace IdentityServer4.Persistence.Repository.KategoriRepository
         public Task<IQueryable<OneChildKategoriler>> AltKategoriler(string KategoriName)
         {
             return Task.FromResult(oneChildKategorilersdbset.Include(x=>x.Kategorilers)
-                .ThenInclude(x=>x.Urunlers)
+                .ThenInclude(x=>x.Urunlers).ThenInclude(x=>x.Markalar)
                 .Where(x=>x.OneChildKategoriName==KategoriName));
         }
 

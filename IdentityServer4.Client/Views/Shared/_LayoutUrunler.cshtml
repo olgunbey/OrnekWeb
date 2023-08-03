@@ -27,122 +27,170 @@
         @RenderBody()
     </main>
 </div>
+
             
           <script>
-    const ornekp=document.querySelector(".ornekp");
-    const ul=document.querySelector(".navbar-nav"); 
+    const ulEtiket=document.querySelector(".navbar-nav"); 
+    
 
-
-
-    function makeProtectedApiCall(accessToken) 
+    function AjaxRequestCategoriesUpdated(accessToken)
     {
-        $.ajax({
-            type: 'GET',
-            url: 'https://localhost:7237/api/Urunler/ThreeChildKategoryiesList',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-            },
-            success: function (data) {
-              var  oneChildKategori = data.data.oneChildKategorilerDtos;
-              var  threeChildKategori = data.data.threeChildKategoriDtos;
-              var  TwoChildKategori = data.data.twoChildKategorilerDtos;
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:7237/api/Urunler/ThreeChildKategoryiesList',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+                },
+                success: function (data) {
+                    var oneChildKategori = data.data.oneChildKategorilerDtos;
+                    var threeChildKategori = data.data.threeChildKategoriDtos;
+                    var TwoChildKategori = data.data.twoChildKategorilerDtos;
 
-                for (let category of threeChildKategori) {
-                    var createli = document.createElement("li");
-                    createli.className = "categoryli";
-                    var createa = document.createElement("a");
-                    createa.className = "categorya";
-                    createa.classList.add("nav-link");
-                    createa.textContent = category.threeChildKategoriName;
-                    createli.appendChild(createa);
-                    ul.appendChild(createli);
-
-
-
-                    for (twoChildCategories of TwoChildKategori) {
-                        if (twoChildCategories.threeChildID == category.id) {
-                            var createsubli = document.createElement("li");
-                            createsubli.className = "categoryli";
-                            var createsuba = document.createElement("a");
-                            createsuba.textContent = twoChildCategories.twoChildKategoriName;
-                            createsuba.style.color = "red";
-                            createsuba.href = `/Urunler/Ustkategori?kategori=${twoChildCategories.twoChildKategoriName}`
-                            createsuba.className = "categorya";
-                            createsuba.classList.add("nav-link");
-                            createsubli.appendChild(createsuba);
-                            createli.appendChild(createsubli);
+                    for (let category of threeChildKategori) {
+                        var createli = document.createElement("li");
+                        createli.className = "categoryli";
+                        var createa = document.createElement("a");
+                        createa.className = "anacategorya";
+                        createa.classList.add("nav-link");
+                        createa.textContent = category.threeChildKategoriName;
+                        createli.appendChild(createa);
+                        ulEtiket.appendChild(createli);
 
 
-                            for (oneChildCategories of oneChildKategori) {
-                                if (oneChildCategories.twoChildKategorilerDto != null) {
-                                    if (twoChildCategories.id == oneChildCategories.twoChildKategoriID) {
-                                        var createsubsubli = document.createElement("li");
-                                        createsubsubli.className = "categoryli";
-                                        var createsubsuba = document.createElement("a");
-                                        createsubsuba.style.color = "orange";
-                                        createsubsuba.textContent = oneChildCategories.oneChildKategoriName;
-                                        createsubsuba.href = `/Urunler/AltKategori?kategories=${oneChildCategories.oneChildKategoriName}`;
-                                        createsubsuba.className = "categorysuba";
-                                        createsubsuba.classList.add("nav-link");
-                                        createsubsubli.appendChild(createsubsuba);
-                                        createsubli.appendChild(createsubsubli);
+
+                        for (twoChildCategories of TwoChildKategori) {
+                            if (twoChildCategories.threeChildID == category.id) {
+                                var createsubli = document.createElement("li");
+                                createsubli.className = "categoryli";
+                                var createsuba = document.createElement("a");
+                                createsuba.textContent = twoChildCategories.twoChildKategoriName;
+                                createsuba.style.color = "red";
+                                createsuba.href = `/Urunler/UrunlerListele?kategories=${twoChildCategories.twoChildKategoriName}`
+                                createsuba.className = "categorya";
+                                createsuba.classList.add("nav-link");
+                                createsubli.appendChild(createsuba);
+                                createli.appendChild(createsubli);
+
+
+                                for (oneChildCategories of oneChildKategori) {
+                                    if (oneChildCategories.twoChildKategorilerDto != null) {
+                                        if (twoChildCategories.id == oneChildCategories.twoChildKategoriID) {
+                                            var createsubsubli = document.createElement("li");
+                                            createsubsubli.className = "categoryli";
+                                            var createsubsuba = document.createElement("a");
+                                            createsubsuba.style.color = "orange";
+                                            createsubsuba.textContent = oneChildCategories.oneChildKategoriName;
+                                            createsubsuba.href = `/Urunler/UrunlerListele?kategories=${oneChildCategories.oneChildKategoriName}`;
+                                            createsubsuba.className = "categorysuba";
+                                            createsubsuba.classList.add("nav-link");
+                                            createsubsubli.appendChild(createsubsuba);
+                                            createsubli.appendChild(createsubsubli);
+                                        }
+                                    }
+                                    if (oneChildCategories.threeChildKategoriDto != null) {
+                                        if (oneChildCategories.threeChildKategoriID == category.id) {
+                                            var anasubli = document.createElement("li");
+                                            anasubli.className = "categoryli";
+                                            var anasubba = document.createElement("a");
+                                            anasubba.style.color = "orange";
+                                            anasubba.textContent = oneChildCategories.oneChildKategoriName;
+                                            anasubba.href = `/Urunler/UrunlerListele?kategories=${oneChildCategories.oneChildKategoriName}`;
+                                            anasubba.className = "categorysuba";
+                                            anasubba.classList.add("nav-link");
+                                            anasubli.appendChild(anasubba);
+                                            createli.appendChild(anasubli);
+                                        }
                                     }
                                 }
-                                if (oneChildCategories.threeChildKategoriDto != null) {
-                                    if (oneChildCategories.threeChildKategoriID == category.id) {
-                                        var anasubli = document.createElement("li");
-                                        anasubli.className = "categoryli";
-                                        var anasubba = document.createElement("a");
-                                        anasubba.style.color = "orange";
-                                        anasubba.textContent = oneChildCategories.oneChildKategoriName;
-                                        anasubba.href = `/Urunler/AltKategori?kategories=${oneChildCategories.oneChildKategoriName}`;
-                                        anasubba.className = "categorysuba";
-                                        anasubba.classList.add("nav-link");
-                                        anasubli.appendChild(anasubba);
-                                        createli.appendChild(anasubli);
-                                    }
+                            }
+                        }
+                        for (oneChildCategories of oneChildKategori) {
+                            if (oneChildCategories.twoChildKategorilerDto != null) {
+                                if (twoChildCategories.id == oneChildCategories.twoChildKategoriID) {
+                                    var createsubsubli = document.createElement("li");
+                                    createsubsubli.className = "categoryli";
+                                    var createsubsuba = document.createElement("a");
+                                    createsubsuba.style.color = "orange";
+                                    createsubsuba.textContent = oneChildCategories.oneChildKategoriName;
+                                    createsubsuba.href = `/Urunler/UrunlerListele?kategories=${oneChildCategories.oneChildKategoriName}`;
+                                    createsubsuba.className = "categorysuba";
+                                    createsubsuba.classList.add("nav-link");
+                                    createsubsubli.appendChild(createsubsuba);
+                                    createsubli.appendChild(createsubsubli);
+                                }
+                            }
+                            if (oneChildCategories.threeChildKategoriDto != null) {
+                                if (oneChildCategories.threeChildKategoriID == category.id) {
+                                    var anasubli = document.createElement("li");
+                                    anasubli.className = "categoryli";
+                                    var anasubba = document.createElement("a");
+                                    anasubba.style.color = "orange";
+                                    anasubba.textContent = oneChildCategories.oneChildKategoriName;
+                                    anasubba.href = `/Urunler/UrunlerListele?kategories=${oneChildCategories.oneChildKategoriName}`;
+                                    anasubba.className = "categorysuba";
+                                    anasubba.classList.add("nav-link");
+                                    anasubli.appendChild(anasubba);
+                                    createli.appendChild(anasubli);
                                 }
                             }
                         }
                     }
-                    for (oneChildCategories of oneChildKategori) {
-                        if (oneChildCategories.twoChildKategorilerDto != null) {
-                            if (twoChildCategories.id == oneChildCategories.twoChildKategoriID) {
-                                var createsubsubli = document.createElement("li");
-                                createsubsubli.className = "categoryli";
-                                var createsubsuba = document.createElement("a");
-                                createsubsuba.style.color = "orange";
-                                createsubsuba.textContent = oneChildCategories.oneChildKategoriName;
-                                createsubsuba.href = `/Urunler/AltKategori?kategories=${oneChildCategories.oneChildKategoriName}`;
-                                createsubsuba.className = "categorysuba";
-                                createsubsuba.classList.add("nav-link");
-                                createsubsubli.appendChild(createsubsuba);
-                                createsubli.appendChild(createsubsubli);
-                            }
-                        }
-                        if (oneChildCategories.threeChildKategoriDto != null) {
-                            if (oneChildCategories.threeChildKategoriID == category.id) {
-                                var anasubli = document.createElement("li");
-                                anasubli.className = "categoryli";
-                                var anasubba = document.createElement("a");
-                                anasubba.style.color = "orange";
-                                anasubba.textContent = oneChildCategories.oneChildKategoriName;
-                                anasubba.href = `/Urunler/AltKategori?kategories=${oneChildCategories.oneChildKategoriName}`;
-                                anasubba.className = "categorysuba";
-                                anasubba.classList.add("nav-link");
-                                anasubli.appendChild(anasubba);
-                                createli.appendChild(anasubli);
-                            }
-                        }
-                    }
-                }
 
-            },
-            error: function (error) {
-                console.error('Error:', error);
-            },
+                    resolve();
+
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                    reject();
+                },
+            });
         });
     }
+
+    function ajaxRequestAltCategories(accessToken, textContent) {
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+                type: 'GET',
+                url: `https://localhost:7237/api/Urunler/AltKategoriUrunlerGetir/${textContent}`,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+                },
+                success: function (data) {
+                    const key = "Categories";
+                    localStorage.setItem(key, JSON.stringify(data));
+                    resolve();
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                },
+            });
+        });
+    }
+
+
+    function ajaxRequestUstCategories(accessToken,textContent)
+    {
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+                type: 'GET',
+                url: `https://localhost:7237/api/Urunler/UstKategoriUrunlerGetir/${textContent}`,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+
+                },
+                success: function (data) {
+                    const keyes = "Categories";
+                    localStorage.setItem(keyes, JSON.stringify(data));
+                    resolve();
+                },
+                error: function (error) {
+                    console.error('Error', error);
+                },
+            });
+        });     
+    }
+
     function getAccessToken()
     {
         return $.ajax({
@@ -155,10 +203,28 @@
             },
         });
     }
-    getAccessToken().done(function (accessTokenResponse) 
+    getAccessToken().done(async function (accessTokenResponse) 
     {
-        var accessToken = accessTokenResponse.access_token;
-   
-        makeProtectedApiCall(accessToken);
+        var accessToken = accessTokenResponse.access_token; 
+        await AjaxRequestCategoriesUpdated(accessToken);
+
+       const liler = document.querySelectorAll(".categorysuba");
+       const ustliler = document.querySelectorAll(".categorya");
+
+        liler.forEach(element => {
+            element.addEventListener('click', async () => {
+                const textContent = element.textContent;
+                await ajaxRequestAltCategories(accessToken, encodeURIComponent(textContent));
+            });
+        });
+
+        ustliler.forEach(e => {
+            e.addEventListener('click',async () => {
+                const textContent = e.textContent;
+               await ajaxRequestUstCategories(accessToken, encodeURIComponent(textContent));
+            });
+        });
     });
+    
+    
           </script>
