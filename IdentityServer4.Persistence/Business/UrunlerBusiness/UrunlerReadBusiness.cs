@@ -116,5 +116,47 @@ namespace IdentityServer4.Persistence.Business.UrunlerBusiness
             }).ToList();
             return ResponseDto<List<OneChildKategoriProductKategoriler>>.Success(ProductDto, 200);
         }
+
+        public async Task<ResponseDto<List<ThreeChildKategori>>> ThreeChildCategoriesList()
+        {
+         var ThreeChildCategoriesData=await  (await _urunlerIReadRepository.ThreeChildKategoriesList()).ToListAsync();
+
+            return ResponseDto<List<ThreeChildKategori>>.Success(ThreeChildCategoriesData, 200);
+        }
+
+        public async Task<ResponseDto<List<TwoChildKategoriler>>> TwoChildCategoriesList(int categoryID)
+        {
+         var TwoChildCategoriesData= await (await  _urunlerIReadRepository.TwoChildCategoriesList(categoryID)).ToListAsync();
+            return ResponseDto<List<TwoChildKategoriler>>.Success(TwoChildCategoriesData, 200);
+        }
+
+        public async Task<ResponseDto<List<OneChildKategorilerDto>>> OneChildCategoriesList(string categoryName)
+        {
+         var categoryNames=  Uri.UnescapeDataString(categoryName);
+        var DataQueryAble=  await _urunlerIReadRepository.OneChildCategoriesList();
+            var liste = DataQueryAble.ToList();
+        var ResponseData=  await DataQueryAble.Where(x=>x.TwoChildKategori.TwoChildKategoriName==categoryNames).ToListAsync();
+
+            if(!ResponseData.Any())
+            {
+                var ResponseData2= await DataQueryAble.Where(x => x.ThreeChildKategori!.ThreeChildKategoriName == categoryNames).ToListAsync();
+             var ResponsesData=  ResponseData2.Select(y => new OneChildKategorilerDto()
+                {
+                    ID=y.Id,
+                    OneChildKategoriName=y.OneChildKategoriName,
+                    //ThreeChildKategoriDto = new ThreeChildKategoriDto() {ID=y.ThreeChildKategori!.Id, ThreeChildKategoriName = categoryName }
+                }).ToList();
+
+                return ResponseDto<List<OneChildKategorilerDto>>.Success(ResponsesData, 200);
+            }
+            var ResponseDto = ResponseData.Select(y => new OneChildKategorilerDto()
+            {
+                ID=y.Id,
+                OneChildKategoriName=y.OneChildKategoriName,
+                //TwoChildKategorilerDto=new TwoChildKategorilerDto() {ID=y.TwoChildKategori.Id, TwoChildKategoriName=y.TwoChildKategori.TwoChildKategoriName}
+            }).ToList();
+
+            return ResponseDto<List<OneChildKategorilerDto>>.Success(ResponseDto, 200);
+        }
     }
 }

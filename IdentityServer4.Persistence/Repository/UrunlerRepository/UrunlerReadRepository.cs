@@ -67,5 +67,21 @@ namespace IdentityServer4.Persistence.Repository.UrunlerRepository
           return Task.FromResult(oneChildKategorilersdbset.Include(x => x.Kategorilers).ThenInclude(x=>x.Urunlers).ThenInclude(x=>x.Markalar)
                 .Where(x => x.OneChildKategoriName == oneChildKategori));
         }
+
+        public Task<IQueryable<ThreeChildKategori>> ThreeChildKategoriesList()
+        {
+            return Task.FromResult(threeChildKategoris.AsQueryable());
+
+        }
+
+        public Task<IQueryable<TwoChildKategoriler>> TwoChildCategoriesList(int categoryID)
+        {
+            return Task.FromResult(twoChildKategorilerdbset.Where(x => x.ThreeChildKategoriID == categoryID));
+        }
+
+        public Task<IQueryable<OneChildKategoriler>> OneChildCategoriesList()
+        {
+            return Task.FromResult(oneChildKategorilersdbset.Include(x => x.ThreeChildKategori).Include(x => x.TwoChildKategori).AsQueryable());
+        }
     }
 }

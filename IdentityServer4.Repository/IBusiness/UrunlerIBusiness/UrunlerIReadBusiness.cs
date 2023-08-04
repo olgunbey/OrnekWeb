@@ -18,7 +18,9 @@ namespace IdentityServer4.Repository.IBusiness.UrunlerIBusiness
         Task<ResponseDto<List<MarkalarDto>>> CategoryMarkaList(string kategoriName);
         Task<ResponseDto<int>> KategoriUrunSayisi(int id);
         Task<ResponseDto<List<OneChildKategoriProductKategoriler>>> ProductKategori(string name);
-
+        Task<ResponseDto<List<ThreeChildKategori>>> ThreeChildCategoriesList();
+        Task<ResponseDto<List<TwoChildKategoriler>>> TwoChildCategoriesList(int categoryID);
+        Task<ResponseDto<List<OneChildKategorilerDto>>> OneChildCategoriesList(string categoryName);
 
     }
 }

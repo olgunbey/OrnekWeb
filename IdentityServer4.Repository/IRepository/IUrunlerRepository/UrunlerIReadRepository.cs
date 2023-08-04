@@ -19,5 +19,8 @@ namespace IdentityServer4.Repository.IRepository.IUrunlerRepository
         Task<IQueryable<Urunler>> KategoriMarkaList(string categoryName);
         Task<int> UrunSayi(int id);
         Task<IQueryable<OneChildKategoriler>> ProductKategori(string oneChildKategori);
+        Task<IQueryable<ThreeChildKategori>> ThreeChildKategoriesList();
+        Task<IQueryable<TwoChildKategoriler>> TwoChildCategoriesList(int categoryID);
+        Task<IQueryable<OneChildKategoriler>> OneChildCategoriesList();
     }
 }

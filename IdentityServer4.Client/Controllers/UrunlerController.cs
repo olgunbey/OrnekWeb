@@ -3,6 +3,7 @@ using IdentityServer4.Client.Models;
 using IdentityServer4.Repository.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Cryptography.X509Certificates;
 
 namespace IdentityServer4.Client.Controllers
@@ -24,8 +25,7 @@ namespace IdentityServer4.Client.Controllers
         [HttpGet]
         public async Task<IActionResult> AltKategori(string kategories)
         {
-         var ResponseDTo= await _httpClientUrunlerApi.AltKategoriler(kategories);
-            TempData["abc"] = kategories;
+          var ResponseDTo= await _httpClientUrunlerApi.AltKategoriler(kategories);
             return View(ResponseDTo.Data);
         }
         [HttpGet]
@@ -76,6 +76,11 @@ namespace IdentityServer4.Client.Controllers
             return View();
             
             
+        }
+        [HttpGet]
+        public IActionResult UrunEkle()
+        {
+            return View();
         }
  
     }
