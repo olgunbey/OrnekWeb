@@ -95,6 +95,32 @@ namespace IdentityServer4.API.Controllers
 
             return ResponseDto<List<OneChildKategoriProductKategoriler>>.ResponseStruct<List<OneChildKategoriProductKategoriler>>.Response(await _urunlerIReadBusiness.ProductKategori(categoryName));
         }
+        [HttpGet("ThreeChildCategoriesList")]
+        [Authorize(Policy = "PolicyClient")]
+        public async Task<IActionResult> ThreeChildCategoriesList()
+        {
+            return ResponseDto<List<ThreeChildKategori>>
+                .ResponseStruct<List<ThreeChildKategori>>
+                .Response(await _urunlerIReadBusiness.ThreeChildCategoriesList());
+        }
 
+        [HttpGet("[action]/{categoryID}")]
+        [Authorize(Policy ="PolicyClient")]
+        public async Task<IActionResult> TwoChildCategoriesList(int categoryID)
+        {
+            return ResponseDto<List<TwoChildKategoriler>>
+                .ResponseStruct<List<TwoChildKategoriler>>
+                .Response(await _urunlerIReadBusiness.TwoChildCategoriesList(categoryID));
+        }
+        [HttpGet("[action]/{categoryName}")]
+        //[Authorize(Policy ="PolicyClient")]
+
+        public async Task<IActionResult> OneChildCategoriesList(string categoryName)
+        {
+
+            return ResponseDto<List<OneChildKategorilerDto>>
+                .ResponseStruct<List<OneChildKategorilerDto>>
+                .Response(await _urunlerIReadBusiness.OneChildCategoriesList(categoryName));
+        }
     }
 }

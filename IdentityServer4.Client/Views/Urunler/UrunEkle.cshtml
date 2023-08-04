@@ -1,0 +1,168 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutAdminPanel.cshtml";
+}
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+        crossorigin="anonymous"></script>
+
+        
+       
+        <select id="myThreeChildSelectBox">
+
+        </select>
+        <br />
+        <select id="myTwoChildSelectBox">
+
+        </select>
+        <br />
+
+        <select id="myOneChildSelectBox">
+
+        </select>
+
+<script>
+    const MySelectThreeChild = document.querySelector("#myThreeChildSelectBox");
+    const MySelectTwoChild = document.querySelector("#myTwoChildSelectBox");
+    const MySelectOneChild = document.querySelector("#myOneChildSelectBox");
+
+    function ThreeChildCategoriesList(accessToken)
+    {
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:7237/api/Urunler/ThreeChildCategoriesList',
+                beforeSend: function (xhr){
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+                },
+                success: function (data)
+                {
+                    resolve(data);
+                },
+                error: function (errors)
+                {
+                    console.log(errors);
+                    reject('Errors: ', errors);
+                },
+            });
+        });
+        
+    }
+
+    function getAccessTokens() {
+        return $.ajax({
+            type: 'POST',
+            url: 'https://localhost:7291/connect/token',
+            data: {
+                grant_type: 'client_credentials',
+                client_id: 'Client1',
+                client_secret: 'secret'
+            },
+        });
+    }
+
+    function TwoChildCategoriesList(categoryID,accessToken){
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+               type: 'GET',
+               url: `https://localhost:7237/api/Urunler/TwoChildCategoriesList/${categoryID}`,
+               beforeSend: function (xhr){
+                   xhr.setRequestHeader('Authorization','Bearer '+ accessToken);
+               },
+               success: function (data)
+               {
+                   console.log(data);
+                   resolve(data);
+               },
+               error: function (errors)
+               {
+                   console.log('Errors: ',errors);
+               }
+            });
+
+        });
+    }
+
+    function OneChildCategoriesList(SelectOptText,accessToken){
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+               type: 'GET',
+                url: `https://localhost:7237/api/Urunler/OneChildCategoriesList/${SelectOptText}`,
+               beforeSend: function (xhr)
+               {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+               },
+               success: function(data)
+               {
+                   resolve(data);
+               },
+               error: function(errors){
+                   console.log('Errors: ',errors);
+               },
+            });
+        });
+    }
+
+
+
+    getAccessTokens().done(async function (accessTokenResponses) 
+    {
+     const accessToken = accessTokenResponses.access_token;
+
+     const Datam= await ThreeChildCategoriesList(accessToken);
+     console.log(Datam);
+
+     for(let ThreeChildCategories of Datam.data)
+     {
+            MySelectThreeChild.appendChild(new Option(ThreeChildCategories.threeChildKategoriName, ThreeChildCategories.id));
+     }
+
+        document.getElementById("myThreeChildSelectBox")
+            .addEventListener('change',async () =>
+            {
+                var selectedOption = MySelectThreeChild.value; //MySelect.value'den id gelsin
+                
+                const TwoChildCategoriesData= await TwoChildCategoriesList(selectedOption,accessToken);
+
+                MySelectTwoChild.innerHTML = '';
+
+                
+                    for (let TwoChildCategories of TwoChildCategoriesData.data) 
+                    {
+                        if(TwoChildCategories.twoChildKategoriName==null)
+                        {
+                            //burada twochildkategorisi olmadıgı icin bazı ana kategorilerin null olarak geçecek,ekleme yapmayacak
+                        }
+                        else
+                        {
+                            MySelectTwoChild.appendChild(new Option(TwoChildCategories.twoChildKategoriName, TwoChildCategories.id));
+                        }
+                        
+                    }
+
+            });
+
+
+
+        document.getElementById("myTwoChildSelectBox")
+            .addEventListener('change',async ()=>{
+                var SelectedOpt=MySelectTwoChild.selectedIndex;
+                var SelectOptText = MySelectTwoChild.options[SelectedOpt].textContent;
+                MySelectOneChild.innerHTML='';
+                const onechildcategoieslistdata = await OneChildCategoriesList(encodeURIComponent(SelectOptText), accessToken);
+                for (let OneChildCategori of onechildcategoieslistdata.data)
+                {
+                    MySelectOneChild.appendChild(new Option(OneChildCategori.oneChildKategoriName, OneChildCategori.id));
+                }
+
+
+            });
+
+
+
+
+
+    });
+   
+</script>
