@@ -74,14 +74,39 @@ namespace IdentityServer4.Persistence.Repository.UrunlerRepository
 
         }
 
-        public Task<IQueryable<TwoChildKategoriler>> TwoChildCategoriesList(int categoryID)
+        public Task<IQueryable<OneChildKategoriler>> TwoChildCategoriesList()
         {
-            return Task.FromResult(twoChildKategorilerdbset.Where(x => x.ThreeChildKategoriID == categoryID));
+          return Task.FromResult(oneChildKategorilersdbset.Include(x=>x.ThreeChildKategori).Include(x=>x.TwoChildKategori).AsQueryable());
         }
 
         public Task<IQueryable<OneChildKategoriler>> OneChildCategoriesList()
         {
             return Task.FromResult(oneChildKategorilersdbset.Include(x => x.ThreeChildKategori).Include(x => x.TwoChildKategori).AsQueryable());
         }
+        public Task<IQueryable<TwoChildKategoriler>> TwoChildCategori()
+        {
+            return Task.FromResult(twoChildKategorilerdbset.Include(x => x.ThreeChildKategori).AsQueryable());
+        }
+
+        public Task<IQueryable<Kategoriler>> KategorilerList(int categoryID)
+        {
+            
+            return Task.FromResult(_kategorilerDbSet.Where(x=>x.OneChildKategoriID==categoryID));
+        }
+
+        public Task<IQueryable<MarkaOneChildKategoriToMany>> BrandList(int id)
+        {
+            return Task.FromResult(_markaOneChildKategoriToMany.Include(x=>x.Markalar).Where(y=>y.KategoriID==id)); 
+        }
+
+        public Task<IQueryable<Color>> ColorList()
+        {
+            return Task.FromResult(_colorDbSet.AsQueryable());
+        }
+        public Task<IQueryable<Size>> SizeList()
+        {
+            return Task.FromResult(_sizeDbSet.AsQueryable());
+        }
+            
     }
 }

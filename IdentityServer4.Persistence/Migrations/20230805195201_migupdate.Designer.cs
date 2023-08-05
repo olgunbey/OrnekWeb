@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IdentityServer4.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230727160531_mig1")]
-    partial class mig1
+    [Migration("20230805195201_migupdate")]
+    partial class migupdate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,6 +106,29 @@ namespace IdentityServer4.Persistence.Migrations
                     b.ToTable("Kullanicilar");
                 });
 
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.MarkaOneChildKategoriToMany", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("KategoriID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MarkaID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KategoriID");
+
+                    b.HasIndex("MarkaID");
+
+                    b.ToTable("MarkaOneChildKategoriToManies");
+                });
+
             modelBuilder.Entity("IdentityServer4.Domain.Entities.Markalar", b =>
                 {
                     b.Property<int>("Id")
@@ -115,6 +138,7 @@ namespace IdentityServer4.Persistence.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("MarkaName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -185,13 +209,12 @@ namespace IdentityServer4.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Evaluation")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
-
-                    b.Property<string>("Size")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UrunlerID")
                         .HasColumnType("int");
@@ -244,6 +267,23 @@ namespace IdentityServer4.Persistence.Migrations
                     b.ToTable("RoleKullanicilarManyToManies");
                 });
 
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.Size", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("SizeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Size");
+                });
+
             modelBuilder.Entity("IdentityServer4.Domain.Entities.Stock", b =>
                 {
                     b.Property<int>("Id")
@@ -255,6 +295,9 @@ namespace IdentityServer4.Persistence.Migrations
                     b.Property<int>("RenklerID")
                         .HasColumnType("int");
 
+                    b.Property<int?>("SizeID")
+                        .HasColumnType("int");
+
                     b.Property<int>("Stok")
                         .HasColumnType("int");
 
@@ -264,6 +307,8 @@ namespace IdentityServer4.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasAlternateKey("RenklerID", "UrunlerID", "Id");
+
+                    b.HasIndex("SizeID");
 
                     b.HasIndex("UrunlerID");
 
@@ -324,6 +369,7 @@ namespace IdentityServer4.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("UrunName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -342,6 +388,25 @@ namespace IdentityServer4.Persistence.Migrations
                         .HasForeignKey("OneChildKategoriID");
 
                     b.Navigation("OneChildKategori");
+                });
+
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.MarkaOneChildKategoriToMany", b =>
+                {
+                    b.HasOne("IdentityServer4.Domain.Entities.Kategoriler", "Kategoriler")
+                        .WithMany("MarkaOneChildKategoriToManies")
+                        .HasForeignKey("KategoriID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IdentityServer4.Domain.Entities.Markalar", "Markalar")
+                        .WithMany("MarkaOneChildKategoriToManies")
+                        .HasForeignKey("MarkaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Kategoriler");
+
+                    b.Navigation("Markalar");
                 });
 
             modelBuilder.Entity("IdentityServer4.Domain.Entities.OneChildKategoriler", b =>
@@ -416,6 +481,10 @@ namespace IdentityServer4.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("IdentityServer4.Domain.Entities.Size", "Size")
+                        .WithMany("Stocks")
+                        .HasForeignKey("SizeID");
+
                     b.HasOne("IdentityServer4.Domain.Entities.Urunler", "Urunler")
                         .WithMany("Stocks")
                         .HasForeignKey("UrunlerID")
@@ -423,6 +492,8 @@ namespace IdentityServer4.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Color");
+
+                    b.Navigation("Size");
 
                     b.Navigation("Urunler");
                 });
@@ -469,6 +540,8 @@ namespace IdentityServer4.Persistence.Migrations
 
             modelBuilder.Entity("IdentityServer4.Domain.Entities.Kategoriler", b =>
                 {
+                    b.Navigation("MarkaOneChildKategoriToManies");
+
                     b.Navigation("Urunlers");
                 });
 
@@ -479,6 +552,8 @@ namespace IdentityServer4.Persistence.Migrations
 
             modelBuilder.Entity("IdentityServer4.Domain.Entities.Markalar", b =>
                 {
+                    b.Navigation("MarkaOneChildKategoriToManies");
+
                     b.Navigation("Urunlers");
                 });
 
@@ -492,6 +567,11 @@ namespace IdentityServer4.Persistence.Migrations
             modelBuilder.Entity("IdentityServer4.Domain.Entities.Role", b =>
                 {
                     b.Navigation("RoleKullanicilarManyToManies");
+                });
+
+            modelBuilder.Entity("IdentityServer4.Domain.Entities.Size", b =>
+                {
+                    b.Navigation("Stocks");
                 });
 
             modelBuilder.Entity("IdentityServer4.Domain.Entities.ThreeChildKategori", b =>

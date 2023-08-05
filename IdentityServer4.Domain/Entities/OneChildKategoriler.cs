@@ -17,5 +17,6 @@ namespace IdentityServer4.Domain.Entities
 
         public ThreeChildKategori? ThreeChildKategori{ get; set; }
         public int? ThreeChildKategoriID{ get; set; }
+        
     }
 }

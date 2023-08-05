@@ -21,11 +21,45 @@
         <select id="myOneChildSelectBox">
 
         </select>
+        <br />
+        <input type="text" placeholder="Urun ismi giriniz" class="inputUrunName" />
+        <br />
+        <input type="text" placeholder="Urun stoğu giriniz" class="inputStock" />
+        <br />
+        <select id="myKategorilerSelectBox">
+
+
+        </select>
+        <br />
+        <select id="myMarkalarSelectBox">
+
+        </select>
+        <br />
+        <select id="myColorSelectBox">
+            <option value="0">Renk yok</option>
+        </select>
+        <br />
+        <input type="text" placeholder="Urun fiyatı giriniz" class="inputPrice"/>
+        <br />
+        <select id="mySizeSelectBox">
+            <option value="0">Beden yok</option>
+        </select>
+        <br />
+        <input type="text" placeholder="Açıklama yaz" class="inputDescription"/>
+
+        <button class="btn-primary" id="buttonGonder">Gönder</button>
 
 <script>
     const MySelectThreeChild = document.querySelector("#myThreeChildSelectBox");
     const MySelectTwoChild = document.querySelector("#myTwoChildSelectBox");
     const MySelectOneChild = document.querySelector("#myOneChildSelectBox");
+    const MyButton = document.querySelector("#buttonGonder");
+    const MyKategorilerSelectBox = document.querySelector("#myKategorilerSelectBox");
+    const MyMarkalarSelectBox=document.querySelector("#myMarkalarSelectBox");
+    const MyColorSelectBox = document.querySelector("#myColorSelectBox");
+    const MyStockInput = document.querySelector("#inputStock");
+    const MySizeSelectBox = document.querySelector("#mySizeSelectBox");
+
 
     function ThreeChildCategoriesList(accessToken)
     {
@@ -104,18 +138,136 @@
         });
     }
 
+    function BrandList(SelectOpt,accessToken){
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+              type: 'GET',
+              url: `https://localhost:7237/api/Urunler/BrandList/${SelectOpt}`,
+              beforeSend: function (xhr){
+                  xhr.setRequestHeader('Authorization', 'Bearer '+ accessToken);
+              },
+              success: function (data){
+                  resolve(data);
+              },
+              error: function (errors)
+              {
+                  console.log('Errors ',errors);
+              },
 
+
+            });
+
+        });
+    }
+
+    function categoriesList(SelectOpt,accessToken){
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+               type: 'GET',
+                url: `https://localhost:7237/api/Urunler/KategorilerList/${SelectOpt}`, //burayı düzelt
+               beforeSend: function (xhr)
+               {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+               },
+               success: function (data){
+                   resolve(data);
+               },
+               error: function (errors){
+                   console.log('Errors ',errors);
+               },
+            
+            });
+        });
+    }
+
+    function ColorList(accessToken){
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:7237/api/Urunler/ColorList',
+                headers:{
+                    "Authorization": `Bearer ${accessToken}`
+                },
+                success: function (data){
+                    resolve(data);
+                },
+                error: function (error){
+                    console.log('Errors ',error);
+                },
+            
+            });
+
+        });
+    }
+
+    function SizeList(accessToken){
+        return new Promise((resolve,reject)=>{
+
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:7237/api/Urunler/SizeList',
+                headers:{
+                    "Authorization": `Bearer ${accessToken}`
+                },
+                success: function (data){
+                    resolve(data);
+                },
+                error: function (errors){
+                    console.log('Errors',errors);
+                },
+
+            });
+
+
+        });
+    }
+    
+    function ProductAdd(urunName,KategorilerID,MarkalarID,Stock,ColorID,Prices,SizeID,Description,accessToken){
+        var myData={
+            urunname: urunName,
+            kategoriID: KategorilerID,
+            markalarID: MarkalarID,
+            colorID: ColorID,
+            stok: Stock,
+            Price: Prices,
+            sizeID: SizeID,
+            description: Description
+        };
+        return new Promise((resolve,reject)=>{
+            $.ajax({
+               type: 'POST',
+               url: 'https://localhost:7237/api/Urunler/ProductAdd',
+               contentType: "application/json; charset=utf-8",
+                headers: {
+                    "Authorization": `Bearer ${accessToken}` // Gerekli ise, erişim token'ını buraya ekleyin
+                },
+               data: JSON.stringify(myData),
+            });
+        });
+    }
 
     getAccessTokens().done(async function (accessTokenResponses) 
     {
      const accessToken = accessTokenResponses.access_token;
 
      const Datam= await ThreeChildCategoriesList(accessToken);
-     console.log(Datam);
+
+     const ColorData= await ColorList(accessToken);
+
+     const SizeData= await SizeList(accessToken);
 
      for(let ThreeChildCategories of Datam.data)
      {
             MySelectThreeChild.appendChild(new Option(ThreeChildCategories.threeChildKategoriName, ThreeChildCategories.id));
+     }
+
+     for(let Color of ColorData.data)
+     {
+         MyColorSelectBox.appendChild(new Option(Color.colorName,Color.id));
+     }
+     for(let Size of SizeData.data)
+     {
+         MySizeSelectBox.appendChild(new Option(Size.sizeName,Size.id));
      }
 
         document.getElementById("myThreeChildSelectBox")
@@ -126,24 +278,22 @@
                 const TwoChildCategoriesData= await TwoChildCategoriesList(selectedOption,accessToken);
 
                 MySelectTwoChild.innerHTML = '';
+                MySelectOneChild.innerHTML='';
 
-                
                     for (let TwoChildCategories of TwoChildCategoriesData.data) 
                     {
-                        if(TwoChildCategories.twoChildKategoriName==null)
-                        {
-                            //burada twochildkategorisi olmadıgı icin bazı ana kategorilerin null olarak geçecek,ekleme yapmayacak
-                        }
-                        else
-                        {
-                            MySelectTwoChild.appendChild(new Option(TwoChildCategories.twoChildKategoriName, TwoChildCategories.id));
-                        }
-                        
+                    if (TwoChildCategories.twoChildKategorilerDto != null)
+                    {
+                        MySelectTwoChild.appendChild(new Option(TwoChildCategories.twoChildKategorilerDto.twoChildKategoriName, TwoChildCategories.twoChildKategorilerDto.id));
+
                     }
+                    else
 
+                    {
+                        MySelectOneChild.appendChild(new Option(TwoChildCategories.oneChildKategoriName,TwoChildCategories.id));
+                    }
+                    }
             });
-
-
 
         document.getElementById("myTwoChildSelectBox")
             .addEventListener('change',async ()=>{
@@ -156,12 +306,46 @@
                     MySelectOneChild.appendChild(new Option(OneChildCategori.oneChildKategoriName, OneChildCategori.id));
                 }
 
-
             });
 
+        document.getElementById("myOneChildSelectBox")
+        .addEventListener('change',async ()=>{
+                var SelectedOpt = MySelectOneChild.value;
+                MyKategorilerSelectBox.innerHTML='';
+                const CategoriesListData= await categoriesList(SelectedOpt,accessToken);
+                for(let Data of CategoriesListData.data)
+                {
+                    MyKategorilerSelectBox.appendChild(new Option(Data.kategoriName,Data.id));
+                }
+        });
+           
+        document.getElementById("myKategorilerSelectBox")
+        .addEventListener('change', async ()=>{
+            let SelectOpt = MyKategorilerSelectBox.value;
+            MyMarkalarSelectBox.innerHTML='';
+            const BrandListData= await BrandList(SelectOpt,accessToken);
+            for(let Data of BrandListData.data)
+            {
+                    MyMarkalarSelectBox.appendChild(new Option(Data.markaName,Data.id));
+            }
+        });
+        document.getElementById("buttonGonder")
+        .addEventListener('click', async ()=>{
 
-
-
+                let KategorilerID = MyKategorilerSelectBox.value;
+                let MarkalarID = MyMarkalarSelectBox.value;
+                let ColorID = MyColorSelectBox.value;
+                let Price=document.querySelector(".inputPrice");
+                let Stock = document.querySelector(".inputStock");
+                let urunName = document.querySelector(".inputUrunName");
+                let SizeID= MySizeSelectBox.value;
+                let description = document.querySelector(".inputDescription");
+                if(SizeID==0)
+                {
+                    SizeID=null;
+                }
+              await ProductAdd(urunName.value, KategorilerID, MarkalarID,Stock.value,ColorID,Price.value,SizeID,description.value,accessToken);
+        });
 
     });
    

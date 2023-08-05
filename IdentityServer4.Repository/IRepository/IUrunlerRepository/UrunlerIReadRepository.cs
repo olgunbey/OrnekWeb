@@ -20,7 +20,12 @@ namespace IdentityServer4.Repository.IRepository.IUrunlerRepository
         Task<int> UrunSayi(int id);
         Task<IQueryable<OneChildKategoriler>> ProductKategori(string oneChildKategori);
         Task<IQueryable<ThreeChildKategori>> ThreeChildKategoriesList();
-        Task<IQueryable<TwoChildKategoriler>> TwoChildCategoriesList(int categoryID);
+        Task<IQueryable<OneChildKategoriler>> TwoChildCategoriesList();
         Task<IQueryable<OneChildKategoriler>> OneChildCategoriesList();
+        Task<IQueryable<TwoChildKategoriler>> TwoChildCategori();
+        Task<IQueryable<Kategoriler>> KategorilerList(int categoryID);
+        Task<IQueryable<MarkaOneChildKategoriToMany>> BrandList(int id);
+        Task<IQueryable<Color>> ColorList();
+        Task<IQueryable<Size>> SizeList();
     }
 }

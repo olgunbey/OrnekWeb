@@ -15,7 +15,8 @@ namespace IdentityServer4.Persistence.EntitiesConfigurations
         {
             builder.HasOne(x => x.Urunler).WithMany(x => x.Stocks).HasForeignKey(x => x.UrunlerID);
             builder.HasOne(x => x.Color).WithMany(x => x.Stocks).HasForeignKey(x => x.RenklerID);
-            builder.HasAlternateKey(x => new { x.RenklerID, x.UrunlerID,x.Id });
+            builder.HasAlternateKey(x => new { x.RenklerID, x.UrunlerID,x.Id});
+            builder.HasOne(x => x.Size).WithMany(x => x.Stocks).HasForeignKey(x => x.SizeID);
             
         }
     }

@@ -11,5 +11,7 @@ namespace IdentityServer4.Domain.Entities
     {
         public string MarkaName { get; set; }
         public ICollection<Urunler> Urunlers { get; set; }
+
+        public ICollection<MarkaOneChildKategoriToMany> MarkaOneChildKategoriToManies { get; set; }
     }
 }
