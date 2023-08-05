@@ -22,6 +22,7 @@ namespace IdentityServer4.Persistence.Context
         public DbSet<Urunler> Urunlers { get; set; }
         public DbSet<Cinsiyet> Cinsiyets { get; set; }
         public DbSet<OneChildRelationshipCinsiyet> OneChildRelationshipCinsiyets { get; set; }
+        public DbSet<MarkaOneChildKategoriToMany> MarkaOneChildKategoriToManies { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(System.Reflection.Assembly.GetExecutingAssembly());

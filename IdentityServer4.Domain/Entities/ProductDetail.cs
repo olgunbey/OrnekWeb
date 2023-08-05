@@ -9,7 +9,6 @@ namespace IdentityServer4.Domain.Entities
     public class ProductDetail:Baseclass
     {
         public string Description { get; set; }
-        public string? Size { get; set; }
         public int Price{ get; set; }
         public int Evaluation { get; set; }
         public Urunler Urunler { get; set; }

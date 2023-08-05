@@ -58,7 +58,7 @@ namespace IdentityServer4.Persistence.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MarkaName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    MarkaName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -76,6 +76,19 @@ namespace IdentityServer4.Persistence.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Size",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SizeName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Size", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -208,12 +221,38 @@ namespace IdentityServer4.Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MarkaOneChildKategoriToManies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MarkaID = table.Column<int>(type: "int", nullable: false),
+                    KategoriID = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MarkaOneChildKategoriToManies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MarkaOneChildKategoriToManies_Kategoriler_KategoriID",
+                        column: x => x.KategoriID,
+                        principalTable: "Kategoriler",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MarkaOneChildKategoriToManies_Markalar_MarkaID",
+                        column: x => x.MarkaID,
+                        principalTable: "Markalar",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Urunlers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UrunName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UrunName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     KategoriID = table.Column<int>(type: "int", nullable: false),
                     MarkalarID = table.Column<int>(type: "int", nullable: false)
                 },
@@ -241,7 +280,6 @@ namespace IdentityServer4.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Size = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<int>(type: "int", nullable: false),
                     Evaluation = table.Column<int>(type: "int", nullable: false),
                     UrunlerID = table.Column<int>(type: "int", nullable: false)
@@ -265,6 +303,7 @@ namespace IdentityServer4.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UrunlerID = table.Column<int>(type: "int", nullable: false),
                     RenklerID = table.Column<int>(type: "int", nullable: false),
+                    SizeID = table.Column<int>(type: "int", nullable: true),
                     Stok = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -278,6 +317,11 @@ namespace IdentityServer4.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Stock_Size_SizeID",
+                        column: x => x.SizeID,
+                        principalTable: "Size",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Stock_Urunlers_UrunlerID",
                         column: x => x.UrunlerID,
                         principalTable: "Urunlers",
@@ -289,6 +333,16 @@ namespace IdentityServer4.Persistence.Migrations
                 name: "IX_Kategoriler_OneChildKategoriID",
                 table: "Kategoriler",
                 column: "OneChildKategoriID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MarkaOneChildKategoriToManies_KategoriID",
+                table: "MarkaOneChildKategoriToManies",
+                column: "KategoriID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MarkaOneChildKategoriToManies_MarkaID",
+                table: "MarkaOneChildKategoriToManies",
+                column: "MarkaID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OneChildKategorilers_ThreeChildKategoriID",
@@ -327,6 +381,11 @@ namespace IdentityServer4.Persistence.Migrations
                 column: "RoleID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Stock_SizeID",
+                table: "Stock",
+                column: "SizeID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Stock_UrunlerID",
                 table: "Stock",
                 column: "UrunlerID");
@@ -351,6 +410,9 @@ namespace IdentityServer4.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "MarkaOneChildKategoriToManies");
+
+            migrationBuilder.DropTable(
                 name: "OneChildRelationshipCinsiyets");
 
             migrationBuilder.DropTable(
@@ -373,6 +435,9 @@ namespace IdentityServer4.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Color");
+
+            migrationBuilder.DropTable(
+                name: "Size");
 
             migrationBuilder.DropTable(
                 name: "Urunlers");

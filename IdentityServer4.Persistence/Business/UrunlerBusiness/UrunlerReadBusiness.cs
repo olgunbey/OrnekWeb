@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -81,7 +82,7 @@ namespace IdentityServer4.Persistence.Business.UrunlerBusiness
         {
         List<Urunler> urunlers= await (await _urunlerIReadRepository.UrunlerListele(kategoriName)).ToListAsync();
 
-            if(urunlers is null)
+            if(!urunlers.Any())
             {
                return ResponseDto<List<UrunListeleDto>>.Success(200);
             }
@@ -124,10 +125,29 @@ namespace IdentityServer4.Persistence.Business.UrunlerBusiness
             return ResponseDto<List<ThreeChildKategori>>.Success(ThreeChildCategoriesData, 200);
         }
 
-        public async Task<ResponseDto<List<TwoChildKategoriler>>> TwoChildCategoriesList(int categoryID)
+        public async Task<ResponseDto<List<OneChildKategorilerDto>>> TwoChildCategoriesList(int categoryID)
         {
-         var TwoChildCategoriesData= await (await  _urunlerIReadRepository.TwoChildCategoriesList(categoryID)).ToListAsync();
-            return ResponseDto<List<TwoChildKategoriler>>.Success(TwoChildCategoriesData, 200);
+        var twoChildKategorilers= await _urunlerIReadRepository.TwoChildCategoriesList();
+
+        var ThreeChildCategori= await  twoChildKategorilers.Where(x => x.ThreeChildKategoriID == categoryID).ToListAsync();
+
+            if(!ThreeChildCategori.Any())
+            {
+            var Response= await  (await _urunlerIReadRepository.TwoChildCategori()).Where(x=>x.ThreeChildKategoriID==categoryID).ToListAsync();
+
+             return ResponseDto<List<OneChildKategorilerDto>>.Success(Response.Select(y => new OneChildKategorilerDto()
+                {
+                    TwoChildKategorilerDto=new TwoChildKategorilerDto() { ID=y.Id,TwoChildKategoriName=y.TwoChildKategoriName}
+                }).ToList(),200);
+
+            
+            }
+           return ResponseDto<List<OneChildKategorilerDto>>.Success(ThreeChildCategori.Select(x => new OneChildKategorilerDto()
+            {
+               OneChildKategoriName = x.OneChildKategoriName,
+               ID=x.Id,
+            }).ToList(),200);
+            
         }
 
         public async Task<ResponseDto<List<OneChildKategorilerDto>>> OneChildCategoriesList(string categoryName)
@@ -157,6 +177,46 @@ namespace IdentityServer4.Persistence.Business.UrunlerBusiness
             }).ToList();
 
             return ResponseDto<List<OneChildKategorilerDto>>.Success(ResponseDto, 200);
+        }
+
+        public async Task<ResponseDto<List<KategorilerDto>>> KategorilerList(int categoryID)
+        {
+        var KategorilerList= await  (await _urunlerIReadRepository.KategorilerList(categoryID)).ToListAsync();
+       return  ResponseDto<List<KategorilerDto>>.Success(KategorilerList.Select(x => new KategorilerDto()
+            {
+                Id=x.Id,
+                KategoriName=x.KategoriName,
+            }).ToList(),200);
+        }
+
+        public async Task<ResponseDto<List<MarkalarDto>>> BrandList(int id)
+        {
+        var ResponseDto= await (await _urunlerIReadRepository.BrandList(id)).ToListAsync();
+          return ResponseDto<List<MarkalarDto>>.Success(ResponseDto.Select(x => new MarkalarDto()
+            {
+                Id =x.Markalar.Id,
+                MarkaName=x.Markalar.MarkaName
+            }).ToList(),200);
+        }
+
+        public async Task<ResponseDto<List<ColorDto>>> ColorList()
+        {
+         var ColorList= await (await _urunlerIReadRepository.ColorList()).ToListAsync();
+            return ResponseDto<List<ColorDto>>.Success(ColorList.Select(x => new ColorDto()
+            {
+                Id=x.Id,
+                ColorName=x.RenkIsim
+            }).ToList(), 200);
+        }
+        public async Task<ResponseDto<List<SizeDto>>> SizeList()
+        {
+            var SizeDataList= await _urunlerIReadRepository.SizeList();
+
+         return ResponseDto<List<SizeDto>>.Success(await SizeDataList.Select(x => new SizeDto()
+            {
+                Id = x.Id,
+                sizeName = x.SizeName,
+            }).ToListAsync(),200);
         }
     }
 }

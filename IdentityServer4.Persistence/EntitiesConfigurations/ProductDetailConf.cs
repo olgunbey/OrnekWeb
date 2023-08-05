@@ -15,6 +15,7 @@ namespace IdentityServer4.Persistence.EntitiesConfigurations
         {
             builder.HasKey(x => x.Id);
             builder.HasOne(x => x.Urunler).WithOne(x => x.ProductDetail).HasForeignKey<ProductDetail>(x => x.UrunlerID);
+            builder.Property(x => x.Evaluation).HasDefaultValue(0);
         }
     }
 }

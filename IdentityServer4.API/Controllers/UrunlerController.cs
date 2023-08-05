@@ -15,10 +15,13 @@ namespace IdentityServer4.API.Controllers
     {
         private readonly KategoriIReadBusiness _kategoriIReadBusiness;
         private readonly UrunlerIReadBusiness _urunlerIReadBusiness;
-        public UrunlerController(KategoriIReadBusiness kategoriIReadBusiness,UrunlerIReadBusiness urunlerIReadBusiness)
+        private readonly UrunlerIWriteBusiness _urunlerIWriteBusiness;
+        public UrunlerController(KategoriIReadBusiness kategoriIReadBusiness,UrunlerIReadBusiness urunlerIReadBusiness, UrunlerIWriteBusiness urunlerIWriteBusiness)
         {
             _kategoriIReadBusiness = kategoriIReadBusiness;
             _urunlerIReadBusiness = urunlerIReadBusiness;
+            _urunlerIWriteBusiness = urunlerIWriteBusiness;
+
         }
 
         [HttpGet("KategoryList")]
@@ -105,15 +108,15 @@ namespace IdentityServer4.API.Controllers
         }
 
         [HttpGet("[action]/{categoryID}")]
-        [Authorize(Policy ="PolicyClient")]
+        [Authorize(Policy = "PolicyClient")]
         public async Task<IActionResult> TwoChildCategoriesList(int categoryID)
         {
-            return ResponseDto<List<TwoChildKategoriler>>
-                .ResponseStruct<List<TwoChildKategoriler>>
+            return ResponseDto<List<OneChildKategorilerDto>>
+                .ResponseStruct<List<OneChildKategorilerDto>>
                 .Response(await _urunlerIReadBusiness.TwoChildCategoriesList(categoryID));
         }
         [HttpGet("[action]/{categoryName}")]
-        //[Authorize(Policy ="PolicyClient")]
+        [Authorize(Policy = "PolicyClient")]
 
         public async Task<IActionResult> OneChildCategoriesList(string categoryName)
         {
@@ -122,5 +125,65 @@ namespace IdentityServer4.API.Controllers
                 .ResponseStruct<List<OneChildKategorilerDto>>
                 .Response(await _urunlerIReadBusiness.OneChildCategoriesList(categoryName));
         }
+
+        [HttpGet("[action]/{categoryID}")]
+        [Authorize(Policy = "PolicyClient")]
+        public async Task<IActionResult> KategorilerList(int categoryID)
+        {
+            return ResponseDto<List<KategorilerDto>>
+                .ResponseStruct<List<KategorilerDto>>
+                .Response(await _urunlerIReadBusiness.KategorilerList(categoryID));
+        }
+        [HttpGet("[action]/{categoryID}")]
+        [Authorize(Policy ="PolicyClient")]
+        public async Task<IActionResult> BrandList(int categoryID)
+        {
+            return ResponseDto<List<MarkalarDto>>
+                .ResponseStruct<List<MarkalarDto>>
+                .Response(await _urunlerIReadBusiness.BrandList(categoryID));
+        }
+        [HttpPost("ProductAdd")]
+        [Authorize(Policy = "PolicyClient")]
+        public async Task<IActionResult> ProductAdd([FromBody] ProductAddModelView model)
+        {
+           await _urunlerIWriteBusiness.AddAsync(new Urunler()
+            { 
+               MarkalarID=model.markalarID,
+               KategoriID=model.kategoriID,
+               UrunName=model.urunname,
+               Stocks=new List<Stock>()
+               {
+                   new Stock()
+                   {
+                       Stok=model.stok,
+                       RenklerID=model.colorID
+                   }
+               },
+               ProductDetail = new ProductDetail()
+               {
+                   Price = model.Price,
+                   Description=model.description,
+               }
+           });
+            return Ok();
+        }
+        [HttpGet("ColorList")]
+        [Authorize(Policy = "PolicyClient")]
+        public async Task<IActionResult> ColorList()
+        {
+            return ResponseDto<List<ColorDto>>
+                 .ResponseStruct<List<ColorDto>>
+                 .Response(await _urunlerIReadBusiness.ColorList());
+        }
+        [HttpGet("SizeList")]
+        [Authorize(Policy ="PolicyClient")]
+        public async Task<IActionResult> SizeList()
+        {
+            return ResponseDto<List<SizeDto>>
+                .ResponseStruct<List<SizeDto>>
+                .Response(await _urunlerIReadBusiness.SizeList());
+        }
     }
+
+ 
 }

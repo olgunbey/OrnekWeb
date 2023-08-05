@@ -10,8 +10,11 @@ namespace IdentityServer4.Domain.Entities
     {
         public int UrunlerID { get; set; }
         public int RenklerID{ get; set; }
+        public int? SizeID { get; set; }
         public int Stok { get; set; }
         public Urunler Urunler { get; set; }
         public Color Color{ get; set; }
+        public Size? Size { get; set; }
+        
     }
 }
