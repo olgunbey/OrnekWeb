@@ -13,6 +13,7 @@ namespace IdentityServer4.Domain.Entities
         public int Evaluation { get; set; }
         public Urunler Urunler { get; set; }
         public int UrunlerID { get; set; }
+        public string FileAddress { get; set; }
 
     }
 }

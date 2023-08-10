@@ -281,8 +281,9 @@ namespace IdentityServer4.Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    Evaluation = table.Column<int>(type: "int", nullable: false),
-                    UrunlerID = table.Column<int>(type: "int", nullable: false)
+                    Evaluation = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    UrunlerID = table.Column<int>(type: "int", nullable: false),
+                    FileAddress = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

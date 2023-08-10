@@ -6,7 +6,7 @@ using IdentityServer4.Persistence.Context;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,10 +19,15 @@ builder.Services.AddHttpClient<ClientCredentials>(opt => opt.BaseAddress = new U
 builder.Services.AddHttpClient<HttpClientRoleApi>(opt => opt.BaseAddress = new Uri("https://localhost:7237/api/"));
 builder.Services.AddHttpClient<HttpClientUrunlerApi>(opt => opt.BaseAddress = new Uri("https://localhost:7237/api/Urunler/"));
 
+builder.Services.AddAuthorization(opt => opt.AddPolicy("UrunEklePolicy", policy =>
+{
+    policy.AddRequirements(new UrunEkleAuthorizationBusiness());
+}));
+
 
 builder.Services.Scoped();
 
-
+builder.Services.AddScoped<IAuthorizationHandler,UrunEkleAuthorizationHandler>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(
     opt =>

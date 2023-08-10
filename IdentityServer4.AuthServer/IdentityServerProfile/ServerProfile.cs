@@ -22,7 +22,7 @@ namespace IdentityServer4.AuthServer.IdentityServerProfile
         {
             
            var Kullanicilar=  await  _httpClientKullaniciApi.KullaniciSorgula(new Repository.Dtos.KullaniciGirisDto() { KullaniciName=context.UserName,KullaniciSifre=context.Password});
-            //Kullanicilar kullanicilar=await _uyelerIReadBusiness.GetAsync(x => x.KullaniciName == context.UserName && x.KullaniciSifre == context.Password);
+            
             if (Kullanicilar.Data != null)
             {
                 context.Result = new GrantValidationResult(Kullanicilar.Data.Id.ToString(), OidcConstants.AuthenticationMethods.Password);
