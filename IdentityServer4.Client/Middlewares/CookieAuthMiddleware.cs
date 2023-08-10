@@ -6,12 +6,12 @@ using System.Security.Claims;
 
 namespace IdentityServer4.Client.Middlewares
 {
-    public class Middleware1
+    public class CookieAuthMiddleware
     {
         RequestDelegate _next;
         HttpClientKullaniciApi _httpClientKullaniciApi;
 
-        public Middleware1(RequestDelegate requestDelegate, HttpClientKullaniciApi httpClientKullaniciApi)
+        public CookieAuthMiddleware(RequestDelegate requestDelegate, HttpClientKullaniciApi httpClientKullaniciApi)
         {
             _next = requestDelegate;
             _httpClientKullaniciApi = httpClientKullaniciApi;

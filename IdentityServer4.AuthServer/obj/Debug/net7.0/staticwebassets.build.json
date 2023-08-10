@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "w3pDM0hyuFLhbjQxgLUjZZ6WTXVV8pvOUeRJxkU1Fuo=",
+  "Hash": "qKiOuFKhAHwz1bmsnCjUSgf9cFGN9ZlpJ61qE5yHSCw=",
   "Source": "IdentityServer4.AuthServer",
   "BasePath": "_content/IdentityServer4.AuthServer",
   "Mode": "Default",
@@ -1887,6 +1887,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\olgun\\OneDrive\\Masaüstü\\Çalışmalar\\IdentityServer4Ornek\\IdentityServer4.Client\\wwwroot\\fotograflar\\yeniDosya.png",
+      "SourceId": "IdentityServer4.Client",
+      "SourceType": "Project",
+      "ContentRoot": "C:\\Users\\olgun\\OneDrive\\Masaüstü\\Çalışmalar\\IdentityServer4Ornek\\IdentityServer4.Client\\wwwroot\\",
+      "BasePath": "_content/IdentityServer4.Client",
+      "RelativePath": "fotograflar/yeniDosya.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\fotograflar\\yeniDosya.png"
     },
     {
       "Identity": "C:\\Users\\olgun\\OneDrive\\Masaüstü\\Çalışmalar\\IdentityServer4Ornek\\IdentityServer4.Client\\wwwroot\\js\\site.js",

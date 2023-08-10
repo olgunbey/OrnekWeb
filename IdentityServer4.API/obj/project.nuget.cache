@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "jgvJa8r7ttemc6CI0N1ypINIuysEUk6O69BvpfdJAJc2NdA26pqI2utOnyBs6BIU/Mcrq4vExqkgHeCuQoBeqg==",
+  "dgSpecHash": "FhBwWgO96gMmz3BpM6DkADt3pP/t6AuLaAz63xzCQkF+xCLO4GoT9N6cvDTNtNI4zFWqEH0GHhX0lDfmWc/raw==",
   "success": true,
   "projectFilePath": "C:\\Users\\olgun\\OneDrive\\Masaüstü\\Çalışmalar\\IdentityServer4Ornek\\IdentityServer4.API\\IdentityServer4.API.csproj",
   "expectedPackageFiles": [
@@ -68,6 +68,7 @@
     "C:\\Users\\olgun\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\olgun\\.nuget\\packages\\microsoft.win32.systemevents\\5.0.0\\microsoft.win32.systemevents.5.0.0.nupkg.sha512",
     "C:\\Users\\olgun\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\olgun\\.nuget\\packages\\sixlabors.imagesharp\\3.0.1\\sixlabors.imagesharp.3.0.1.nupkg.sha512",
     "C:\\Users\\olgun\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
     "C:\\Users\\olgun\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
     "C:\\Users\\olgun\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",

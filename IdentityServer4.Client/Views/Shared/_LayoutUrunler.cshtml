@@ -14,11 +14,23 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+
+
     <div class="collapse navbar-collapse" id="navbarNav">
+
+
         <ul class="navbar-nav">
+
+
         </ul>
+
+
+
     </div>
 </nav>
+
+
+
 
   
 
@@ -49,7 +61,7 @@
 
                     for (let category of threeChildKategori) {
                         var createli = document.createElement("li");
-                        createli.className = "categoryli";
+                        createli.className = "anacategoryli";
                         var createa = document.createElement("a");
                         createa.className = "anacategorya";
                         createa.classList.add("nav-link");
@@ -69,6 +81,7 @@
                                 createsuba.href = `/Urunler/UrunlerListele?kategories=${twoChildCategories.twoChildKategoriName}`
                                 createsuba.className = "categorya";
                                 createsuba.classList.add("nav-link");
+                                createsuba.classList.add(`categorya${twoChildCategories.id}`);
                                 createsubli.appendChild(createsuba);
                                 createli.appendChild(createsubli);
 
@@ -78,6 +91,8 @@
                                         if (twoChildCategories.id == oneChildCategories.twoChildKategoriID) {
                                             var createsubsubli = document.createElement("li");
                                             createsubsubli.className = "categoryli";
+                                            createsubsubli.classList.add("shadowLi");
+                                            createsubsubli.classList.add(`twoChildCategori${oneChildCategories.twoChildKategoriID}`);
                                             var createsubsuba = document.createElement("a");
                                             createsubsuba.style.color = "orange";
                                             createsubsuba.textContent = oneChildCategories.oneChildKategoriName;
@@ -92,12 +107,14 @@
                                         if (oneChildCategories.threeChildKategoriID == category.id) {
                                             var anasubli = document.createElement("li");
                                             anasubli.className = "categoryli";
+                                            anasubli.classList.add(`threeChildCategori${oneChildCategories.threeChildKategoriID}`);
                                             var anasubba = document.createElement("a");
                                             anasubba.style.color = "orange";
                                             anasubba.textContent = oneChildCategories.oneChildKategoriName;
                                             anasubba.href = `/Urunler/UrunlerListele?kategories=${oneChildCategories.oneChildKategoriName}`;
                                             anasubba.className = "categorysuba";
                                             anasubba.classList.add("nav-link");
+
                                             anasubli.appendChild(anasubba);
                                             createli.appendChild(anasubli);
                                         }
@@ -106,24 +123,27 @@
                             }
                         }
                         for (oneChildCategories of oneChildKategori) {
-                            if (oneChildCategories.twoChildKategorilerDto != null) {
-                                if (twoChildCategories.id == oneChildCategories.twoChildKategoriID) {
-                                    var createsubsubli = document.createElement("li");
-                                    createsubsubli.className = "categoryli";
-                                    var createsubsuba = document.createElement("a");
-                                    createsubsuba.style.color = "orange";
-                                    createsubsuba.textContent = oneChildCategories.oneChildKategoriName;
-                                    createsubsuba.href = `/Urunler/UrunlerListele?kategories=${oneChildCategories.oneChildKategoriName}`;
-                                    createsubsuba.className = "categorysuba";
-                                    createsubsuba.classList.add("nav-link");
-                                    createsubsubli.appendChild(createsubsuba);
-                                    createsubli.appendChild(createsubsubli);
-                                }
-                            }
+                            //if (oneChildCategories.twoChildKategorilerDto != null) {
+                            //    if (twoChildCategories.id == oneChildCategories.twoChildKategoriID) {
+                            //        var createsubsubli = document.createElement("li");
+                            //        createsubsubli.className = "categoryli";
+                            //        createsubsubli.classList.add(`twoChildCategori${oneChildCategories.twoChildKategoriID}`);
+                            //        createsubsubli.classList.add("shadowLi");
+                            //        var createsubsuba = document.createElement("a");
+                            //        createsubsuba.style.color = "orange";
+                            //        createsubsuba.textContent = oneChildCategories.oneChildKategoriName;
+                            //        createsubsuba.href = `/Urunler/UrunlerListele?kategories=${oneChildCategories.oneChildKategoriName}`;
+                            //        createsubsuba.className = "categorysuba";
+                            //        createsubsuba.classList.add("nav-link");
+                            //        createsubsubli.appendChild(createsubsuba);
+                            //        createsubli.appendChild(createsubsubli);
+                            //    }
+                            //}
                             if (oneChildCategories.threeChildKategoriDto != null) {
                                 if (oneChildCategories.threeChildKategoriID == category.id) {
                                     var anasubli = document.createElement("li");
                                     anasubli.className = "categoryli";
+                                    anasubli.classList.add(`threeChildCategori${oneChildCategories.threeChildKategoriID}`);
                                     var anasubba = document.createElement("a");
                                     anasubba.style.color = "orange";
                                     anasubba.textContent = oneChildCategories.oneChildKategoriName;
@@ -191,6 +211,7 @@
         });     
     }
 
+
     function getAccessToken()
     {
         return $.ajax({
@@ -209,7 +230,8 @@
         await AjaxRequestCategoriesUpdated(accessToken);
 
        const liler = document.querySelectorAll(".categorysuba");
-       const ustliler = document.querySelectorAll(".categorya");
+       const ustliler = document.querySelectorAll(".categoryli");
+       const ustunli=document.querySelectorAll(".categoryli");
 
         liler.forEach(element => {
             element.addEventListener('click', async () => {
@@ -217,12 +239,49 @@
                 await ajaxRequestAltCategories(accessToken, encodeURIComponent(textContent));
             });
         });
+        var categorySubaElements = document.querySelectorAll(".categorysuba");
+        
+
+        const ShadowLi = document.querySelectorAll(".shadowLi");
+        for (var i = 0; i < ShadowLi.length; i++) {
+            ShadowLi[i].style.display = "none";
+        }
 
         ustliler.forEach(e => {
             e.addEventListener('click',async () => {
                 const textContent = e.textContent;
                await ajaxRequestUstCategories(accessToken, encodeURIComponent(textContent));
+
             });
+            e.addEventListener('mouseover',()=>{
+                for(let i=1;i<=ustliler.length;i++)
+                {
+                const ShowLies= e.getElementsByTagName("li");
+                console.log(e);
+                Array.from(e.children).forEach(children=>{
+                    children.classList.forEach(childrennClassName=>{
+                        if(childrennClassName==`twoChildCategori${i}`)
+                        {
+                            children.style.display="";
+                        }
+                    })
+                })
+                }
+            });
+            e.addEventListener('mouseout', async () => {
+                for (let i = 1; i <= ustliler.length; i++) {
+                    const ShowLies = e.getElementsByTagName("li");
+                    console.log(e);
+                    Array.from(e.children).forEach(children => {
+                        children.classList.forEach(childrennClassName => {
+                            if (childrennClassName == `twoChildCategori${i}`) {
+                                children.style.display = "none";
+                            }
+                        })
+                    })
+                }
+            });
+            
         });
     });
     

@@ -1,55 +1,253 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutAdminPanel.cshtml";
 }
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
+    body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(to right, #203750, #1e5692, #023c7e);
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-items: center;
+        padding: 1rem;
+    }
+
+    .categories {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        overflow: hidden;
+        margin: 0 auto;
+    }
+
+    .categories-choose {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        overflow: hidden;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .product-choose {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+        overflow: hidden;
+        margin: 0 auto;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+        .product-choose select,
+        .product-choose input {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+    label {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #edeaf0;
+        padding: 0.5rem;
+    }
+
+    select {
+        position: relative;
+        background: #b9b9b9;
+        flex: 1;
+        width: 20rem;
+        height: 2.5rem;
+        padding: 0.5rem 1rem;
+        color: #fff;
+        font-size: 1em;
+        cursor: pointer;
+        border-radius: 0.2rem;
+        transition: all 200ms ease-out;
+    }
+
+        select:focus {
+            outline: none;
+            color: #ffffff;
+            background: #ededee;
+            box-shadow: 0px 4px 8px rgba(0, 123, 255, 0.2);
+            transition: all 200ms ease-in;
+        }
+
+    input {
+        width: 20rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0.2rem;
+        border: 1px solid #ccc;
+        font-size: 1em;
+        color: #241e1e;
+        background: #b9b9b9;
+        margin-bottom: 1rem;
+        transition: all 200ms ease-out;
+    }
+
+        input:focus {
+            outline: none;
+            border-color: #007bff;
+            background-color: #ededee;
+            box-shadow: 0px 4px 8px rgba(0, 123, 255, 0.2);
+            transition: all 200ms ease-in;
+        }
+
+    .textarea-label {
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #edeaf0;
+        padding: 1.5rem 0.5rem 0.5rem;
+    }
+
+    textarea {
+        padding: 0.5rem 1rem;
+        border-radius: 0.2rem;
+        border: 1px solid #ccc;
+        background: #b9b9b9;
+        font-size: 1em;
+        color: #241e1e;
+        margin-bottom: 1rem;
+        transition: all 200ms ease-out;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    }
+
+        textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            background-color: #cccccf;
+            box-shadow: 0px 4px 8px rgba(0, 123, 255, 0.2);
+            transition: all 200ms ease-in;
+        }
+
+    .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        margin: 0 auto;
+        padding: 1rem;
+    }
+
+    button {
+        width: 15rem;
+        padding: 0.5rem 1rem;
+        border-radius: 0.2rem;
+        border: none;
+        background: #007bff;
+        font-size: 1em;
+        color: #fff;
+        cursor: pointer;
+        transition: all 200ms ease-out;
+    }
+
+        button:hover {
+            background: #0069d9;
+            transition: all 200ms ease-in;
+        }
+</style>
 
 <script src="https://code.jquery.com/jquery-3.7.0.js"
         integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
         crossorigin="anonymous"></script>
 
+<div class="container">
+
+    <form id="formProduct" enctype="multipart/form-data"></form>
+        <div class="categories">
+
+
+            <div class="categories-choose">
+                <label class="form-label">Kategori seçiniz: </label>
+                <select id="myThreeChildSelectBox" class="form-select-sm">
+                </select>
+                <label class="form-label">Kategori seçiniz: </label>
+                <select id="myTwoChildSelectBox" class="form-select-sm">
+                </select>
+                <label class="form-label">Kategori seçiniz: </label>
+                <select id="myOneChildSelectBox" class="form-select-sm">
+                </select>
+            </div>
+
+
+            <div class="product-choose">
+                <label class="form-label">Urun ismi seçiniz</label>
+                <input type="text" placeholder="Urun ismi giriniz" class="inputUrunName" />
+                <label class="form-label">Urun stoğu seçiniz</label>
+                <input type="text" placeholder="Urun stoğu giriniz" class="inputStock" />
+
+                <label class="form-label">Kategori seçiniz</label>
+                <select id="myKategorilerSelectBox">
+                </select>
+
+                <label class="form-label">Marka seçiniz</label>
+                <select id="myMarkalarSelectBox">
+                </select>
+
+                <label class="form-label">Renk seçiniz</label>
+                <select id="myColorSelectBox">
+                    <option value="0">Renk yok</option>
+                </select>
+
+                <label class="form-label">Ürün fiyatı giriniz</label>
+                <input type="text" placeholder="Urun fiyatı giriniz" class="inputPrice" />
+
+                <label class="form-label">Varsa beden seçiniz</label>
+                <select id="mySizeSelectBox">
+                    <option value="0">Beden yok</option>
+                </select>
+                <label class="form-label textarea-label">Ürün açıklamasını giriniz</label>
+                <textarea placeholder="Açıklama yaz" class="inputDescription" rows="4"></textarea>
+
+            <input type="file" id="inputFile" />
+
+            </div>
+
+
+
+        </div>
+        <div class="button">
+            <button class="btn-primary" id="buttonGonder">Gönder</button>
+        </div>
+
+
+
+    
+
+
+
+</div>
+
+    
+
+
         
-       
-        <select id="myThreeChildSelectBox">
 
-        </select>
-        <br />
-        <select id="myTwoChildSelectBox">
-
-        </select>
-        <br />
-
-        <select id="myOneChildSelectBox">
-
-        </select>
-        <br />
-        <input type="text" placeholder="Urun ismi giriniz" class="inputUrunName" />
-        <br />
-        <input type="text" placeholder="Urun stoğu giriniz" class="inputStock" />
-        <br />
-        <select id="myKategorilerSelectBox">
-
-
-        </select>
-        <br />
-        <select id="myMarkalarSelectBox">
-
-        </select>
-        <br />
-        <select id="myColorSelectBox">
-            <option value="0">Renk yok</option>
-        </select>
-        <br />
-        <input type="text" placeholder="Urun fiyatı giriniz" class="inputPrice"/>
-        <br />
-        <select id="mySizeSelectBox">
-            <option value="0">Beden yok</option>
-        </select>
-        <br />
-        <input type="text" placeholder="Açıklama yaz" class="inputDescription"/>
-
-        <button class="btn-primary" id="buttonGonder">Gönder</button>
-
-<script>
+<script type="text/javascript">
     const MySelectThreeChild = document.querySelector("#myThreeChildSelectBox");
     const MySelectTwoChild = document.querySelector("#myTwoChildSelectBox");
     const MySelectOneChild = document.querySelector("#myOneChildSelectBox");
@@ -59,7 +257,6 @@
     const MyColorSelectBox = document.querySelector("#myColorSelectBox");
     const MyStockInput = document.querySelector("#inputStock");
     const MySizeSelectBox = document.querySelector("#mySizeSelectBox");
-
 
     function ThreeChildCategoriesList(accessToken)
     {
@@ -106,7 +303,6 @@
                },
                success: function (data)
                {
-                   console.log(data);
                    resolve(data);
                },
                error: function (errors)
@@ -222,44 +418,87 @@
         });
     }
     
-    function ProductAdd(urunName,KategorilerID,MarkalarID,Stock,ColorID,Prices,SizeID,Description,accessToken){
-        var myData={
-            urunname: urunName,
-            kategoriID: KategorilerID,
-            markalarID: MarkalarID,
-            colorID: ColorID,
-            stok: Stock,
-            Price: Prices,
-            sizeID: SizeID,
-            description: Description
-        };
-        return new Promise((resolve,reject)=>{
+    function ProductAddApi(urunName, KategorilerID, MarkalarID, Stock, ColorID, Prices, SizeID, Description,Files,FileName,KategoriName ,accessToken) {
+
+        var formData = new FormData();
+
+        formData.append('urunname', urunName);
+        formData.append('kategoriID', parseInt(KategorilerID));
+        formData.append('markalarID', parseInt(MarkalarID));
+        formData.append('colorID', parseInt(ColorID));
+        formData.append('stok', parseInt(Stock));
+        formData.append('Price', parseInt(Prices));
+        formData.append('sizeID', parseInt(SizeID));
+        formData.append('description', Description);
+        formData.append('files', Files);
+        formData.append('filesName', FileName);
+        formData.append('kategoriName', KategoriName);
+
+        return new Promise((resolve, reject) => {
             $.ajax({
-               type: 'POST',
-               url: 'https://localhost:7237/api/Urunler/ProductAdd',
-               contentType: "application/json; charset=utf-8",
+                url: 'https://localhost:7237/api/Urunler/ProductAdd',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
                 headers: {
-                    "Authorization": `Bearer ${accessToken}` // Gerekli ise, erişim token'ını buraya ekleyin
+                    "Authorization": `Bearer ${accessToken}`
                 },
-               data: JSON.stringify(myData),
+                success: resolve,
+                error: reject
             });
         });
     }
 
+    function FileUpload(file)
+    {
+        return new Promise((resolve,reject)=>{
+
+            var fr=new FileReader();
+            fr.onload = () => {
+                var uintArray = new Uint8Array(fr.result);
+
+                // Uint8Array içeriğini base64 koduna dönüştürün
+                var base64String = btoa(String.fromCharCode.apply(null, uintArray));
+
+                resolve(base64String);
+            };
+            fr.readAsArrayBuffer(file);
+        });
+    }
+
+
+   
+
+
+
     getAccessTokens().done(async function (accessTokenResponses) 
     {
+       
      const accessToken = accessTokenResponses.access_token;
 
      const Datam= await ThreeChildCategoriesList(accessToken);
-
-     const ColorData= await ColorList(accessToken);
-
-     const SizeData= await SizeList(accessToken);
 
      for(let ThreeChildCategories of Datam.data)
      {
             MySelectThreeChild.appendChild(new Option(ThreeChildCategories.threeChildKategoriName, ThreeChildCategories.id));
      }
+
+       
+        const TwoChildUpload = await TwoChildCategoriesList(MySelectThreeChild.children[0].value, accessToken);
+            for (let TwoChildCategories of TwoChildUpload.data) {
+                if (TwoChildCategories.twoChildKategorilerDto != null) {
+                    MySelectTwoChild.appendChild(new Option(TwoChildCategories.twoChildKategorilerDto.twoChildKategoriName, TwoChildCategories.twoChildKategorilerDto.id));
+
+                }
+                else {
+                    MySelectOneChild.appendChild(new Option(TwoChildCategories.oneChildKategoriName, TwoChildCategories.id));
+                }
+            }
+
+        const ColorData = await ColorList(accessToken);
+
+        const SizeData = await SizeList(accessToken);
 
      for(let Color of ColorData.data)
      {
@@ -295,6 +534,13 @@
                     }
             });
 
+        const Data = await OneChildCategoriesList(encodeURIComponent(MySelectTwoChild.children[0].textContent), accessToken);
+     for(let datam of Data.data)
+     {
+            MySelectOneChild.appendChild(new Option(datam.oneChildKategoriName, datam.id));
+     }
+           
+
         document.getElementById("myTwoChildSelectBox")
             .addEventListener('change',async ()=>{
                 var SelectedOpt=MySelectTwoChild.selectedIndex;
@@ -308,6 +554,13 @@
 
             });
 
+        const CategoryData= await categoriesList(MySelectOneChild.children[0].value,accessToken);
+
+        for (let Data of CategoryData.data) {
+            MyKategorilerSelectBox.appendChild(new Option(Data.kategoriName, Data.id));
+        }
+
+
         document.getElementById("myOneChildSelectBox")
         .addEventListener('change',async ()=>{
                 var SelectedOpt = MySelectOneChild.value;
@@ -318,6 +571,12 @@
                     MyKategorilerSelectBox.appendChild(new Option(Data.kategoriName,Data.id));
                 }
         });
+
+        const MarkaData=await BrandList(MyKategorilerSelectBox.children[0].value,accessToken);
+        for (let Data of MarkaData.data) {
+            MyMarkalarSelectBox.appendChild(new Option(Data.markaName, Data.id));
+        }
+
            
         document.getElementById("myKategorilerSelectBox")
         .addEventListener('change', async ()=>{
@@ -330,23 +589,29 @@
             }
         });
         document.getElementById("buttonGonder")
-        .addEventListener('click', async ()=>{
+            .addEventListener('click', async () => {
 
+                const CategorySelect = document.getElementById("myKategorilerSelectBox");
                 let KategorilerID = MyKategorilerSelectBox.value;
+                let SelectedIndexx = CategorySelect.selectedIndex;
+                let KategoriName = CategorySelect.options[SelectedIndexx].text;
                 let MarkalarID = MyMarkalarSelectBox.value;
                 let ColorID = MyColorSelectBox.value;
-                let Price=document.querySelector(".inputPrice");
+                let Price = document.querySelector(".inputPrice");
                 let Stock = document.querySelector(".inputStock");
                 let urunName = document.querySelector(".inputUrunName");
-                let SizeID= MySizeSelectBox.value;
+                let SizeID = MySizeSelectBox.value;
                 let description = document.querySelector(".inputDescription");
-                if(SizeID==0)
-                {
-                    SizeID=null;
-                }
-              await ProductAdd(urunName.value, KategorilerID, MarkalarID,Stock.value,ColorID,Price.value,SizeID,description.value,accessToken);
-        });
+                let fileInput = document.getElementById("inputFile");
+                let file = fileInput.files[0];
+                let fileName=fileInput.files[0].name;
+                let responseFileByteArray= await FileUpload(file);
+                    await ProductAddApi(urunName.value, KategorilerID, MarkalarID, Stock.value, ColorID, Price.value, SizeID, description.value, responseFileByteArray, fileName, KategoriName, accessToken);
+
+            });
 
     });
    
+
+
 </script>

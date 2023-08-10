@@ -6,7 +6,7 @@ namespace IdentityServer4.Client.Middlewares
     {
         public static IApplicationBuilder MiddlewareExtension(this IApplicationBuilder applicationBuilder)
         {
-            return applicationBuilder.UseMiddleware<Middleware1>();
+            return applicationBuilder.UseMiddleware<CookieAuthMiddleware>();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using IdentityServer4.Client.HttpClients;
 using IdentityServer4.Client.Models;
 using IdentityServer4.Repository.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -77,6 +78,7 @@ namespace IdentityServer4.Client.Controllers
             
             
         }
+        //[Authorize(Policy = "UrunEklePolicy")]
         [HttpGet]
         public IActionResult UrunEkle()
         {
