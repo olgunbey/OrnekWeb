@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "X6NvAADGUoVSVW1K9/4zq7lwffg12hEGeUQIg1FqjBw=",
+  "Hash": "YVx3QlPMI0Xy5uWZvt8+wPijl5niEwmV1MmZw/XgZ9c=",
   "Source": "IdentityServer4.Client",
   "BasePath": "_content/IdentityServer4.Client",
   "Mode": "Default",
@@ -1834,6 +1834,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\olgun\\OneDrive\\Masaüstü\\Çalışmalar\\IdentityServer4Ornek\\IdentityServer4.Client\\wwwroot\\Notebook\\Ekran görüntüsü 2023-06-26 003324.png",
+      "SourceId": "IdentityServer4.Client",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\olgun\\OneDrive\\Masaüstü\\Çalışmalar\\IdentityServer4Ornek\\IdentityServer4.Client\\wwwroot\\",
+      "BasePath": "_content/IdentityServer4.Client",
+      "RelativePath": "Notebook/Ekran görüntüsü 2023-06-26 003324.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Notebook\\Ekran görüntüsü 2023-06-26 003324.png"
     }
   ]
 }

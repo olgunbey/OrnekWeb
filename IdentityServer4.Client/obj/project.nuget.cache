@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1ODGAq35d3ZUu2LJaBa9i/kyVE8T0QmEWssuQcbXSUEPk/aFVVeGL+oRKOaQgxKRWwaZu86jQecc5dvV5m9gLA==",
+  "dgSpecHash": "neLVEr30UY2t8vIsPjOxr91fUuVk+tWlTAOOM6jD98hD+uIE/T8APw3hNGOq+4CMzoLAB6/7rewxFbV55R4BDA==",
   "success": true,
   "projectFilePath": "C:\\Users\\olgun\\OneDrive\\Masaüstü\\Çalışmalar\\IdentityServer4Ornek\\IdentityServer4.Client\\IdentityServer4.Client.csproj",
   "expectedPackageFiles": [
@@ -44,7 +44,9 @@
     "C:\\Users\\olgun\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
     "C:\\Users\\olgun\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
     "C:\\Users\\olgun\\.nuget\\packages\\microsoft.extensions.dependencymodel\\7.0.0\\microsoft.extensions.dependencymodel.7.0.0.nupkg.sha512",
-    "C:\\Users\\olgun\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\2.2.0\\microsoft.extensions.fileproviders.abstractions.2.2.0.nupkg.sha512",
+    "C:\\Users\\olgun\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\7.0.0\\microsoft.extensions.fileproviders.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\olgun\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\7.0.0\\microsoft.extensions.fileproviders.physical.7.0.0.nupkg.sha512",
+    "C:\\Users\\olgun\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\7.0.0\\microsoft.extensions.filesystemglobbing.7.0.0.nupkg.sha512",
     "C:\\Users\\olgun\\.nuget\\packages\\microsoft.extensions.hosting.abstractions\\2.2.0\\microsoft.extensions.hosting.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\olgun\\.nuget\\packages\\microsoft.extensions.logging\\7.0.0\\microsoft.extensions.logging.7.0.0.nupkg.sha512",
     "C:\\Users\\olgun\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",

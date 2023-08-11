@@ -12,8 +12,8 @@ namespace IdentityServer4.Persistence.EntitiesConfigurations
     {
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Urunler> builder)
         {
-            builder.HasOne(x => x.Kategori).WithMany(x => x.Urunlers).HasForeignKey(x => x.KategoriID);
-            builder.HasOne(x => x.Markalar).WithMany(x => x.Urunlers).HasForeignKey(x => x.MarkalarID);
+            builder.HasOne(x => x.Kategori).WithMany(x => x.Urunlers).HasForeignKey(x => x.KategoriID).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(x => x.Stocks).WithOne(x => x.Urunler).HasForeignKey(x => x.UrunlerID).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

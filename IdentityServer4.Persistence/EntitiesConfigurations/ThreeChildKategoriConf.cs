@@ -13,8 +13,7 @@ namespace IdentityServer4.Persistence.EntitiesConfigurations
     {
         public void Configure(EntityTypeBuilder<ThreeChildKategori> builder)
         {
-            builder.HasMany(x=>x.TwoChildKategorilers).WithOne(x=>x.ThreeChildKategori).HasForeignKey(x=>x.ThreeChildKategoriID).IsRequired();
-            builder.HasMany(x => x.OneChildKategorilers).WithOne(x => x.ThreeChildKategori).HasForeignKey(x => x.ThreeChildKategoriID).IsRequired(false);
+            builder.HasMany(x => x.OneChildKategorilers).WithOne(x => x.ThreeChildKategori).HasForeignKey(x => x.ThreeChildKategoriID).IsRequired().OnDelete(DeleteBehavior.Cascade);
             builder.HasKey(x => x.Id);
         }
     }

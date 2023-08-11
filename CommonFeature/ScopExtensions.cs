@@ -22,6 +22,7 @@ using IdentityServer4.Repository.IRepository.RolesIRepository;
 using IdentityServer4.Repository.IRepository.UyelerIRepository;
 using IdentityServer4.Repository.Mapping;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,6 @@ namespace CommonFeature
 
             services.AddScoped<UyelerIReadBusiness, UyelerReadBusiness>();
             services.AddScoped(typeof(IBusinesRead<>), typeof(ReadBusiness<>));
-
 
             services.AddScoped<UyelerIReadRepository, UyelerReadRepository>();
             services.AddScoped<UyelerIWriteRepository, UyelerWriteRepository>();
@@ -66,8 +66,6 @@ namespace CommonFeature
 
             services.AddScoped<UrunlerIReadRepository,UrunlerReadRepository>();
             services.AddScoped<UrunlerIWriteRepository,UrunlerWriteRepository>();
-
-
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddScoped<IUnitOfWorks, UnitOfWork>();
         }

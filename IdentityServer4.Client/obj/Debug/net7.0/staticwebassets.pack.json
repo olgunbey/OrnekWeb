@@ -181,6 +181,10 @@
       "PackagePath": "staticwebassets\\IdentityServer4.Client.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\olgun\\OneDrive\\Masaüstü\\Çalışmalar\\IdentityServer4Ornek\\IdentityServer4.Client\\wwwroot\\Notebook\\Ekran görüntüsü 2023-06-26 003324.png",
+      "PackagePath": "staticwebassets\\Notebook\\Ekran görüntüsü 2023-06-26 003324.png"
+    },
+    {
       "Id": "C:\\Users\\olgun\\OneDrive\\Masaüstü\\Çalışmalar\\IdentityServer4Ornek\\IdentityServer4.Client\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

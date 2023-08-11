@@ -14,7 +14,6 @@ namespace IdentityServer4.Persistence.EntitiesConfigurations
         public void Configure(EntityTypeBuilder<OneChildKategoriler> builder)
         {
             builder.HasMany(x => x.OneChildRelationshipCinsiyets).WithOne(x => x.OneChildKategori).HasForeignKey(x => x.OneChildID);
-            builder.HasOne(x => x.TwoChildKategori).WithMany(x => x.OneChildKategorilers).HasForeignKey(x => x.TwoChildKategoriID).IsRequired(false);
             builder.HasMany(x => x.Kategorilers).WithOne(x => x.OneChildKategori).HasForeignKey(x => x.OneChildKategoriID);
         }
     }

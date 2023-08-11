@@ -24,12 +24,13 @@ namespace IdentityServer4.API.Controllers
         private readonly UrunlerIReadBusiness _urunlerIReadBusiness;
         private readonly UrunlerIWriteBusiness _urunlerIWriteBusiness;
         private readonly IFileProvider _fileProvider;
-        public UrunlerController(KategoriIReadBusiness kategoriIReadBusiness, UrunlerIReadBusiness urunlerIReadBusiness, UrunlerIWriteBusiness urunlerIWriteBusiness, IFileProvider fileProvider)
+        public UrunlerController(KategoriIReadBusiness kategoriIReadBusiness, 
+            UrunlerIReadBusiness urunlerIReadBusiness, 
+            UrunlerIWriteBusiness urunlerIWriteBusiness)
         {
             _kategoriIReadBusiness = kategoriIReadBusiness;
             _urunlerIReadBusiness = urunlerIReadBusiness;
             _urunlerIWriteBusiness = urunlerIWriteBusiness;
-            _fileProvider = fileProvider;
 
         }
 
@@ -152,77 +153,43 @@ namespace IdentityServer4.API.Controllers
                 .Response(await _urunlerIReadBusiness.BrandList(categoryID));
         }
         [HttpPost("ProductAdd")]
-        [Authorize(Policy = "PolicyClient")]
+        //[Authorize(Policy = "PolicyClient")]
 
         public async Task<IActionResult> ProductAdd([FromForm]ProductAddModelView model)
         {
 
-         string[] strings= model.filesName.Split('.'); 
-
-         string filetyp= strings.Last(); //fotografın tipini aldık
-
-            Image images;
-            model.sizeID= model.sizeID == 0 ? model.sizeID = null : model.sizeID;
-            byte[] imageBytes = Convert.FromBase64String(model.files);
-            using (MemoryStream ms = new MemoryStream(imageBytes))
+            string[] filesArray= model.filesName.Split('.'); 
+            string filetyp= filesArray.Last(); //fotografın tipini aldık
+            model.sizeID=model.sizeID==0?null:model.sizeID;
+            Urunler urunler = new Urunler()
             {
-
-                images = Image.Load(ms); //fotograf buraya düştü
-                
-            }
-            var DirectoryContent = _fileProvider.GetDirectoryContents("wwwroot");
-            if (DirectoryContent.Exists) //wwwroot varsa aşşağıya girecek
-            {
-                var test = DirectoryContent.FirstOrDefault(x => x.Name == model.kategoriName);
-                if(test==null)
+                UrunName=model.filesName,
+                KategoriID=model.kategoriID,
+                MarkalarID=model.markalarID,
+                ProductDetail=new ProductDetail()
                 {
-                  IFileInfo fileInfo= _fileProvider.GetFileInfo("wwwroot");
-                    string PathCombine= Path.Combine(fileInfo.PhysicalPath!, model.kategoriName);
-                    Directory.CreateDirectory(PathCombine);
+                    Description=model.description,
+                    FileByte64=model.files,
+                    Price=model.Price,
+                    FileName=model.filesName,
+                },
+                Stocks=new List<Stock>()
+                { 
+                    new Stock()
+                    {
+                        RenklerID=model.colorID,
+                        SizeID=model.sizeID,
+                        Stok=model.stok,
+                    }
+
                 }
-                string? PhysicalPathss = DirectoryContent.FirstOrDefault(x=>x.Name==model.kategoriName).PhysicalPath;
-                   
-                var newPathCombine = Path.Combine(PhysicalPathss, model.filesName);
+            };
 
-                switch (filetyp)
-                {
-                    case "png":
-                        await images.SaveAsync(newPathCombine, new PngEncoder());
-                        break;
-                    case "jpg":
-                        await images.SaveAsync(newPathCombine, new JpegEncoder());
-                        break;
-                    default:
-                        Console.WriteLine("Geçersiz fotoğraf tipi"); //şurayı throw ile yönet
-                        break;
-                }
-
-            }
-            
-            
+            return ResponseDto<NoContentDto>.ResponseStruct<NoContentDto>.Response(await _urunlerIWriteBusiness.AddAsync(urunler));
 
 
-            //await _urunlerIWriteBusiness.AddAsync(new Urunler()
-            // { 
-            //    MarkalarID=model.markalarID,
-            //    KategoriID=model.kategoriID,
-            //    UrunName=model.urunname,
-            //    Stocks=new List<Stock>()
-            //    {
-            //        new Stock()
-            //        {
-            //            Stok=model.stok,
-            //            RenklerID=model.colorID
-            //        }
-            //    },
-            //    ProductDetail = new ProductDetail()
-            //    {
-            //        Price = model.Price,
-            //        Description=model.description,
-            //    }
-            //});
-            return Ok();
         }
+
         [HttpGet("ColorList")]
         [Authorize(Policy = "PolicyClient")]
         public async Task<IActionResult> ColorList()
