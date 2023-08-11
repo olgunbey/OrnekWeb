@@ -13,7 +13,7 @@ namespace IdentityServer4.Persistence.EntitiesConfigurations
     {
         public void Configure(EntityTypeBuilder<Kategoriler> builder)
         {
-            builder.HasMany(x=>x.Urunlers).WithOne(x=>x.Kategori).HasForeignKey(x=>x.KategoriID);
+            builder.HasMany(x=>x.Urunlers).WithOne(x=>x.Kategori).HasForeignKey(x=>x.KategoriID).OnDelete(DeleteBehavior.Cascade);
             builder.HasKey(x => x.Id);
         }
     }

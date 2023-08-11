@@ -14,8 +14,8 @@ namespace IdentityServer4.Persistence.EntitiesConfigurations
     {
         public void Configure(EntityTypeBuilder<RoleKullanicilarManyToMany> builder)
         {
-            builder.HasOne(x => x.Kullanicilar).WithMany(x => x.RoleKullanicilarManyToManies).HasForeignKey(x => x.KullaniciID);
-            builder.HasOne(x => x.Role).WithMany(x => x.RoleKullanicilarManyToManies).HasForeignKey(x => x.RoleID);
+            builder.HasOne(x => x.Kullanicilar).WithMany(x => x.RoleKullanicilarManyToManies).HasForeignKey(x => x.KullaniciID).OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(x => x.Role).WithMany(x => x.RoleKullanicilarManyToManies).HasForeignKey(x => x.RoleID).OnDelete(DeleteBehavior.Cascade);
 
             builder.HasKey(key => key.Id);
         }

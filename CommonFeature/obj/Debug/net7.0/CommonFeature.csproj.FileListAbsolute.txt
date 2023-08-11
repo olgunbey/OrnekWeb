@@ -17,3 +17,5 @@ C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\CommonFeat
 C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\CommonFeature\obj\Debug\net7.0\refint\CommonFeature.dll
 C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\CommonFeature\obj\Debug\net7.0\CommonFeature.pdb
 C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\CommonFeature\obj\Debug\net7.0\ref\CommonFeature.dll
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\CommonFeature\bin\Debug\net7.0\IdentityServer4.Infrastructure.dll
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\CommonFeature\bin\Debug\net7.0\IdentityServer4.Infrastructure.pdb

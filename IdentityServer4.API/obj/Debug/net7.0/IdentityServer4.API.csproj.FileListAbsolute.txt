@@ -86,3 +86,5 @@ C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentitySe
 C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.API\bin\Debug\net7.0\CommonFeature.dll
 C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.API\bin\Debug\net7.0\CommonFeature.pdb
 C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.API\bin\Debug\net7.0\SixLabors.ImageSharp.dll
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.API\bin\Debug\net7.0\IdentityServer4.Infrastructure.dll
+C:\Users\olgun\OneDrive\Masaüstü\Çalışmalar\IdentityServer4Ornek\IdentityServer4.API\bin\Debug\net7.0\IdentityServer4.Infrastructure.pdb

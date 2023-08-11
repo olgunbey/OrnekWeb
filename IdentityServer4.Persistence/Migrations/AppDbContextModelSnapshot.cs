@@ -156,9 +156,11 @@ namespace IdentityServer4.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ThreeChildKategoriID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("TwoChildKategoriID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -210,7 +212,11 @@ namespace IdentityServer4.Persistence.Migrations
                         .HasColumnType("int")
                         .HasDefaultValue(0);
 
-                    b.Property<string>("FileAddress")
+                    b.Property<string>("FileByte64")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FileName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -414,11 +420,15 @@ namespace IdentityServer4.Persistence.Migrations
                 {
                     b.HasOne("IdentityServer4.Domain.Entities.ThreeChildKategori", "ThreeChildKategori")
                         .WithMany("OneChildKategorilers")
-                        .HasForeignKey("ThreeChildKategoriID");
+                        .HasForeignKey("ThreeChildKategoriID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("IdentityServer4.Domain.Entities.TwoChildKategoriler", "TwoChildKategori")
                         .WithMany("OneChildKategorilers")
-                        .HasForeignKey("TwoChildKategoriID");
+                        .HasForeignKey("TwoChildKategoriID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ThreeChildKategori");
 
@@ -446,13 +456,13 @@ namespace IdentityServer4.Persistence.Migrations
 
             modelBuilder.Entity("IdentityServer4.Domain.Entities.ProductDetail", b =>
                 {
-                    b.HasOne("IdentityServer4.Domain.Entities.Urunler", "Urunler")
+                    b.HasOne("IdentityServer4.Domain.Entities.Urunler", "Product")
                         .WithOne("ProductDetail")
                         .HasForeignKey("IdentityServer4.Domain.Entities.ProductDetail", "UrunlerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Urunler");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("IdentityServer4.Domain.Entities.RoleKullanicilarManyToMany", b =>
@@ -484,7 +494,8 @@ namespace IdentityServer4.Persistence.Migrations
 
                     b.HasOne("IdentityServer4.Domain.Entities.Size", "Size")
                         .WithMany("Stocks")
-                        .HasForeignKey("SizeID");
+                        .HasForeignKey("SizeID")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("IdentityServer4.Domain.Entities.Urunler", "Urunler")
                         .WithMany("Stocks")

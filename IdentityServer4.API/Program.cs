@@ -17,7 +17,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddCors(opt => opt.AddPolicy("myclients", builder => builder.WithOrigins("http://localhost:5230", "https://localhost:7210").AllowAnyMethod().AllowAnyHeader()));
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer("Data Source=OLGUNBEY\\OLGUNBEYSQL;Initial Catalog=Ana Proje;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"));
-builder.Services.AddScoped<IFileProvider>(x => new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "..", "IdentityServer4.Client")));
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
 {

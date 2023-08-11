@@ -8,9 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Physical" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IdentityServer4.Infrastructure\IdentityServer4.Infrastructure.csproj" />
     <ProjectReference Include="..\IdentityServer4.Persistence\IdentityServer4.Persistence.csproj" />
     <ProjectReference Include="..\IdentityServer4.Repository\IdentityServer4.Repository.csproj" />
   </ItemGroup>
